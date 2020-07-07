@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Muli:wght@500&display=swap');
+
+* {	
+	font-family: 'Muli', sans-serif;
+}
+
+.fondo-rojo{
+	background-color: #9D2449 !important;
+}
+
+.fondo-dorado{ 
+	background-color: #BC965A !important;
+}
+
+.fondo-verde{
+	background-color: #13322B !important;
+}
+
+.fondo-verde-o{
+	background-color: #0C231E !important;
+}
+
+.texto-rojo{
+	color: #9D2449 !important;
+}
+
+.texto-dorado{ 
+	color: #BC965A !important;
+}
+
+.texto-verde{
+	color: #13322B !important;
+}
+
+.texto-verde-o{
+	color: #0C231E !important;
+}
+
+.borde-rojo{
+	border-color: #9D2449 !important;
+}
+
+.borde-dorado{ 
+	border-color: #BC965A !important;
+}
+
+.borde-grueso{
+	border-width: 0.5em !important;
+	border-radius: 5em;
+}
+
+.boton-rojo{
+	background-color: #9D2449 !important;
+	border-color: #9D2449 !important;
+}
+
+.boton-dorado{ 
+	background-color: #BC965A !important;
+	border-color: #BC965A !important;
+}
+
+.boton-verde{
+	background-color: #13322B !important;
+	border-color: #13322B !important;
+}
+
+.boton-rojo:hover{
+	background-color: #BF2C59 !important;
+	border-color: #BF2C59 !important;
+}
+
+.boton-dorado:hover{ 
+	background-color: #DEB16A !important;
+	border-color: #DEB16A !important;
+}
+
+.boton-verde:hover{
+	background-color: #1F5246 !important;
+	border-color: #1F5246 !important;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	border: 0;
+}
+
+.back-to-top{
+	position: fixed; 
+	top: 85vh;
+	right: 25px;
+	display: none;
+	font-size: 42px;
+	color: #9D2449;
+}
+
+.back-to-top:hover{
+	text-decoration: none;
+	color: #000;
+}
