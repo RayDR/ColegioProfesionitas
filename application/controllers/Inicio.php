@@ -17,7 +17,7 @@ class Inicio extends CI_Controller {
 			'titulo'			=>	'Bienvenido a ' . SISTEMA,
 			'template'			=>	$this->template,
 			'view'				=>	'index',
-			'comunicados'		=>	array()
+			'comunicados'		=>	array(),
 		);
 		$this->load->view( $this->contenido, $data );
 	}

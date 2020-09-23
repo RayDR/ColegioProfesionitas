@@ -26,6 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$config['base_url'] = 'http://aplicaciones.setab.gob.mx/becas/';
 $config['base_url'] = 'http://localhost/plantilla/';
 
+
 /*
 |--------------------------------------------------------------------------
 | Index File
