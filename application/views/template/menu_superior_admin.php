@@ -1,0 +1,28 @@
+<div class="row align-items-center fondo-rojo border-0 rounded-bottom">
+	<nav class="col navbar navbar-expand-lg navbar-dark bg-dark border-0 rounded-bottom">
+		<div class="text-muted ml-auto px-2" id="progress">
+			<i class="fas fa-circle text-danger"></i>
+		</div>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-superior" aria-controls="menu-superior" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="menu-superior">
+			<ul class="navbar-nav ml-auto">		
+				<li class="nav-item active">
+					<a class="nav-link d-flex justify-content-start" href="<?= base_url() ?>">
+						<span class="fa fa-home" style="font-size: 2rem;" data-toggle="tooltip" data-title="Volver a Inicio" data-placement="bottom"></span>
+						<span class="d-block d-md-none ml-2"></span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link d-flex justify-content-start" href="<?= base_url('index.php/Administracion') ?>">
+						<span class="fas fa-user-circle" style="font-size: 2rem;" data-toggle="tooltip" data-title="Trabajadores" data-placement="bottom"></span>
+						<span class="d-block d-md-none ml-2"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>

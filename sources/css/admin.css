@@ -1,0 +1,7 @@
+#fondo-landing {
+	background-image: url('../img/cubos.png');
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: repeat;
+	min-height: 100vh;
+}
