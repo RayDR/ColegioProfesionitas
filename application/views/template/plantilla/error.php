@@ -1,7 +1,7 @@
 <!-- Encabezados/Menú -->
 <?php $this->load->view($template.'header'); ?>
 
-<body id="fondo-landing">
+<body class="fondo-1">
 	<main class="page-content">
 	<div class="container-fluid">
 

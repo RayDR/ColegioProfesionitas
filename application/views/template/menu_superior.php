@@ -23,9 +23,14 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link d-flex justify-content-start" href="<?= base_url('index.php/Administracion') ?>">
+					<a class="nav-link d-flex justify-content-start <?PHP if( $this->session->userdata('ulogin') ) echo 'active'; ?>" href="<?= base_url('index.php/Administracion/acceso') ?>">
+						<?PHP if( ! $this->session->userdata('ulogin') ): ?>
 						<span class="fas fa-user-circle" style="font-size: 2rem;" data-toggle="tooltip" data-title="Trabajadores" data-placement="bottom"></span>
 						<span class="d-block d-md-none ml-2"></span>
+						<?PHP else: ?>
+						<span class="fas fa-user-tie" style="font-size: 2rem;" data-toggle="tooltip" data-title="Volver al Sistema" data-placement="bottom"></span>
+						<span class="d-block d-md-none ml-2"></span>
+						<?PHP endif; ?>
 					</a>
 				</li>
 			</ul>

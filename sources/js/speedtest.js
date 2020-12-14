@@ -10,7 +10,7 @@ function MostrarMensajeSpeedTest(msg) {
 }
 
 function IniciarSpeedTest() {
-    MostrarMensajeSpeedTest('<span data-toggle="tooltip" data-placement="bottom" data-title="Probando conexión..."><i class="fas fa-circle-notch fa-spin text-info"></i></span>');
+    MostrarMensajeSpeedTest('<span data-toggle="tooltip" data-placement="bottom" data-title="Probando conexión..."><i class="fas fa-circle-notch fa-spin text-info"></i>Sin conexión</span>');
     window.setTimeout( CalcularVelocidad, 10 );
 };    
 
@@ -45,9 +45,9 @@ function CalcularVelocidad() {
         var speedKbps       = (speedBps / 1024).toFixed(2);
         var speedMbps       = (speedKbps / 1024).toFixed(2);
         
-        $mensaje =  (speedMbps < 2)? `<span data-toggle="tooltip" data-placement="bottom" data-title="${speedMbps}Mbps"><i class="fas fa-circle text-warning"></i></span>`: 
-                    (speedMbps < 4)? `<span data-toggle="tooltip" data-placement="bottom" data-title="${speedMbps}Mbps"><i class="fas fa-circle text-success"></i></span>`:
-                    `<span data-toggle="tooltip" data-placement="bottom" data-title="${speedMbps}Mbps"><i class="fas fa-circle text-success"></i></span>`;
+        $mensaje =  (speedMbps < 2)? `<span data-toggle="tooltip" data-placement="bottom" data-title="${speedMbps}Mbps"><i class="fas fa-circle text-warning"></i> Conectado</span>`: 
+                    (speedMbps < 4)? `<span data-toggle="tooltip" data-placement="bottom" data-title="${speedMbps}Mbps"><i class="fas fa-circle text-success"></i> Conectado</span>`:
+                    `<span data-toggle="tooltip" data-placement="bottom" data-title="${speedMbps}Mbps"><i class="fas fa-circle text-success"></i> Conectado</span>`;
         MostrarMensajeSpeedTest($mensaje);
         $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
     }

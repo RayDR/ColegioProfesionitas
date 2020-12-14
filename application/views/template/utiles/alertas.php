@@ -1,3 +1,2 @@
-	<div id="alert-mensaje" class="container">
-	</div>
+<div id="alertas"></div>
 

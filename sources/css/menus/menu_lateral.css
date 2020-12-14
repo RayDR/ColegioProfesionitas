@@ -3,25 +3,25 @@
     transform: rotate(0deg);
   }
   10% {
-    transform: rotate(10deg);
+    transform: rotate(50deg);
   }
-  30% {
+  20% {
     transform: rotate(0deg);
   }
-  40% {
-    transform: rotate(-10deg);
+  30% {
+    transform: rotate(-50deg);
   }
   50% {
     transform: rotate(0deg);
   }
   60% {
-    transform: rotate(5deg);
+    transform: rotate(25deg);
   }
   70% {
     transform: rotate(0deg);
   }
   80% {
-    transform: rotate(-5deg);
+    transform: rotate(-25deg);
   }
   100% {
     transform: rotate(0deg);
@@ -38,6 +38,18 @@
     opacity: 0;
   }
 }
+
+@keyframes slide {
+  0% {
+    opacity: 0;
+    width: 0%;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
 body {
   font-size: 0.9rem;
 }
@@ -91,21 +103,28 @@ body {
 /*----------------show sidebar button----------------*/
 #show-sidebar {
   position: fixed;
+  width: 50px;
+  background-color: rgba( 179, 142, 93, 0.6 );
   left: 0;
-  top: 10px;
+  top: 70px;
   border-radius: 0 4px 4px 0px;
-  width: 35px;
   transition-delay: 0.3s;
   z-index: 999;
+  color: #9D2449 !important;
 }
 
 #show-sidebar:hover {
-  width: 40px;  
-  background: #BC965A;
+  background-color: rgba( 179, 142, 93, 0.9 );
+  width: 55px;
   animation: alternate ease-in-out 0.5s;
 }
 
+#show-sidebar:hover > i {
+  color: #fff !important;
+}
+
 .page-wrapper.toggled #show-sidebar {
+  background: #FFF;
   left: -40px;
 }
 /*----------------sidebar-wrapper----------------*/
@@ -197,12 +216,12 @@ body {
 }
 
 .sidebar-wrapper .sidebar-header .user-info .user-status {
-  font-size: 11px;
+  font-size: 12px;
   margin-top: 4px;
 }
 
 .sidebar-wrapper .sidebar-header .user-info .user-status i {
-  font-size: 8px;
+  font-size: 10px;
   margin-right: 4px;
   color: #5cb85c;
 }
@@ -236,7 +255,7 @@ body {
 
 .sidebar-wrapper .sidebar-menu ul li a i {
   margin-right: 10px;
-  font-size: 12px;
+  font-size: 1rem;
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -274,11 +293,11 @@ body {
 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li {
   padding-left: 25px;
-  font-size: 13px;
+  font-size: 0.90rem;
 }
 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
-  content: "\f111";
+  content: "\f35a";
   font-family: "Font Awesome 5 Free";
   font-weight: 400;
   font-style: normal;
@@ -288,7 +307,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin-right: 10px;
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .sidebar-wrapper .sidebar-menu ul li a span.label,
@@ -406,23 +425,23 @@ body {
 .chiller-theme .sidebar-wrapper .sidebar-header .user-info,
 .chiller-theme .sidebar-wrapper .sidebar-brand>a:hover,
 .chiller-theme .sidebar-footer>a:hover i {
-    color: #b8bfce;
+    color: #ede6e8;
 }
 
 .page-wrapper.chiller-theme.toggled #close-sidebar {
-    color: #bdbdbd;
+    color: #b5a7a7;
 }
 
 .page-wrapper.chiller-theme.toggled #close-sidebar:hover {
-    color: #ffffff;
+    color: #b81849;
 }
 
 .chiller-theme .sidebar-wrapper ul li:hover a i,
 .chiller-theme .sidebar-wrapper .sidebar-dropdown .sidebar-submenu li a:hover:before,
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus+span,
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active a i {
-    color: #9d2449;
-    text-shadow:0px 0px 10px rgba(22, 199, 255, 0.5);
+    color: #B38E5D;
+    text-shadow:0px 0px 10px rgba(188, 150, 90, 0.65);
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li a i,
@@ -433,7 +452,7 @@ body {
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu .header-menu span {
-    color: #6c7b88;
+    color: #B38E5D; /* #6c7b88;*/
 }
 
 .chiller-theme .sidebar-footer {
@@ -448,4 +467,20 @@ body {
 
 .chiller-theme .sidebar-footer>a:last-chiller {
     border-right: none;
+}
+
+.logout:hover, .logout>i:hover{
+  color: #b81849 !important;
+}
+
+.notificaciones:hover, .notificaciones>i:hover{
+  color: #f5c825 !important;
+}
+
+.perfil:hover, .perfil>i:hover{
+  color: #21d1d1 !important;
+}
+
+.vista-animada {
+  animation: slide ease-in-out 0.9s;
 }

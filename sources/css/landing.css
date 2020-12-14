@@ -1,7 +1,8 @@
-#fondo-landing {
-	background-image: url('../img/cuadros.png');
+#landing_jumbo {
+	background-image: url('../img/profesionistas.jpg');
 	background-position: center;
 	background-attachment: fixed;
 	background-repeat: repeat;
-	min-height: 100vh;
+	width: 100%
+	height: auto;
 }

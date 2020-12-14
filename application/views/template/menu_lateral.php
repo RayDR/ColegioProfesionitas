@@ -1,29 +1,35 @@
-<a id="show-sidebar" class="btn btn-sm btn-dark" href="javascript:void(0)" data-toggle="tooltip" data-title="Abrir menú" data-placement="right">
-   <i class="fas fa-bars"></i>
+<?php $Dashboard = 'Administracion'; // URL index de Adminsitración?>
+<a id="show-sidebar" class="btn btn-sm" href="javascript:void(0)" data-toggle="tooltip" data-title="Abrir menú" data-placement="right">
+   <i class="fas fa-ellipsis-h text-center texto-rojo" style="font-size: 2rem;"></i>
 </a>
 <nav id="sidebar" class="sidebar-wrapper">
    <div class="sidebar-content">
       <div class="sidebar-brand">
-         <a href="javascript:void(0)" class="inicio"><?= SISTEMA ?></a>
+         <a href="<?= $Dashboard ?>" class="inicio"><?= SISTEMA ?></a>
          <div id="close-sidebar">
             <i class="fas fa-times"></i>
          </div>
       </div>
 
       <div class="sidebar-header">
-         <div class="user-pic">
-            <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
-         </div>
-         <div class="user-info">
-            <span class="user-name">Usuario
-               <strong>Apellido</strong>
-            </span>
-            <span class="user-role">Rol</span>
-            <span class="user-status">
-               <i class="fa fa-circle"></i>
-               <span>Conectado</span>
-            </span>
-         </div>
+         <a href="Usuarios" class="perfil">
+            <div class="user-pic">
+               <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
+            </div>
+            <div class="user-info">
+               <span class="user-name"><?= $usuario->nombres ?>
+                  <strong><?= $usuario->primer_apellido ?></strong>
+               </span>
+               <span class="user-role">
+                  <span class="badge badge-secondary fondo-rojo"><?= $usuario->tipo_usuario ?></span>
+               </span>
+               <span class="user-status">
+                  <div id="progress">
+                     <i class="fas fa-circle text-danger"></i>
+                  </div>
+               </span>
+            </div>
+         </a>
       </div>
       <!-- sidebar-header  -->
       <div class="sidebar-search">
@@ -45,42 +51,66 @@
                <span>General</span>
             </li>
             <li>
-               <a class="inicio">
+               <a href="<?= $Dashboard ?>">
                   <i class="fa fa-tachometer-alt"></i>
                   <span>Dashboard</span>
+               </a>
+            </li>
+            <li>
+               <a id="listado-titulo">
+                  <i class="fas fa-graduation-cap"></i>
+                  <span>Títulos</span>
+               </a>
+            </li>
+            <li>
+               <a id="listado-lotes">
+                  <i class="fas fa-clipboard-list"></i>
+                  <span>Lotes</span>
                </a>
             </li>
             <li class="header-menu">
                <span>Administración</span>
             </li>
+            <li>
+               <a id="listado-usuarios">
+                  <i class="fa fa-users"></i>
+                  <span>Usuarios</span>
+               </a>
+            </li>
             <li class="sidebar-dropdown">
                <a>
-                  <i class="fa fa-book"></i>
-                  <span>Menu Desplegable</span>
+                  <i class="fas fa-tools"></i>
+                  <span>Configuración</span>
                </a>
                <div class="sidebar-submenu">
-                  <ul>
+                  <ul>                     
                      <li>
-                        <a>
-                           Submenú 1
+                        <a id="listado-instituciones">
+                           <span>Instituciones</span>
                         </a>
                      </li>
                      <li>
-                        <a>
-                           Submenú 2
+                        <a id="listado-carreras">
+                           <span>Carreras</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a id="listado-autorizaciones">
+                           <span>Autorizaciones</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a id="listado-rvoes">
+                           <span>RVOEs</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a id="listado-firmantes">
+                           <span>Firmantes</span>
                         </a>
                      </li>
                   </ul>
                </div>
-            </li>
-            <li class="header-menu">
-               <span>Extra</span>
-            </li>
-            <li>
-               <a id="masivos">
-                  <i class="fas fa-mail-bulk"></i>
-                  <span>Correos Masivo</span>
-               </a>
             </li>
          </ul>
       </div>
@@ -88,20 +118,20 @@
    </div>
    <!-- sidebar-content  -->
    <div class="sidebar-footer">
-      <a>
+      <a id="ml-notificaciones" class="notificaciones">
          <i class="fa fa-bell"></i>
          <span class="badge badge-pill badge-warning notification">3</span>
       </a>
-      <a>
+      <!-- <a>
          <i class="fa fa-envelope"></i>
          <span class="badge badge-pill badge-success notification">7</span>
+      </a> -->
+      <a href="Usuarios" class="perfil">
+         <i class="fa fa-users-cog"></i>
       </a>
-      <a>
-         <i class="fa fa-cog"></i>
-         <span class="badge-sonar"></span>
-      </a>
-      <a>
+      <a href="Usuarios/logout" class="logout">
          <i class="fa fa-power-off"></i>
+         <span class="badge-sonar"></span>
       </a>
    </div>
 </nav>
