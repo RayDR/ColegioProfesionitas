@@ -18,7 +18,7 @@
 			<ul class="navbar-nav ml-auto">		
 				<li class="nav-item active">
 					<a class="nav-link d-flex justify-content-start" href="<?= base_url() ?>">
-						<span class="fa fa-home" style="font-size: 2rem;" data-toggle="tooltip" data-title="Volver a Inicio" data-placement="bottom"></span>
+						<span class="fa fa-home" style="font-size: 2rem;" data-toggle="tooltip" data-title="Volver a Inicio" data-placement="bottom"></span> Inicio
 						<span class="d-block d-md-none ml-2"></span>
 					</a>
 				</li>

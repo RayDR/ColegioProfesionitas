@@ -2,7 +2,7 @@
 <?php $this->load->view($template.'header'); ?>
 
 <body class="fondo-1">
-	<div class="container-fluid">
+	<div class="container-fluid content">
 		<div id="ajax-html" class="" style="min-height: 100vh;">
 		<!-- Vista dinámica -->
 		<?php $this->load->view($view);?>

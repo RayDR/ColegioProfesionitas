@@ -7,8 +7,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |--------------------------------------------------------------------------
 */
 define('LOGO', 'Secretaría de Educación Tabasco');
-define('SISTEMA', 'Plantilla Sistemas');
-
+define('SISTEMA', 'SERCP');
+/*
+|--------------------------------------------------------------------------
+| LIMITE DE CONEXIÓN FALLIDAS
+|--------------------------------------------------------------------------
+*/
+define('MAX_CON_FAIL', 3);
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace

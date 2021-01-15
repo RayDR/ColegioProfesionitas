@@ -27,6 +27,155 @@
   }
 }
 
+@keyframes unfoldIn {
+  0% {
+    transform:scaleY(.005) scaleX(0);
+  }
+  50% {
+    transform:scaleY(.005) scaleX(1);
+  }
+  100% {
+    transform:scaleY(1) scaleX(1);
+  }
+}
+
+@keyframes unfoldOut {
+  0% {
+    transform:scaleY(1) scaleX(1);
+  }
+  50% {
+    transform:scaleY(.005) scaleX(1);
+  }
+  100% {
+    transform:scaleY(.005) scaleX(0);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    transform:scale(0);
+  }
+  100% {
+    transform:scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    transform:scale(1);
+  }
+  100% {
+    transform:scale(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    background:rgba(0,0,0,.0);
+  }
+  100% {
+    background:rgba(0,0,0,.7);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    background:rgba(0,0,0,.7);
+  }
+  100% {
+    background:rgba(0,0,0,.0);
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform:scale(.8) translateY(1000px);
+    opacity:0;
+  }
+  100% {
+    transform:scale(1) translateY(0px);
+    opacity:1;
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform:scale(1) translateY(0px);
+    opacity:1;
+  }
+  100% {
+    transform:scale(.8) translateY(1000px);
+    opacity:0;
+  }
+}
+
+@keyframes scaleBack {
+  0% {
+    transform:scale(1);
+  }
+  100% {
+    transform:scale(.85);
+  }
+}
+
+@keyframes scaleForward {
+  0% {
+    transform:scale(.85);
+  }
+  100% {
+    transform:scale(1);
+  }
+}
+
+@keyframes quickScaleDown {
+  0% {
+    transform:scale(1);
+  }
+  99.9% {
+    transform:scale(1);
+  }
+  100% {
+    transform:scale(0);
+  }
+}
+
+@keyframes slideUpLarge {
+  0% {
+    transform:translateY(0%);
+  }
+  100% {
+    transform:translateY(-100%);
+  }
+}
+
+@keyframes slideDownLarge {
+  0% {
+    transform:translateY(-100%);
+  }
+  100% {
+    transform:translateY(0%);
+  }
+}
+
+@keyframes moveUp {
+  0% {
+    transform:translateY(150px);
+  }
+  100% {
+    transform:translateY(0);
+  }
+}
+
+@keyframes moveDown {
+  0% {
+    transform:translateY(0px);
+  }
+  100% {
+    transform:translateY(150px);
+  }
+}
+
+
 * {
   scrollbar-color: #525965 #525965;
   scrollbar-width: thin;

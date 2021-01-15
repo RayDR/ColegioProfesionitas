@@ -5,3 +5,9 @@
 	background-repeat: repeat;
 	min-height: 100vh;
 }
+
+.navbar-collapse.collapse.show > {
+	background-color: #2b2e31;
+	border: 1px solid #2b2e31;
+	border-radius: 5px;
+}

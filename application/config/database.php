@@ -1,15 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$active_group = 'pruebas';
+$active_group = 'produccion';
 $query_builder = TRUE;
 
-$db['pruebas'] = array(
+$db['catalogos']   = array(
    'dsn'      => '',
-   'hostname' => 'localhost',
+   'hostname' => '10.57.18.80',
    'username' => 'root',
-   'password' => 'Setab2020',
-   'database' => 'becas',
+   'password' => 'SuperDba2020#',
+   'database' => 'catalogos',
    'dbdriver' => 'mysqli',
    'dbprefix' => '',
    'pconnect' => FALSE,
@@ -26,13 +26,12 @@ $db['pruebas'] = array(
    'save_queries' => TRUE
 );
 
-
 $db['produccion'] = array(
    'dsn'      => '',
    'hostname' => '10.57.18.80',
    'username' => 'root',
-   'password' => '1q2w3e4r5t.',
-   'database' => 'becas',
+   'password' => 'SuperDba2020#',
+   'database' => 'colegios_profesionistas',
    'dbdriver' => 'mysqli',
    'dbprefix' => '',
    'pconnect' => FALSE,

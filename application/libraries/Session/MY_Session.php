@@ -18,6 +18,7 @@ class MY_Session extends CI_Session
 	{
 		parent::__construct();
 		$this->ci=& get_instance();
+		$this->ci->load->model('model_sistema');
 
 		log_message('debug', "Librería de Sesión inicializada.");
 	}
@@ -47,18 +48,20 @@ class MY_Session extends CI_Session
 		if ( $this->has_userdata('ulogin') ) // Si existe la variable de sesión
 			$sesion_activa = $this->userdata('ulogin');
 
-		if ( $this->has_userdata('uid') )
-			$sesion_activa = TRUE;
+		if ( ! $this->has_userdata('uid') )
+			$sesion_activa = FALSE;
 
 		if ( $sesion_activa ){
 			$sesion_activa 		= FALSE; 	// Desactivar para forzar prueba de BD
-			// $estatus_usuario 		= $this->ci->model_usuarios
-			// 									->get_usuario( 
-			// 										array( 'usuario_id' => $this->userdata('uid') )
-			// 									);
+			$estatus_usuario 		= $this->ci->model_sistema
+													->get_usuario( 
+														array( 'usuario_id' => $this->userdata('uid') )
+													);
 			if ( $estatus_usuario ){
 				if ( $estatus_usuario->status_usuario_id == 1 )
 					$sesion_activa = TRUE;
+				else
+					$sesion_activa = FALSE;
 			}
 		}
 		return $sesion_activa;
@@ -69,7 +72,7 @@ class MY_Session extends CI_Session
 	| @return	bool
 	**/
 	public function intentos_conexion( $usuario_id ){
-		$existe 	= FALSE;
+		$existe 		= FALSE;
 		$intentos 	= MAX_CON_FAIL;
 
 		if ( $this->has_userdata('intentos') )

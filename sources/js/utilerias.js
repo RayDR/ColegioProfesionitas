@@ -45,7 +45,7 @@ function futil_cache_buster(){
 |               @param contenedor -   Padre del objeto alert
 |               @param apilar     -   Activa/descativa el apilar de las alertas
 */
-function futil_alerta(mensaje = '', color = '', contenedor = '', apilar = false){
+function futil_alerta(mensaje = '', color = '', contenedor = '', apilar = false, scroll= true){
   let alerta  = $(`${contenedor} #alertas`);
   color       = ( color == '' )? 'info' : color;
 
@@ -66,7 +66,8 @@ function futil_alerta(mensaje = '', color = '', contenedor = '', apilar = false)
     alerta.append(html);
   else 
     alerta.html(html);
-  futil_back_to_top();
+  if ( scroll )
+    futil_back_to_top();
 }
 
 /**
@@ -92,8 +93,8 @@ function futil_toast(encabezado = "", notificacion = "", tipo = "success", durac
   let titulo  = "";
 
   if ( ( notificacion == "" || notificacion == null ) && encabezado != "" ){
-    notificacion     = encabezado;
-    encabezado  = "";
+    notificacion  = encabezado;
+    encabezado    = "";
   }
 
   if ( encabezado != "" )
@@ -139,8 +140,71 @@ function futil_close_toast(){ $(this).hide(100); }
 |   Requiere un contenido para motrarse
 |   Parametro html = true para insertar código HTML
  */
-function futil_modal(titulo, contenido = "", botones = "salir", anchura = "sm", html = true){
+function futil_modal(titulo, contenido = "", botones = "", anchura = "lg", html = true){
   let modal   = $("#modal");
+
+  if( modal.is(':visible') ){
+    $("#modal").modal('hide');
+  }
+
+  if ( titulo == "ERR"){
+    titulo    = "ERROR NO CONTROLADO";
+    contenido = (contenido != "")? contenido: "Ha ocurrido un error al intentar ingresar al sistema, por favor, comunique al administrador del sistema.";
+  }
+  else if ( titulo == "CNX"){
+    titulo    = "FALLÓ LA CONEXIÓN";
+    contenido = "No se pudo contectar al servidor, por favor verifique su conexión a internet.";
+  }
+  else if ( titulo == "404"){
+    titulo    = "404 - Página no encontrada";
+    contenido = "No se localizó la página que estaba consultado.";
+  }
+  
+  if( contenido == "" )
+    return;
+
+  if ( anchura == "lg" ){
+    $("#modal .modal-dialog").removeClass('modal-xl');
+    $("#modal .modal-dialog").addClass('modal-lg');
+  } else if ( anchura == "xl" ){
+    $("#modal .modal-dialog").removeClass('modal-lg');
+    $("#modal .modal-dialog").addClass('modal-xl');
+  } else {
+    $("#modal .modal-dialog").removeClass('modal-xl');
+    $("#modal .modal-dialog").removeClass('modal-lg');
+  }
+
+  if ( html ){
+    $("#modal-titulo").html(titulo);
+    $("#modal-contenido").html(contenido);
+  } else {
+    $("#modal-titulo").text(titulo);
+    $("#modal-contenido").text(contenido);
+  }
+
+  if ( botones == "" )
+    $("#modal-botones").html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>');
+  else if ( botones == "salir" )
+    $("#modal-botones").html(`<a href="${ url() }" class="btn btn-secondary">Salir</a>`);
+  else 
+    $("#modal-botones").html(botones);  
+
+  modal.modal('show');
+}
+
+/**
+|   Función que habilita el modal con efectos
+|       Recibe:
+|               Titulo      -   Cabezara
+|               Contenido   -   Cuerpo
+|               Botones     -   Pie
+|               Anchura     -   lg por defecto
+|               Efecto      -   Tipo de efecto
+|   Requiere un contenido para motrarse
+|   Parametro html = true para insertar código HTML
+ */
+function futil_cmodal(titulo, contenido = "", botones = "salir", anchura = "lg", html = true){
+  let modal   = $("#modal-container");
   let tiempo  = 50;
 
   modal.on('hidden.bs.modal', function (event) {
@@ -154,22 +218,6 @@ function futil_modal(titulo, contenido = "", botones = "salir", anchura = "sm", 
     tiempo = 500;
   }
   setTimeout(function() {
-    if ( titulo == "ERR"){
-      titulo    = "ERROR NO CONTROLADO";
-      contenido = (contenido != "")? contenido: "Ha ocurrido un error al intentar ingresar al sistema, por favor, comunique al administrador del sistema.";
-    }
-    else if ( titulo == "CNX"){
-      titulo    = "FALLÓ LA CONEXIÓN";
-      contenido = "No se pudo contectar al servidor, por favor verifique su conexión a internet.";
-    }
-    else if ( titulo == "404"){
-      titulo    = "404 - Página no encontrada";
-      contenido = "No se localizó la página que estaba consultado.";
-    }
-    
-    if( contenido == "" )
-      return;
-
     if ( anchura == "lg" ){
       $("#modal .modal-dialog").removeClass('modal-xl');
       $("#modal .modal-dialog").addClass('modal-lg');
@@ -180,15 +228,10 @@ function futil_modal(titulo, contenido = "", botones = "salir", anchura = "sm", 
       $("#modal .modal-dialog").removeClass('modal-xl');
       $("#modal .modal-dialog").removeClass('modal-lg');
     }
-
-    if ( html ){
-      $("#modal-titulo").html(titulo);
-      $("#modal-contenido").html(contenido);
-    } else {
-      $("#modal-titulo").text(titulo);
-      $("#modal-contenido").text(contenido);
-    }
-
+   
+    $("#modal-titulo").html(titulo);
+    $("#modal-contenido").html(contenido);
+    
     if ( botones == "" )
       $("#modal-botones").html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>');
     else if ( botones == "salir" )
@@ -196,7 +239,7 @@ function futil_modal(titulo, contenido = "", botones = "salir", anchura = "sm", 
     else 
       $("#modal-botones").html(botones);  
 
-    modal.modal('show');
+    $('body').addClass('modal-active');
   }, tiempo);
 }
 
@@ -245,17 +288,13 @@ function futil_muestra_password(){
 
 function futil_back_to_top(){ $('html, body').animate( { scrollTop : 0 }, 300 ); }
 
-function futil_scroll_to(elemento){
-  $('html, body').stop().animate({scrollTop:elemento.offset().top}, 500, 'swing', function() {
-
-  });
-}
-
 function futil_scroll_page(){
-  event.preventDefault();
-  $('html, body').stop().animate({
-    scrollTop: $($.attr(this, 'href')).offset().top
-  }, 500);
+  if (this.hash !== "") {
+    event.preventDefault();
+    $('html, body').stop().animate({
+      scrollTop: $($.attr(this, 'href')).offset().top
+    }, 500);
+  }
 }
 
 function futil_window_scroll_top(){
@@ -292,6 +331,11 @@ function futil_close_sticky(){
 |--------------------------------------------------------------------------
 */
 
+// Función de redirección interna
+function futil_redirige(link){
+  window.location.href = url(link);
+}
+
 // Función que permite abrir/recargar una ventana de nombre único para evitar otras del mismo nombre
 function futil_abrir_ventana(url, nombre, opciones = "", objetoVentana){
   var ventana;
@@ -307,7 +351,7 @@ function futil_abrir_ventana(url, nombre, opciones = "", objetoVentana){
 }
 
 // Función que dada un URL o propiedad data, carga una vista modo ajax
-function futil_muestra_vista(G_URL, datos = [], SUFIX="_ajax"){
+function futil_muestra_vista(G_URL, datos = [], SUFIX=""){
   G_URL = ( $(this).data("url") )? $(this).data("url") + SUFIX : G_URL + SUFIX;
   var html = "";
   if ( G_URL ){
@@ -324,7 +368,20 @@ function futil_muestra_vista(G_URL, datos = [], SUFIX="_ajax"){
           loader(); 
         },
         success: function(data, textStatus, xhr) {
-          html = data;
+          try {
+            data = JSON.parse(data);
+            if ( data.exito )
+              html = data.html;
+            else {
+              if ( data.error ){
+                if (data.error = 'ACCESS')
+                  futil_redirige('');
+              }
+              futil_modal('ERR','<p class="lead">Se intentó invocar una opción del menú inválida.</p>');
+            }
+          } catch(e) {
+            futil_toast('No se pudo cargar la ventana.<br><i>' + e + '</i>','','danger');
+          }
         },
         fail: function(xhr, textStatus, errorThrown){ 
           futil_modal('ERR', errorThrown);
@@ -390,6 +447,43 @@ function futil_form_controller(URL, formconf = [], inputs = [], contenedor = "ma
 | FUNCIONES VALIDADORAS/RESTRICTORAS DE DATOS
 |--------------------------------------------------------------------------
 */
+
+// Función para validar el RFC
+function futil_valida_rfc(rfc, aceptarGenerico = true) {
+  const re       = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
+  var   validado = rfc.match(re);
+
+  if (!validado)  //Coincide con el formato general del regex?
+    return false;
+
+  //Separar el dígito verificador del resto del RFC
+  const digitoVerificador = validado.pop(),
+        rfcSinDigito      = validado.slice(1).join(''),
+        len               = rfcSinDigito.length,
+      //Obtener el digito esperado
+        diccionario       = "0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ",
+        indice            = len + 1;
+
+  var   suma,
+        digitoEsperado;
+
+  if (len == 12) suma = 0
+  else suma = 481; //Ajuste para persona moral
+
+  for(var i=0; i<len; i++)
+    suma += diccionario.indexOf(rfcSinDigito.charAt(i)) * (indice - i);
+  digitoEsperado = 11 - suma % 11;
+  if (digitoEsperado == 11) digitoEsperado = 0;
+  else if (digitoEsperado == 10) digitoEsperado = "A";
+
+  // El dígito verificador coincide con el esperado o es un RFC Genérico (?)
+  if ((digitoVerificador != digitoEsperado)
+    && (!aceptarGenerico || rfcSinDigito + digitoVerificador != "XAXX010101000"))
+      return false;
+  else if (!aceptarGenerico && rfcSinDigito + digitoVerificador == "XEXX010101000")
+    return false;
+  return rfcSinDigito + digitoVerificador;
+}
 
 // Función que valida que una CURP cumpla con el formato obligatorio
 function futil_valida_curp(curp) {
