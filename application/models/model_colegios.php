@@ -6,6 +6,7 @@ class Model_colegios extends CI_Model {
 	public function solicitud_registro($datos_preregistro){
 		$resultado  = [ 'exito' => TRUE ];
       try {
+
       	$this->db->trans_begin();
 
       	$this->db->where('rfc', $datos_preregistro["rfc"]);
