@@ -1,5 +1,5 @@
 ###################
-Plantilla de Sistemas SETAB
+Sistema Estatal de Registro de Colegios de Profesionistas
 ###################
 
-Esta es un plantilla reutilizable para el sistema
+Sistema en desarrollo
