@@ -247,7 +247,6 @@ var normalizar = (function() {
   var no_permitidos = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç|°¬¡!¿?#$%&/\\()=+*~[]{}-_¨´`^\".:,;",
       permitidos = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuuÑñCc ",
       mapeo = {};
-
   for (var i = 0, j = no_permitidos.length; i < j; i++)
     mapeo[no_permitidos.charAt(i)] = permitidos.charAt(i);
 
@@ -401,6 +400,47 @@ function futil_muestra_vista(G_URL, datos = [], SUFIX=""){
   return html;
 }
 
+// Función que dada un URL obtiene una respuesta JSON
+function futil_json_query(G_URL, datos = [], SUFIX="", async = false){
+  G_URL = ( $(this).data("url") )? $(this).data("url") + SUFIX : G_URL + SUFIX;
+  var json = "";
+  if ( G_URL ){
+    if ( ! cargandoVista ){
+      loader(); 
+      cargandoVista = true;
+      $.ajax({
+        url:    G_URL,
+        type:   'POST',
+        cache:  true,
+        async:  async,
+        global: false,
+        data:   datos,
+        success: function(data, textStatus, xhr) {
+          try {            
+            json = JSON.parse(data);
+          } catch(e) {
+            futil_modal('ERR', e);
+          }
+        },
+        fail: function(xhr, textStatus, errorThrown){ 
+          futil_modal('ERR', errorThrown);
+          loader(false);
+        },
+        error: function(xhr, textStatus, errorThrown){ 
+          futil_modal('ERR', errorThrown);
+          loader(false);
+        }, 
+        complete: function(){
+          loader(false);
+          setTimeout(function() { cargandoVista = false; }, 500);
+        }
+      });
+    }
+  }
+  return json;
+}
+
+
 function futil_form_controller(URL, formconf = [], inputs = [], contenedor = "main" ){
   if ( ! formconf || formconf == null )
     formconf = {
@@ -524,6 +564,8 @@ function futil_normaliza_caracteres(){
 
 // Función que permite el ingreso de dígitos únicamente
 function futil_solo_numeros( e ){
+  
+  console.log('Fail');
   if( e.keyCode < 48 || e.keyCode > 57 )
     return false;
 }

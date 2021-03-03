@@ -67,7 +67,7 @@ class Model_catalogos extends CI_Model {
 	public function get_cps($estado_id = 2563, $filtros = null, $tipo = TRUE){
 		if ( is_array($filtros) ){
 			foreach ($filtros as $nombre => $valor) {
-				$this->db->where($nombre, $valor);
+				$this->dbC->where($nombre, $valor);
 			}
 		}
 		$this->dbC->where('estado_id', $estado_id);

@@ -451,6 +451,11 @@
    border-color: #13322B !important;
 }
 
+.boton-red-social{
+	border-radius: 10%;
+	color: white;
+}
+
 .boton-rojo:hover{
    background-color: #BF2C59 !important;
    border-color: #BF2C59 !important;

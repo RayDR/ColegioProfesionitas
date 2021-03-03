@@ -1,77 +1,191 @@
 <div class="container">
-	<form id="modal-form-registro">
-		<div class="form-row pb-3 mb-3">
-			<legend class="col-12">Indique el tipo de registro</legend>
-			<div class="form-check form-check-inline my-auto">
-				<input class="form-check-input" type="radio" name="tipo_registro" id="asociacion" value="option1">
-				<label class="form-check-label lead" for="asociacion">Asociación</label>
+	<!--- formulario de asociacion ----->
+	<div class="row">
+		<button class="btn btn-dark btn-block" type="button" data-toggle="collapse"
+				data-target="#modal-form-registro-asc"
+				aria-expanded="false" aria-controls="collapseExample">
+			Informacion de asociaci&oacute;n
+		</button>
+		<form id="modal-form-registro-asc" class="collapse show shadow bg-light rounded col-12">
+			<div class="form-row p-4">
+				<legend class="col-12">Datos de la asociación</legend>
+				<div class="col-12 my-3" id="ascociacion-errores">
+					<?PHP $this->load->view('template/utiles/alertas'); ?>
+				</div>
+				<div class="form-group col-lg-8">
+					<label for="colegio">Nombre de la asociación</label>
+					<input type="text" class="form-control" id="colegio" name="colegio" data-nombre="Colegio">
+				</div>
+				<div class="form-group col-lg-4">
+					<label for="rfc">RFC de la asociación</label>
+					<input type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC"
+						   required>
+				</div>
+				<div class="form-group col-lg-3">
+					<label for="municipio">Municipio</label>
+					<select id="municipio" name="municipio" data-nombre="Municipio" class="custom-select cargar_cps"
+							data-objetivo="#modal-form-registro-asc #codigo_postal">
+						<option selected disabled>Seleccione una opción</option>
+						<?php foreach ($municipios as $key => $municipio): ?>
+							<option value="<?= $municipio->municipio_id ?>"
+									data-estado="<?= $municipio->estado_id ?>"><?= $municipio->nombre_municipio ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+				<div class="form-group col-lg-2">
+					<label for="codigo_postal">Código Postal</label>
+					<select id="codigo_postal" name="codigo_postal" data-nombre="Código Postal"
+							class="custom-select">
+						<option selected disabled>Seleccione primero un municipio</option>
+					</select>
+				</div>
+				<div class="form-group col-lg-5">
+					<label for="calle">Calle</label>
+					<input type="text" class="form-control" id="calle" name="calle" data-nombre="Calle">
+				</div>
+				<div class="form-group col-lg-2">
+					<label for="numero">Número</label>
+					<input type="text" class="form-control" id="numero" name="numero" data-nombre="Número">
+				</div>
+				<div class="form-group col-lg-3">
+					<label for="fecha_constitucion">Fecha de constitución </label>
+					<input type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion"
+						   data-nombre="Fecha de constitución">
+				</div>
 			</div>
-			<div class="form-check form-check-inline my-auto">
-				<input class="form-check-input" type="radio" name="tipo_registro" id="colegio" value="option1">
-				<label class="form-check-label lead" for="colegio">Colegio</label>
-			</div>
-		</div>
-		<div class="form-row">
-			<legend class="col-12">Datos del representante</legend>
-			<div class="form-group col-lg-4">
-				<label for="form-registro-nombre">Nombre(s)</label>
-				<input type="text" class="form-control" id="form-registro-nombre" name="nombre">
-			</div>
-			<div class="form-group col-lg-4">
-				<label for="form-registro-papellido">Primer apellido</label>
-				<input type="text" class="form-control" id="form-registro-papellido" name="primer_apellido">
-			</div>
-			<div class="form-group col-lg-4">
-				<label for="form-registro-sapellido">Segundo apellido <span class="text-muted">(Opcional)</span></label>
-				<input type="text" class="form-control" id="form-registro-sapellido" name="segundo_apellido">
-			</div>
-		</div>
-		<div class="form-row">
-			<legend class="col-12">Datos del colegio ó asociación</legend>
-			<div class="form-group col-lg-4">
-				<label for="form-registro-rfc">RFC</label>
-				<input type="text" class="form-control" id="form-registro-rfc" name="rfc">
-			</div>
-			<div class="form-group col-lg-8">
-				<label for="form-registro-colegio">Nombre del colegio ó asociación</label>
-				<input type="text" class="form-control" id="form-registro-colegio" name="colegio">
-			</div>
-			<div class="form-group col-lg-4">
-				<label for="form-registro-municipio">Municipio</label>
-				<select id="form-registro-municipio" name="municipio" class="custom-select">
-					<option selected disabled>Seleccione una opción</option>
-					<?php foreach ($municipios as $key => $municipio): ?>
-						<option value="<?= $municipio->municipio_id ?>" data-estado="<?= $municipio->estado_id ?>"><?= $municipio->nombre_municipio ?></option>
-					<?php endforeach; ?>
-				</select>
-			</div>
-			<div class="form-group col-lg-8">
-				<label for="form-registro-colonia">Colonia</label>
-				<select id="form-registro-colonia" name="colonia" class="custom-select">
-					<option selected disabled>Seleccione primero un municipio</option>
-				</select>
-			</div>
-			<div class="form-group col-lg-10">
-				<label for="form-registro-calle">Calle</label>
-				<input type="text" class="form-control" id="form-registro-calle" name="calle">
-			</div>
-			<div class="form-group col-lg-2">
-				<label for="form-registro-numero">Número</label>
-				<input type="text" class="form-control" id="form-registro-numero" name="numero">
-			</div>
-		</div>
-		<div class="form-row">
-			<legend class="col-12">Datos de contacto</legend>
-			<div class="form-group col-lg-6">
-				<label for="form-registro-email">Correo electrónico</label>
-				<input type="text" class="form-control" id="form-registro-email" name="correo_electronico">
-			</div>
-			<div class="form-group col-lg-6">
-				<label for="form-registro-telefono">Número telefónico <span class="text-muted">(Opcional)</span></label>
-				<input type="text" class="form-control futil_solo_numeros" id="form-registro-telefono" name="telefono">
-			</div>
-		</div>
+		</form>
+	</div>
+	<!--- formulario de colegio ----->
+	<div class="row mt-2 px-0">
+		<button class="btn btn-secondary btn-block" type="button" data-toggle="collapse"
+				data-target="#modal-form-registro-cole" aria-expanded="false" aria-controls="collapseExample">
+			Informacion del colegio
+		</button>
+		<form id="modal-form-registro-cole" class="collapse show shadow bg-light rounded col-12">
+			<div class="form-row p-4">
+				<legend class="col-12">Datos del colegio</legend>
 
-		<?php $this->load->view('template/utiles/alertas'); ?>
-	</form>
+				<div class="col-12 my-3" id="cole-errores">
+					<?PHP $this->load->view('template/utiles/alertas'); ?>
+				</div>
+				<div class="form-group col-lg-4">
+					<label for="nombre">Nombre(s)</label>
+					<input type="text" class="form-control" id="nombre" name="nombre" data-nombre="Nombre">
+				</div>
+				<div class="form-group col-lg-4">
+					<label for="primer_apellido">Primer apellido</label>
+					<input type="text" class="form-control" id="primer_apellido" name="primer_apellido"
+						   data-nombre="Primer apellido">
+				</div>
+				<div class="form-group col-lg-4">
+					<label for="segundo_apellido">Segundo apellido </label>
+					<input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido"
+						   data-nombre="Segundo apellido">
+				</div>
+				<div class="form-group col-lg-8">
+					<label for="colegio">Nombre del colegio </label>
+					<input type="text" class="form-control" id="colegio" name="colegio"
+						   data-nombre="Nombre del colegio">
+				</div>
+				<div class="form-group col-lg-4">
+					<label for="rfc">RFC</label>
+					<input type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC">
+				</div>
+				<div class="form-group col-lg-4">
+					<label for="curp">CURP</label>
+					<input type="text" class="form-control valdar-curp" id="curp" name="curp" data-nombre="CURP">
+				</div>
+				<div class="form-group col-lg-4">
+					<label for="municipio">Municipio</label>
+					<select id="municipio" name="municipio" class="custom-select cargar_cps"
+							data-objetivo="#modal-form-registro-cole #codigo-postal" data-nombre="Municipio">
+						<option selected disabled>Seleccione una opción</option>
+						<?php foreach ($municipios as $key => $municipio): ?>
+							<option value="<?= $municipio->municipio_id ?>"
+									data-estado="<?= $municipio->estado_id ?>"><?= $municipio->nombre_municipio ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+				<div class="form-group col-lg-2">
+					<label for="codigo-postal">Código Postal</label>
+					<select id="codigo-postal" name="codigo-postal" class="custom-select"
+							data-nombre="Código postal">
+						<option selected disabled>Seleccione primero un municipio</option>
+					</select>
+				</div>
+				<div class="form-group col-lg-2">
+					<label for="mapa">Mapa</label>
+					<input type="text" class="form-control" id="mapa" name="mapa" data-nombre="Mapa">
+				</div>
+				<div class="form-group col-lg-8">
+					<label for="calle">Calle</label>
+					<input type="text" class="form-control" id="calle" name="calle" data-nombre="Calle">
+				</div>
+				<div class="form-group col-lg-2">
+					<label for="numero">Número</label>
+					<input type="text" class="form-control util_snumeros" id="numero" name="numero" data-nombre="Número">
+				</div>
+				<div class="form-group col-lg-3">
+					<label for="rfc">Fecha de constitución del colegio </label>
+					<input type="date" class="form-control" id="date" name="date" data-nombre="Fecha constitución">
+				</div>
+				<div class="form-group col-lg-3">
+					<label for="periodo-mesa-directiva">Periodo mesa directiva</label>
+					<input type="text" class="form-control" id="periodo-mesa-directiva"
+						   name="periodo-mesa-directiva" data-nombre="Periodo mesa directiva">
+				</div>
+			</div>
+			<div class="form-row px-4 py-2">
+				<legend class="col-12">Datos de contacto</legend>
+				<div class="form-group col-lg-4">
+					<label for="email">Correo electrónico</label>
+					<input type="text" class="form-control" id="email" name="email">
+				</div>
+				<div class="form-group col-lg-4">
+					<label for="telefono">Número telefónico</label>
+					<input type="tel" class="form-control futil_solo_numeros" id="telefono"
+						   name="telefono">
+				</div>
+				<div class="form-group col-lg-4">
+					<label for="pagina-web">Pagina web<span
+								class="text-muted">(Opcional)</span></label>
+					<input type="text" class="form-control futil_solo_numeros" id="pagina-web"
+						   name="pagina-web" data-nombre="Pagina web">
+				</div>
+			</div>
+
+			<div class="form-row px-4 py-2">
+				<legend class="col-lg-12">Redes sociales</legend>
+
+				<div class="form-group col-md-9 col-lg-4">
+					<label for="cuenta">Cuenta</label>
+					<input type="text" class="form-control" id="cuenta" name="cuenta" data-nombre="Cuenta">
+				</div>
+				<div class="form-group col-10 col-md-9 col-lg-4">
+					<label for="red-social">Red social</label>
+					<select id="red-social" name="red-social" class="custom-select" data-nombre="Red social">
+						<option selected disabled >Seleccione una opción</option>
+						<option  value="facebook" >facebook</option>
+						<option  value="instagram" >instagram</option>
+					</select>
+				</div>
+				<div class="form-group col-2 col-md-3 col-lg-4 my-auto">
+					<button class="btn btn-secondary boton-rojo d-none d-md-block add-red-social" type="button">
+						<i class="fas fa-plus">&nbsp;</i>Agregar
+					</button>
+					<button class="btn btn-secondary boton-rojo d-block d-md-none add-red-social" type="button">
+						<i class="fas fa-plus"></i>
+					</button>
+				</div>
+				<div class="col-lg-9 table-responsive-sm mt-4 mt-md-0">
+					<table id="t_redes_sociales" class="table table-hover text-center">
+					</table>
+				</div>
+			</div>
+			<?php $this->load->view('template/utiles/alertas'); ?>
+		</form>
+	</div>
+	<input type="submit" id="enviar-registro" value="Registrar" class="mt-3 btn btn-secondary boton-rojo">
 </div>
+<script type="application/javascript"
+		src="<?= base_url('sources/js/administracion/registro.js') ?>?<?= date('dmYHis') ?>"></script>
