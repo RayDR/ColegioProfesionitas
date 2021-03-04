@@ -33,6 +33,16 @@ class Administracion extends CI_Controller {
 		$this->load->view( $this->contenido, $data );
 	}
 
+	public function listar_cps($municipio_id){
+		$respuesta = array('exito' => true);
+		$data = array(
+			'view'				=>	'administracion/ajax/codigos_postales',
+			'codigos_postales'  =>	$this->model_catalogos->get_cps(2563,['municipio_id'=>$municipio_id])
+		);
+		$respuesta['html']=$this->load->view( 'administracion/ajax/codigos_postales', $data, TRUE );
+		return print(json_encode($respuesta));
+	}
+
 	public function logout(){
       // Eliminar datos de sesión
       $this->session->sess_destroy();
@@ -66,6 +76,12 @@ class Administracion extends CI_Controller {
    	return print(json_encode($respuesta));
    }
 
+	public function vista_form_solicitud_modal(){
+		$json = array('exito' => TRUE);
+		$json['html'] = $this->load->view( 'administracion/registro', null, TRUE );
+		return print(json_encode($json));
+	}
+
 /*
 |--------------------------------------------------------------------------
 | VISTAS PROTEGIDAS
@@ -86,18 +102,18 @@ class Administracion extends CI_Controller {
 		$usuario = $this->session->userdata('uid');
 		$data = array(
 			'view'				=>	'administracion/registro',
-			'comunicados'		=>	$this->model_catalogos->get_comunicados(),
+			'municipios'		=>	$this->model_catalogos->get_municipios(),
 			'usuario'			=> $this->model_sistema->get_usuario(['usuario_id' => $usuario])
 		);
 		return $this->load->view( $data["view"], $data, TRUE );
 	}
 
 	protected function vista_solicitudes(){
+		$this->load->model('model_solicitudes');
 		$usuario = $this->session->userdata('uid');
 		$data = array(
 			'view'				=>	'administracion/solicitudes',
-			'comunicados'		=>	$this->model_catalogos->get_comunicados(),
-			'usuario'			=> $this->model_sistema->get_usuario(['usuario_id' => $usuario])
+			'solicitudes'		=>  $this->model_solicitudes->get_solicitudes_registro(),
 		);
 		return $this->load->view( $data["view"], $data, TRUE );
 	}
