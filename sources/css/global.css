@@ -937,3 +937,6 @@ tr.shown td.titulos-lote > i:before {
   border-color: #9d2449f0;
   background-color: #9d2449;
 }
+select,td {
+  font-family: 'FontAwesome', 'Second Font name'
+}

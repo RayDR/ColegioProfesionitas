@@ -11,6 +11,7 @@ class Administracion extends CI_Controller {
 		parent::__construct();
 		$this->load->model('model_sistema');
 		$this->load->model('model_catalogos');
+		$this->load->model('model_colegios');
 	}
 
 /*
@@ -36,11 +37,22 @@ class Administracion extends CI_Controller {
 	public function listar_cps($municipio_id){
 		$respuesta = array('exito' => true);
 		$data = array(
-			'view'				=>	'administracion/ajax/codigos_postales',
+			'view'				=>	'ajax/codigos_postales',
 			'codigos_postales'  =>	$this->model_catalogos->get_cps(2563,['municipio_id'=>$municipio_id])
 		);
-		$respuesta['html']=$this->load->view( 'administracion/ajax/codigos_postales', $data, TRUE );
+		$respuesta['html']=$this->load->view( $data['view'], $data, TRUE );
 		return print(json_encode($respuesta));
+	}
+
+	public function listar_rds()
+	{
+		$respuesta=array('exito'=>true);
+		$data=array(
+			'view'				=>'ajax/redes_sociales',
+			'redes_sociales'	=>$this->model_catalogos->get_rds()
+		);
+		$respuesta['html']=$this->load->view($data['view'],$data,TRUE);
+		return print(json_decode($respuesta));
 	}
 
 	public function logout(){
@@ -82,6 +94,23 @@ class Administracion extends CI_Controller {
 		return print(json_encode($json));
 	}
 
+	public function guardar_registro()
+	{		
+		$json  = array('exito' => TRUE);
+		$asociacion = $this->input->post('asociacion');
+		$colegio 	= $this->input->post('colegio');
+		$redes_sociales=$this->input->post('redes_sociales');
+
+		if ( $asociacion && $colegio ){
+			// Registro	
+			 $json['modelo'] =$this->model_colegios->registrar_asociacion($asociacion,$colegio,$redes_sociales);
+		} else {
+			$json['exito']   = FALSE;
+			$json['mensaje'] = 'No se encontraron datos';
+		}
+		return print(json_encode($json));
+	}
+
 /*
 |--------------------------------------------------------------------------
 | VISTAS PROTEGIDAS
@@ -103,7 +132,8 @@ class Administracion extends CI_Controller {
 		$data = array(
 			'view'				=>	'administracion/registro',
 			'municipios'		=>	$this->model_catalogos->get_municipios(),
-			'usuario'			=> $this->model_sistema->get_usuario(['usuario_id' => $usuario])
+			'usuario'			=> $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+			'redes_sociales'	=>$this->model_catalogos->get_rds()
 		);
 		return $this->load->view( $data["view"], $data, TRUE );
 	}

@@ -70,12 +70,31 @@ class Model_catalogos extends CI_Model {
 				$this->dbC->where($nombre, $valor);
 			}
 		}
-		$this->dbC->where('estado_id', $estado_id);
+		$this->dbC->where('estado_id', $estado_id);		
+		$this->db->order_by('d_asenta', 'asc');
+		
 		$db_datos = $this->dbC->get('codigos_postales');
 		if ( $tipo )
 			return $db_datos->result();
 		else
 			return $db_datos->result_array();
+	}
+	/** 
+	|	Función para obtener redes sociales
+		@function get_rds
+	**/
+	public function get_rds($filtros = null, $tipo = TRUE)
+	{
+		if ( is_array($filtros) ){
+			foreach ($filtros as $nombre => $valor) {
+				$this->db->where($nombre, $valor);
+			}
+		}
+		$db_datos=$this->db->get('redes_sociales');
+		if($tipo)
+		return $db_datos->result();
+		else
+		return $db_datos->result_array();
 	}
 
 /*

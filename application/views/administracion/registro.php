@@ -89,7 +89,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="rfc">RFC</label>
-					<input type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC">
+					<input type="text" class="form-control validar-rfc" id="rfc" name="rfc_col" data-nombre="RFC">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="curp">CURP</label>
@@ -97,7 +97,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="municipio">Municipio</label>
-					<select id="municipio" name="municipio" class="custom-select cargar_cps"
+					<select id="municipio" name="municipio_col" class="custom-select cargar_cps"
 							data-objetivo="#modal-form-registro-cole #codigo-postal" data-nombre="Municipio">
 						<option selected disabled>Seleccione una opción</option>
 						<?php foreach ($municipios as $key => $municipio): ?>
@@ -108,7 +108,7 @@
 				</div>
 				<div class="form-group col-lg-2">
 					<label for="codigo-postal">Código Postal</label>
-					<select id="codigo-postal" name="codigo-postal" class="custom-select"
+					<select id="codigo-postal" name="codigo_postal_col" class="custom-select"
 							data-nombre="Código postal">
 						<option selected disabled>Seleccione primero un municipio</option>
 					</select>
@@ -119,15 +119,15 @@
 				</div>
 				<div class="form-group col-lg-8">
 					<label for="calle">Calle</label>
-					<input type="text" class="form-control" id="calle" name="calle" data-nombre="Calle">
+					<input type="text" class="form-control" id="calle" name="calle_col" data-nombre="Calle">
 				</div>
 				<div class="form-group col-lg-2">
 					<label for="numero">Número</label>
-					<input type="text" class="form-control util_snumeros" id="numero" name="numero" data-nombre="Número">
+					<input type="text" class="form-control util_snumeros" id="numero" name="numero_col" data-nombre="Número">
 				</div>
 				<div class="form-group col-lg-3">
-					<label for="rfc">Fecha de constitución del colegio </label>
-					<input type="date" class="form-control" id="date" name="date" data-nombre="Fecha constitución">
+					<label for="fecha_constitucion">Fecha de constitución del colegio </label>
+					<input type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion_col" data-nombre="Fecha constitución">
 				</div>
 				<div class="form-group col-lg-3">
 					<label for="periodo-mesa-directiva">Periodo mesa directiva</label>
@@ -139,11 +139,11 @@
 				<legend class="col-12">Datos de contacto</legend>
 				<div class="form-group col-lg-4">
 					<label for="email">Correo electrónico</label>
-					<input type="text" class="form-control" id="email" name="email">
+					<input type="text" class="form-control" id="email" name="email" data-nombre="Correo electrónico">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="telefono">Número telefónico</label>
-					<input type="tel" class="form-control futil_solo_numeros" id="telefono"
+					<input type="tel" class="form-control futil_solo_numeros" id="telefono" data-nombre="Número telefónico"
 						   name="telefono">
 				</div>
 				<div class="form-group col-lg-4">
@@ -164,9 +164,8 @@
 				<div class="form-group col-10 col-md-9 col-lg-4">
 					<label for="red-social">Red social</label>
 					<select id="red-social" name="red-social" class="custom-select" data-nombre="Red social">
-						<option selected disabled >Seleccione una opción</option>
-						<option  value="facebook" >facebook</option>
-						<option  value="instagram" >instagram</option>
+							<?php $this->load->view('ajax/redes_sociales', ['redes_sociales'=>$redes_sociales], FALSE);
+							?>
 					</select>
 				</div>
 				<div class="form-group col-2 col-md-3 col-lg-4 my-auto">
