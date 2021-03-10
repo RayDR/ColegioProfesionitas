@@ -93,6 +93,52 @@ class Model_colegios extends CI_Model {
        return $resultado;
 	}
 
+	public function registrar_asociado($asociado){
+		$_asociado=[];
+		$id_usuario=$this->session->userdata('uid');
+
+		foreach ($asociado as $name => $value) {
+			$_asociado[$value['name']]=$value['value'];
+		}
+		
+		$resultado  = [ 'exito' => TRUE ];	
+	    $resultado['asociado'] = $_asociado;
+
+		try {
+			
+			$this->db->trans_begin();
+			
+			//$this->db->where('curp', $_asociado["curp"]);
+			//$asociaciado = $this->db->get('asociaciones');
+			//if ( $asociaciado->num_rows() > 0 )
+			//throw new Exception('Ya existe una solicitud con este RFC.');
+			$datos_db = array(
+				'nombres'					=>	$_asociado['nombre'],
+				'primer_apellido'			=>	$_asociado['primer_apellido'],
+				'segundo_apellido'			=>	$_asociado['segundo_apellido'],
+				'curp'						=>	$_asociado['curp'],
+				'fecha_sercp'				=>	$_asociado['fecha_sercp'],
+				'nivel_educativo_id'		=>	$_asociado['nivel_educativo'],
+				'institucion_id'			=>	$_asociado['institucion'],
+				'carrera_id'				=>	$_asociado['carrera'],
+				'numero_cedula'				=>	$_asociado['numero_cedula'],
+				'telefono'					=>	$_asociado['telefono'],
+				'email'						=>	$_asociado['email'],
+				'horas_servicio_social'		=>	$_asociado['horas_servicio_social'],
+				'usuario_id'				=>	$id_usuario,
+				'estatus_asociado'			=>	3,
+			);
+			
+			$this->db->insert('asociados', $datos_db);
+			$this->db->trans_commit();
+		} catch (Exception $e) {
+			$this->db->trans_rollback();
+			$resultado['exito'] = FALSE;
+			$resultado['error'] = $e->getMessage();
+		}
+       return $resultado;
+	}
+
 }
 
 /* End of file model_colegios.php */

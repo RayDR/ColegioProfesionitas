@@ -28,7 +28,6 @@
 					<?PHP if (is_null($solicitud->fecha_aprobacion)): ?>
 						<td>
 							<span class="badge badge-pill badge-secondary">PENDIENTE</span>
-
 						</td>
 						<td>
 							<div id="cambiarEstatus" class="dropdown">

@@ -111,6 +111,20 @@ class Administracion extends CI_Controller {
 		return print(json_encode($json));
 	}
 
+	public function guardar_asociado(){
+		$json	=	array('exito'=>TRUE);
+		$asociado=$this->input->post('asociado');
+
+		if($asociado){
+			$json['modelo']=$this->model_colegios->registrar_asociado($asociado);
+		}else {
+			$json['exito']=FALSE;
+			$json['mensaje']='No se encontraron datos';
+			$json['datos']=$asociado;
+		}
+		return print(json_encode($json));
+	}
+
 /*
 |--------------------------------------------------------------------------
 | VISTAS PROTEGIDAS
@@ -151,12 +165,18 @@ class Administracion extends CI_Controller {
 	protected function vista_perfil(){
 		$usuario = $this->session->userdata('uid');
 		$data = array(
-			'view'				=>	'administracion/perfil',
-			'comunicados'		=>	$this->model_catalogos->get_comunicados(),
-			'usuario'			=> $this->model_sistema->get_usuario(['usuario_id' => $usuario])
+			'view'					=>	'administracion/perfil',
+			'carreras'				=>	$this->model_catalogos->get_carreras(),
+			'usuario'				=>	$this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+			'niveles'				=>	$this->model_catalogos->get_niveles(),
+			'instituciones'			=> 	$this->model_catalogos->get_instut(),
+			'estatus_asociados'		=>	$this->model_catalogos->get_estatus_asocioados(),
+			'asociados_list'		=>	$this->model_catalogos->get_asociados()
 		);
 		return $this->load->view( $data["view"], $data, TRUE );
 	}
+
+
 
 }
 

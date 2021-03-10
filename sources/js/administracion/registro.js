@@ -1,7 +1,6 @@
 var datos_asociacion = {},
-	datos_colegio    = {}
-	datos_ajax		 = [];
-redes_sociales = [];
+	datos_colegio    = {},
+	redes_sociales   = [];
 $(document).off('click.remove', '#remove_red').on('click.remove', '#remove_red', fn_remove_red_social);
 $(document).ready(function () {
 	$('.cargar_cps').change(cargarCp);
@@ -125,9 +124,6 @@ function fn_guardar_registro() {
 		futil_alerta('', '', "#ascociacion-errores"); 
 		futil_alerta('', '', "#cole-errores");
 		futil_toast("Datos correctos", '', "success");
-
-		datos_ajax.push(datos_asociacion);
-		datos_ajax.push(datos_colegio);
 
 		var respuesta=futil_json_query( 'Administracion/guardar_registro',
 										{ 
