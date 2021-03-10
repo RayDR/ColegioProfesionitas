@@ -1,4 +1,3 @@
-<?php print_r($datos); ?>
 
 <div class="form-row px-4 py-2">
     <legend class="col-12">Datos de la asociación</legend>
