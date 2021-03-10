@@ -196,6 +196,20 @@ class Model_catalogos extends CI_Model {
 		else
 		return $db_datos->result_array();
 	}
+
+	public function get_colegios($filtros = null, $tipo = TRUE)
+	{
+		if (is_array($filtros)) {
+			foreach ($filtros as $nombre => $valor) {
+				$this->db->where($nombre, $valor);
+			}
+		}
+		$db_datos = $this->db->get('vw_colegios_redes');
+		if ($tipo)
+		return $db_datos->result();
+		else
+		return $db_datos->result_array();
+	}
 	
 }
 

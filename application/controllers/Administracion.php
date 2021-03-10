@@ -124,6 +124,19 @@ class Administracion extends CI_Controller {
 		}
 		return print(json_encode($json));
 	}
+	public function get_colegios_ajax(){
+		$json= $this->model_catalogos->get_colegios();
+		return print(json_encode($json));
+	}
+
+	public function modal_colegio()
+	{
+		$json	=	array('exito' => TRUE);
+
+		$datos=$this->input->post();
+		$json['html']	=	$this->load->view('administracion/colegio_detalles',['datos'=>$datos],true);
+		return print(json_encode($json));
+	}
 
 /*
 |--------------------------------------------------------------------------
@@ -136,7 +149,8 @@ class Administracion extends CI_Controller {
 		$data = array(
 			'view'				=>	'administracion/tablero',
 			'comunicados'		=>	$this->model_catalogos->get_comunicados(),
-			'usuario'			=> $this->model_sistema->get_usuario(['usuario_id' => $usuario])
+			'usuario'			=> 	$this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+			'colegios'			=>	$this->model_catalogos->get_colegios()
 		);
 		return $this->load->view( $data["view"], $data, TRUE );
 	}

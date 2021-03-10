@@ -104,7 +104,7 @@ function fn_guardar_registro() {
 				cole_errores += `El campo <b><a href="#${dato.name}">${nombre}</a></b> es requerido.<br>`;
 				futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), false);
 			}
-		} else if (dato.name == "rfc") {
+		} else if (dato.name == "rfc_col") {
 			if (!futil_valida_rfc(dato.value)) {
 				cole_errores += `El  <b><a href="#${dato.name}">${nombre}</a></b> no es valido.<br>`;
 				futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), false);
@@ -112,6 +112,9 @@ function fn_guardar_registro() {
 				futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), true);
 		} else if (dato.name == "curp") {
 			if (!futil_valida_curp(dato.value)) {
+				cole_errores += `La  <b><a href="#${dato.name}">${nombre}</a></b> no es valida.<br>`;
+				futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), false);
+			} else if(dato.name == "calle_col"){
 				cole_errores += `La  <b><a href="#${dato.name}">${nombre}</a></b> no es valida.<br>`;
 				futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), false);
 			} else

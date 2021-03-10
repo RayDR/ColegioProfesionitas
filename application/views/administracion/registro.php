@@ -89,7 +89,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="rfc">RFC</label>
-					<input type="text" class="form-control validar-rfc" id="rfc" name="rfc_col" data-nombre="RFC">
+					<input type="text" class="form-control validar-rfc" id="rfc_col" name="rfc_col" data-nombre="RFC">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="curp">CURP</label>
@@ -119,15 +119,15 @@
 				</div>
 				<div class="form-group col-lg-8">
 					<label for="calle">Calle</label>
-					<input type="text" class="form-control" id="calle" name="calle_col" data-nombre="Calle">
+					<input type="text" class="form-control" id="calle_col" name="calle_col" data-nombre="Calle">
 				</div>
 				<div class="form-group col-lg-2">
 					<label for="numero">Número</label>
-					<input type="text" class="form-control util_snumeros" id="numero" name="numero_col" data-nombre="Número">
+					<input type="text" class="form-control util_snumeros" id="numero_col" name="numero_col" data-nombre="Número">
 				</div>
 				<div class="form-group col-lg-3">
 					<label for="fecha_constitucion">Fecha de constitución del colegio </label>
-					<input type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion_col" data-nombre="Fecha constitución">
+					<input type="date" class="form-control" id="fecha_constitucion_col" name="fecha_constitucion_col" data-nombre="Fecha constitución">
 				</div>
 				<div class="form-group col-lg-3">
 					<label for="periodo-mesa-directiva">Periodo mesa directiva</label>

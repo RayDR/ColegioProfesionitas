@@ -83,8 +83,26 @@ switch ($inconoNav) {
 		</div>
 	</div>
 </div>
-<div class="row my-3">
-	<div class="col-12">
-		<table id=""></table>
+<div class="row my-3 mx-2">
+	<div class="shadow bg-white  rounded col-12">
+		<div class="col-12 table-responsive-sm mt-4 mt-md-0 p-5">
+			<table id="tb_colegios" name="colegios" class="table table-hover text-center w-100 ">
+				<thead>
+					<tr>
+						<th>Nombre del colegio</th>
+						<th>Curp</th>
+						<th>RFC</th>
+						<th>Nombre</th>
+						<th>Domicilio</th>
+						<th>Mapa</th>
+						<th>Fecha de constiticón</th>
+						<th>Perido mesa directiva</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
 	</div>
 </div>
+
+<script type="text/javascript" src="<?= base_url("sources/js/administracion/tablero.js") ?>"></script>
