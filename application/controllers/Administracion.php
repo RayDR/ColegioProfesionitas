@@ -63,7 +63,7 @@ class Administracion extends CI_Controller {
 
    public function menu(){
    	$respuesta 	= ['exito' => true];
-   	$link			= $this->input->post('link');
+   	$link		= $this->input->post('link');
    	switch ($link) {
    		case 'dashboard':
    			$respuesta["html"] = $this->vista_tablero();
@@ -103,7 +103,11 @@ class Administracion extends CI_Controller {
 
 		if ( $asociacion && $colegio ){
 			// Registro	
-			 $json['modelo'] =$this->model_colegios->registrar_asociacion($asociacion,$colegio,$redes_sociales);
+			$respuesta = $this->model_colegios->registrar_asociacion($asociacion,$colegio,$redes_sociales);
+			$json['exito'] = $respuesta['exito'];
+			if ( ! $json['exito'] )
+				$json['mensaje'] = $respuesta['error'];
+
 		} else {
 			$json['exito']   = FALSE;
 			$json['mensaje'] = 'No se encontraron datos';
@@ -129,12 +133,70 @@ class Administracion extends CI_Controller {
 		return print(json_encode($json));
 	}
 
+	public function get_solicitudes_ajax(){		
+		$this->load->model('model_solicitudes');
+		$json= $this->model_solicitudes->get_solicitudes_registro();
+		return print(json_encode($json));
+	}
+
+	public function actualizar_solicitud(){
+		$this->load->model('model_solicitudes');
+		$json           = array('exito'=>TRUE);
+		$solicitud_id   = $this->input->post('solicitud');
+		$estatus_id     = $this->input->post('estatus');
+
+		if ( $solicitud_id && $estatus_id ){
+			// Validar estatus
+			$db_solicitud = $this->model_solicitudes ->get_solicitudes_registro(
+								['solicitud_registro_id' => $solicitud_id] );
+			if ( $db_solicitud ){
+				$datos = $db_solicitud[0];
+				if ( $datos->estatus != 'Aprobado' ){
+					if ( ! $this->model_solicitudes->set_estatus_solicitud($solicitud_id, $estatus_id) ){
+						$json['exito']		= FALSE;
+						$json['mensaje']	= 'No fue posible actualizar la solicitud.';
+					}
+				}
+				else {
+					$json['exito']		= FALSE;
+					$json['mensaje']	= 'No se puede actualizar un solicitud previamente Aprobada.';
+				}					
+			} else {
+				$json['exito']		= FALSE;
+				$json['mensaje']	= 'Solicitud inexistente.';
+			}
+		} else {
+			$json['exito']		= FALSE;
+			$json['mensaje']	= 'No se encontraron datos';
+		}
+		return print( json_encode($json) );
+	}
+
 	public function modal_colegio()
 	{
 		$json	=	array('exito' => TRUE);
 
 		$datos=$this->input->post();
 		$json['html']	=	$this->load->view('administracion/colegio_detalles',['datos'=>$datos],true);
+		return print(json_encode($json));
+	}
+
+	public function modal_aprobar_solicitud($solicitud_id){
+		if ( $this->session->estatus_usuario_sesion( [1,2,3] ) == FALSE )
+			return $this->vista_tablero();
+		$this->load->model('model_solicitudes');
+		$usuario = $this->session->userdata('uid');
+		$json	=	array('exito' => TRUE);
+		$data = array(
+			'view'				=> 'administracion/registro_solicitud',
+			'datos'				=> $this->model_solicitudes->get_solicitudes_registro(
+										['solicitud_registro_id' => $solicitud_id]
+									),
+			'municipios'		=> $this->model_catalogos->get_municipios(),
+			'usuario'			=> $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+			'redes_sociales'	=> $this->model_catalogos->get_rds()
+		);
+		$json['html'] = $this->load->view( $data["view"], $data, TRUE );
 		return print(json_encode($json));
 	}
 
@@ -156,6 +218,9 @@ class Administracion extends CI_Controller {
 	}
 
 	protected function vista_registro(){
+		if ( $this->session->estatus_usuario_sesion( [1,2,3] ) == FALSE )
+			return $this->vista_tablero();
+		
 		$usuario = $this->session->userdata('uid');
 		$data = array(
 			'view'				=>	'administracion/registro',
@@ -167,16 +232,18 @@ class Administracion extends CI_Controller {
 	}
 
 	protected function vista_solicitudes(){
-		$this->load->model('model_solicitudes');
+		if ( $this->session->estatus_usuario_sesion( [1, 2, 3] ) == FALSE )
+			return $this->vista_tablero();
 		$usuario = $this->session->userdata('uid');
 		$data = array(
 			'view'				=>	'administracion/solicitudes',
-			'solicitudes'		=>  $this->model_solicitudes->get_solicitudes_registro(),
 		);
 		return $this->load->view( $data["view"], $data, TRUE );
 	}
 
 	protected function vista_perfil(){
+		if ( $this->session->estatus_usuario_sesion( [3, 4, 5] ) == FALSE )
+			return $this->vista_tablero();
 		$usuario = $this->session->userdata('uid');
 		$data = array(
 			'view'					=>	'administracion/perfil',

@@ -1,6 +1,6 @@
 <div class="bg-dark shadow">
-	<nav id="menul_flotante" class="navbar navbar-expand-lg p-2">
-		<a class="navbar-brand ml-2 text-white" href="https://tabasco.gob.mx/educacion">
+	<nav id="menul_flotante" class="navbar navbar-expand-sm p-2 navegacion-mostrar">
+		<a class="navbar-brand ml-2 text-white" href="https://tabasco.gob.mx/educacion" tabindex="-1">
 			<b class="h4"><strong>tabasco</strong><strong class="fa fa-circle" style="font-size: 8px;"></strong></b>gob.mx
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-superior-flotante" aria-controls="menu-superior-flotante" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,19 +16,21 @@
 					<a class="nav-link text-white" href="<?= base_url('index.php/Administracion/logout'); ?>">Salir</a>
 				</li>
 				<?php else: ?>
-				<a id="inicio-sesion" class="nav-link active" href="#">Iniciar Sesión</a>
-				<form id="form-inicio-sesion" class="inicio-sesion text-body" style="display: none;">
+				<li class="nav-item">
+					<a id="inicio-sesion" class="nav-link active" href="#">Iniciar Sesión</a>
+				</li>
+				<form id="form-inicio-sesion" class="inicio-sesion text-body form-mostrar" style="display: none;">
 					<?php $this->load->view('template/utiles/alertas'); ?>
 					<div class="form-group">
-						<label for="is-correo">Correo electrónico</label>
-						<input type="email" class="form-control" id="is-correo" name="correo_electronico">
+						<label for="is-rfc">RFC</label>
+						<input type="email" class="form-control" id="is-rfc" name="rfc">
 					</div>
 					<div class="form-group">
 						<label for="is-password">Password</label>
 						<input type="password" class="form-control" id="is-password" name="password">
 					</div>
-					<div class="form-group form-check d-none">
-						<input type="checkbox" class="form-check-input" id="is-recuerdame">
+					<div class="form-group form-check">
+						<input type="checkbox" class="form-check-input" id="is-recuerdame" name="recuerdame">
 						<label class="form-check-label" for="is-recuerdame">Recuerdame</label>
 					</div>
 					<div class="text-right">

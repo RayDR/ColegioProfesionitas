@@ -83,7 +83,7 @@
 		<button class="btn btn-dark btn-block" type="button" data-toggle="collapse" data-target="#modal-form-asc" aria-expanded="false" aria-controls="collapseExample">
 			Asociados
 		</button>
-		<panel id="modal-form-asc" class="collapse shadow bg-light rounded col-12">
+		<panel id="modal-form-asc" class="collapse shadow-lg bg-light rounded col-12">
 			<div class="col-lg-9 table-responsive-sm mt-4 mt-md-0">
 				<table id="t_asociados" class="table table-hover text-center">
 					<thead>

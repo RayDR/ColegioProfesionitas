@@ -20,7 +20,7 @@ class Model_sistema extends CI_Model {
 			}
 		}
 
-		$db_usuario = $this->db->get('usuarios');
+		$db_usuario = $this->db->get('vw_usuarios');
 
 		switch ( $db_usuario->num_rows() ) {
 			case 1:
@@ -48,7 +48,7 @@ class Model_sistema extends CI_Model {
 	|	@return 	object|array
 	**/
 	public function get_usuario_acceso($usuario){
-		$db_usuario = $this->get_usuario( array( 'email' => $usuario ) );
+		$db_usuario = $this->get_usuario( array( 'rfc' => $usuario ) );
 		return $db_usuario;
 	}
 

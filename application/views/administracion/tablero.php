@@ -27,8 +27,8 @@ switch ($inconoNav) {
 		break;
 }
 ?>
-<div class="row d-flex justify-content-center my-3 mx-1">
-	<div class="col-md-7 col-lg-8 mb-2 rounded shadow bg-light">
+<div class="row d-flex justify-content-center my-3 mx-1 rounded shadow-lg bg-light">
+	<div class="col-md-7 col-lg-8 mb-2">
 		<?= heading('Comunicados', 3, array('class' => 'text-center texto-rojo my-3')) ?>
 		<div class="row">
 			<div class="col">
@@ -60,7 +60,7 @@ switch ($inconoNav) {
 			</div>
 		</div>
 	</div>
-	<div class="col-md-5 col-lg-4 mb-2 shadow rounded bg-white">
+	<div class="col-md-5 col-lg-4 mb-2 ">
 		<h5 class="text-center text-muted mt-1 mt-lg-3">
 			<small>Bienvenido</small>&nbsp;<span class="texto-rojo"><?= $usuario->nombres, ' ', $usuario->primer_apellido, ' ', $usuario->primer_apellido ?></span>
 		</h5>
@@ -83,7 +83,9 @@ switch ($inconoNav) {
 		</div>
 	</div>
 </div>
-<div class="row my-3 mx-2">
+
+<?php if ( $this->session->userdata('tuser') < 3 ): ?>
+<div class="row my-3 mx-1">
 	<div class="shadow bg-white  rounded col-12">
 		<div class="col-12 table-responsive-sm mt-4 mt-md-0 p-5">
 			<table id="tb_colegios" name="colegios" class="table table-hover text-center w-100 ">
@@ -104,5 +106,6 @@ switch ($inconoNav) {
 		</div>
 	</div>
 </div>
+<?php endif; ?>
 
 <script type="text/javascript" src="<?= base_url("sources/js/administracion/tablero.js") ?>"></script>

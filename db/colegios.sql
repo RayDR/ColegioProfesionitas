@@ -116,7 +116,7 @@ CREATE TABLE `asociaciones` (
   KEY `usuario_id` (`usuario_id`),
   CONSTRAINT `asociaciones_ibfk_1` FOREIGN KEY (`municipio_id`) REFERENCES `catalogos`.`municipios` (`municipio_id`),
   CONSTRAINT `asociaciones_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +200,6 @@ OLD.nivel_educativo_id,
 OLD.institucion_id,
 OLD.carrera_id,
 OLD.numero_cedula,
-OLD.colegio_institucion_id,
 OLD.colegio_carrera_id,
 OLD.horas_servicio_social,
 OLD.fecha_creacion,
@@ -472,7 +471,7 @@ CREATE TABLE `estatus_registro` (
 
 LOCK TABLES `estatus_registro` WRITE;
 /*!40000 ALTER TABLE `estatus_registro` DISABLE KEYS */;
-INSERT INTO `estatus_registro` VALUES (1,'Pendiente'),(2,'Aprobar'),(3,'Rechazar');
+INSERT INTO `estatus_registro` VALUES (1,'Pendiente'),(2,'Aprobado'),(3,'Rechazado');
 /*!40000 ALTER TABLE `estatus_registro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -729,29 +728,6 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Temporary view structure for view `newview`
---
-
-DROP TABLE IF EXISTS `newview`;
-/*!50001 DROP VIEW IF EXISTS `newview`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `newview` AS SELECT 
- 1 AS `nombres`,
- 1 AS `primer_apellido`,
- 1 AS `segundo_apellido`,
- 1 AS `curp`,
- 1 AS `fecha_sercp`,
- 1 AS `nivel_educativo`,
- 1 AS `institucion`,
- 1 AS `carrera`,
- 1 AS `numero_cedula`,
- 1 AS `telefono`,
- 1 AS `email`,
- 1 AS `horas_servicio_social`*/;
-SET character_set_client = @saved_cs_client;
-
---
 -- Table structure for table `normatividades`
 --
 
@@ -931,16 +907,16 @@ CREATE TABLE `solicitudes_registro` (
   `solicitante_email` varchar(255) DEFAULT NULL,
   `solicitante_telefono` varchar(255) DEFAULT NULL,
   `fecha_solicitud` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `usuario_aprobo` int(11) DEFAULT NULL,
-  `fecha_aprobacion` timestamp NULL DEFAULT NULL,
-  `estatus_registro_id` int(11) NOT NULL,
+  `usuario_modifico` int(11) DEFAULT NULL,
+  `fecha_usuario_modificacion` timestamp NULL DEFAULT NULL,
+  `estatus_registro_id` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`solicitud_registro_id`),
   UNIQUE KEY `rfc_unico` (`rfc`) USING BTREE,
   KEY `rfc` (`rfc`),
   KEY `municipio_id` (`municipio_id`),
-  KEY `fk_usuario_id_aprobo` (`usuario_aprobo`),
+  KEY `fk_usuario_id_aprobo` (`usuario_modifico`),
   KEY `solicitudes_registro_FK` (`estatus_registro_id`),
-  CONSTRAINT `fk_usuario_id_aprobo` FOREIGN KEY (`usuario_aprobo`) REFERENCES `usuarios` (`usuario_id`),
+  CONSTRAINT `fk_usuario_id_aprobo` FOREIGN KEY (`usuario_modifico`) REFERENCES `usuarios` (`usuario_id`),
   CONSTRAINT `solicitudes_registro_FK` FOREIGN KEY (`estatus_registro_id`) REFERENCES `estatus_registro` (`estatus_registro_id`),
   CONSTRAINT `solicitudes_registro_ibfk_1` FOREIGN KEY (`municipio_id`) REFERENCES `catalogos`.`municipios` (`municipio_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -1097,7 +1073,7 @@ DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `usuario_id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(255) NOT NULL,
-  `usuario` varchar(45) NOT NULL,
+  `rfc` varchar(45) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `nombres` varchar(80) DEFAULT NULL,
@@ -1117,7 +1093,7 @@ CREATE TABLE `usuarios` (
   KEY `fk_status_usuario` (`status_usuario_id`) USING BTREE,
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`status_usuario_id`) REFERENCES `estatus_usuarios` (`estatus_usuario_id`),
   CONSTRAINT `usuarios_ibfk_2` FOREIGN KEY (`tipo_usuario_id`) REFERENCES `tipos_usuarios` (`tipo_usuario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1126,7 +1102,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'$2y$10$lzkbXMp4Fktqcr2.s8JGluTj7/MXiKZ4PAb9lX3cityAv7G1amaaO','admin','ray.dr@hotmail.com',NULL,'Administrador',NULL,NULL,NULL,NULL,NULL,'::1','2021-02-15 20:02:31','Windows 10 Chrome 88.0.4324.150',1,1,NULL),(2,'$2y$10$lzkbXMp4Fktqcr2.s8JGluTj7/MXiKZ4PAb9lX3cityAv7G1amaaO','tester','correo@correo.setab.gob.mx','','Usuario','Tester','Test','','',NULL,'192.168.0.48','2021-03-10 21:03:05','Windows 10 Chrome 89.0.4389.82',1,1,NULL);
+INSERT INTO `usuarios` VALUES (1,'$2y$10$lzkbXMp4Fktqcr2.s8JGluTj7/MXiKZ4PAb9lX3cityAv7G1amaaO','administrador','ray.dr@hotmail.com',NULL,'Administrador',NULL,NULL,NULL,NULL,NULL,'::1','2021-03-12 22:03:47','Windows 10 Chrome 89.0.4389.82',1,1,NULL),(2,'$2y$10$lzkbXMp4Fktqcr2.s8JGluTj7/MXiKZ4PAb9lX3cityAv7G1amaaO','profesiones','correo@correo.setab.gob.mx','','Usuario','Tester','Test','','',NULL,'192.168.0.48','2021-03-10 21:03:05','Windows 10 Chrome 89.0.4389.82',3,1,NULL),(3,'$2y$10$lzkbXMp4Fktqcr2.s8JGluTj7/MXiKZ4PAb9lX3cityAv7G1amaaO','DORR950325FS2',NULL,NULL,'Soy un','Colegio','Profesionista',NULL,NULL,NULL,'::1','2021-03-12 20:03:15','Windows 10 Chrome 89.0.4389.82',4,1,NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1237,22 +1213,61 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
--- Final view structure for view `newview`
+-- Temporary view structure for view `vw_solicitudes`
 --
 
-/*!50001 DROP VIEW IF EXISTS `newview`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `newview` AS select `a`.`nombres` AS `nombres`,`a`.`primer_apellido` AS `primer_apellido`,`a`.`segundo_apellido` AS `segundo_apellido`,`a`.`curp` AS `curp`,`a`.`fecha_sercp` AS `fecha_sercp`,`ne`.`descripcion` AS `nivel_educativo`,`ins`.`nombre` AS `institucion`,`c`.`nombre` AS `carrera`,`a`.`numero_cedula` AS `numero_cedula`,`a`.`telefono` AS `telefono`,`a`.`email` AS `email`,`a`.`horas_servicio_social` AS `horas_servicio_social` from (((`asociados` `a` join `catalogos`.`niveles_educativos` `ne`) join `instituciones` `ins`) join `carreras` `c`) where ((`a`.`nivel_educativo_id` = `ne`.`nivel_educativo_id`) and (`a`.`institucion_id` = `ins`.`institucion_id`) and (`a`.`carrera_id` = `c`.`carrera_id`)) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
+DROP TABLE IF EXISTS `vw_solicitudes`;
+/*!50001 DROP VIEW IF EXISTS `vw_solicitudes`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `vw_solicitudes` AS SELECT 
+ 1 AS `solicitud_registro_id`,
+ 1 AS `rfc`,
+ 1 AS `nombre_asociacion`,
+ 1 AS `municipio_id`,
+ 1 AS `cp_id`,
+ 1 AS `calle`,
+ 1 AS `numero`,
+ 1 AS `solicitante_nombre`,
+ 1 AS `solicitante_primer_apellido`,
+ 1 AS `solicitante_segundo_apellido`,
+ 1 AS `solicitante_email`,
+ 1 AS `solicitante_telefono`,
+ 1 AS `fecha_solicitud`,
+ 1 AS `usuario_modifico`,
+ 1 AS `fecha_usuario_modificacion`,
+ 1 AS `estatus_registro_id`,
+ 1 AS `estatus`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `vw_usuarios`
+--
+
+DROP TABLE IF EXISTS `vw_usuarios`;
+/*!50001 DROP VIEW IF EXISTS `vw_usuarios`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `vw_usuarios` AS SELECT 
+ 1 AS `usuario_id`,
+ 1 AS `password`,
+ 1 AS `rfc`,
+ 1 AS `email`,
+ 1 AS `imagen`,
+ 1 AS `nombres`,
+ 1 AS `primer_apellido`,
+ 1 AS `segundo_apellido`,
+ 1 AS `telefono`,
+ 1 AS `cargo`,
+ 1 AS `nivel_educativo_id`,
+ 1 AS `ip_ultima_conexion`,
+ 1 AS `fecha_ultima_conexion`,
+ 1 AS `navegador_ultima_conexion`,
+ 1 AS `tipo_usuario_id`,
+ 1 AS `tipo_usuario`,
+ 1 AS `status_usuario_id`,
+ 1 AS `bloqueado_el`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Final view structure for view `vw_asociados`
@@ -1325,6 +1340,42 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_solicitudes`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_solicitudes`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_solicitudes` AS select `solicitudes_registro`.`solicitud_registro_id` AS `solicitud_registro_id`,`solicitudes_registro`.`rfc` AS `rfc`,`solicitudes_registro`.`nombre_asociacion` AS `nombre_asociacion`,`solicitudes_registro`.`municipio_id` AS `municipio_id`,`solicitudes_registro`.`cp_id` AS `cp_id`,`solicitudes_registro`.`calle` AS `calle`,`solicitudes_registro`.`numero` AS `numero`,`solicitudes_registro`.`solicitante_nombre` AS `solicitante_nombre`,`solicitudes_registro`.`solicitante_primer_apellido` AS `solicitante_primer_apellido`,`solicitudes_registro`.`solicitante_segundo_apellido` AS `solicitante_segundo_apellido`,`solicitudes_registro`.`solicitante_email` AS `solicitante_email`,`solicitudes_registro`.`solicitante_telefono` AS `solicitante_telefono`,`solicitudes_registro`.`fecha_solicitud` AS `fecha_solicitud`,`solicitudes_registro`.`usuario_modifico` AS `usuario_modifico`,`solicitudes_registro`.`fecha_usuario_modificacion` AS `fecha_usuario_modificacion`,`solicitudes_registro`.`estatus_registro_id` AS `estatus_registro_id`,`estatus_registro`.`estatus_registro` AS `estatus` from (`solicitudes_registro` join `estatus_registro` on((`solicitudes_registro`.`estatus_registro_id` = `estatus_registro`.`estatus_registro_id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_usuarios`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_usuarios`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_usuarios` AS select `usuarios`.`usuario_id` AS `usuario_id`,`usuarios`.`password` AS `password`,`usuarios`.`rfc` AS `rfc`,`usuarios`.`email` AS `email`,`usuarios`.`imagen` AS `imagen`,`usuarios`.`nombres` AS `nombres`,`usuarios`.`primer_apellido` AS `primer_apellido`,`usuarios`.`segundo_apellido` AS `segundo_apellido`,`usuarios`.`telefono` AS `telefono`,`usuarios`.`cargo` AS `cargo`,`usuarios`.`nivel_educativo_id` AS `nivel_educativo_id`,`usuarios`.`ip_ultima_conexion` AS `ip_ultima_conexion`,`usuarios`.`fecha_ultima_conexion` AS `fecha_ultima_conexion`,`usuarios`.`navegador_ultima_conexion` AS `navegador_ultima_conexion`,`usuarios`.`tipo_usuario_id` AS `tipo_usuario_id`,`tipos_usuarios`.`descripcion` AS `tipo_usuario`,`usuarios`.`status_usuario_id` AS `status_usuario_id`,`usuarios`.`bloqueado_el` AS `bloqueado_el` from (`usuarios` join `tipos_usuarios` on((`tipos_usuarios`.`tipo_usuario_id` = `usuarios`.`tipo_usuario_id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1335,4 +1386,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-10 15:52:33
+-- Dump completed on 2021-03-12 16:26:02

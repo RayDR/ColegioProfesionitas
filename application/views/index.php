@@ -1,12 +1,12 @@
 <div id="landing_jumbo" class="row" style="min-height: 80vh;">
 	<div class="col-12 my-auto mx-auto">
-		<div class="row">
+		<div class="row ">
 			<div class="col-md-10 col-lg-8 mx-auto my-auto" >
 				<div class="row rounded p-5" style="background-color: rgba(0,0,0,0.6);">
 					<div class="col-12 mb-3">
-						<h1 class="text-center text-white">Sistema Estatal de Registro de Colegios de Profesionistas</h1>
+						<h1 class="text-center text-white contenido-mostrar">Sistema Estatal de Registro de Colegios de Profesionistas</h1>
 					</div>
-					<div class="col-4">
+					<div class="col-4 counter-mostrar">
 						<h3 class="text-center texto-dorado">Colegios</h3>
 						<div class="row">
 							<div class="col">
@@ -19,7 +19,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-4 border-right border-left border-light">
+					<div class="col-4 border-right border-left border-light counter-mostrar">
 						<h3 class="text-center texto-dorado">Eventos</h3>
 						<div class="row">
 							<div class="col">
@@ -32,7 +32,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-4">
+					<div class="col-4 counter-mostrar">
 						<h3 class="text-center texto-dorado">Registros</h3>
 						<div class="row">
 							<div class="col">
@@ -45,7 +45,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-5 mt-3 mt-md-5 mx-auto text-center py-2">
+					<div class="col-md-5 mt-3 mt-md-5 mx-auto text-center py-2 counter-mostrar">
 						<button id="form-registro" class="btn btn-secondary btn-block boton-rojo">Registrarse</button>
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 </div>
 <?php $this->load->view($template.'menu_landing');?>
 
-<div class="container">
+<div class="container contenido-mostrar">
 	<div id="descripcion" class="row my-4">
 		<div class="col-12">
 			<h3 class="display-4 font-weight-bolder text-center texto-dorado">¿Qué es el SERCP?</h3>
@@ -97,39 +97,5 @@
 	</div>
 </div>
 
-<div id="colegios" class="row py-4">
-	<h2 class="col-12 text-center mt-2 mb-4 py-2 texto-dorado">Colegios Registrados</h2>
-	<div class="col-2 col-lg-1 my-auto text-center">
-		<a class="stretched-link" href="#"><i class="h1 fas fa-chevron-left"></i></a>
-	</div>
-	<div class="col-8 col-lg-10">
-		<div class="row">
-			<div class="col-lg-4 mb-1 text-center shadow-sm no-gutters">
-				<img class="img-thumbnail img-fluid" style="min-height: 80px; max-height: 100px;" src="<?= base_url('sources/img/logos/uag.png'); ?>">
-				<h3 class="mt-1 texto-rojo">Colegio de Programadores</h3>
-				<p>
-					<a class="btn btn-secondary boton-rojo" href="#" role="button">Ver más »</a>
-				</p>
-			</div>
-			<div class="col-lg-4 mb-1 text-center shadow-sm no-gutters">
-				<img class="img-thumbnail img-fluid" style="min-height: 80px; max-height: 100px;" src="<?= base_url('sources/img/logos/mmaya.png'); ?>">
-				<h3 class="mt-1 texto-rojo">Colegio de Sistemas</h3>
-				<p>
-					<a class="btn btn-secondary boton-rojo" href="#" role="button">Ver más »</a>
-				</p>
-			</div>
-			<div class="col-lg-4 mb-1 text-center shadow-sm no-gutters">
-				<img class="img-thumbnail img-fluid" style="min-height: 80px; max-height: 100px;" src="<?= base_url('sources/img/logos/olmeca.png'); ?>">
-				<h3 class="mt-1 texto-rojo">Colegio de Prueba</h3>
-				<p>
-					<a class="btn btn-secondary boton-rojo" href="#" role="button">Ver más »</a>
-				</p>
-			</div>
-		</div>
-	</div>
-	<div class="col-2 col-lg-1 my-auto text-center">
-		<a class="stretched-link" href="#"><i class="h1 fas fa-chevron-right"></i></a>
-	</div>
-</div>
 
 <script src="<?= base_url('sources/js/landing.js') ?>?<?= date('dmYHis') ?>"></script>

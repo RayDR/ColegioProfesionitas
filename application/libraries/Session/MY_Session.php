@@ -43,23 +43,28 @@ class MY_Session extends CI_Session
 	| Consulta el estatus del usuario (Estatus en BD y Conexión Local)
 	| @return	bool
 	**/
-	public function estatus_usuario_sesion(){
+	public function estatus_usuario_sesion($permisos_requerido = NULL){
 		$sesion_activa = TRUE;
 		if ( $this->has_userdata('ulogin') ) // Si existe la variable de sesión
 			$sesion_activa = $this->userdata('ulogin');
 
-		if ( ! $this->has_userdata('uid') )
+		if ( ! $this->has_userdata('uid') && ! $this->has_userdata('tuser') )
 			$sesion_activa = FALSE;
 
 		if ( $sesion_activa ){
 			$sesion_activa 		= FALSE; 	// Desactivar para forzar prueba de BD
-			$estatus_usuario 		= $this->ci->model_sistema
-													->get_usuario( 
-														array( 'usuario_id' => $this->userdata('uid') )
-													);
+			$estatus_usuario 	= $this->ci->model_sistema
+									->get_usuario( 
+										array( 'usuario_id' => $this->userdata('uid') )
+									);
 			if ( $estatus_usuario ){
-				if ( $estatus_usuario->status_usuario_id == 1 )
+				if ( $estatus_usuario->status_usuario_id == 1 ){
 					$sesion_activa = TRUE;
+					if ( is_array($permisos_requerido) ){
+						$this->var_sesion( ['tuser' => $estatus_usuario->tipo_usuario_id] );
+						$sesion_activa = in_array( $this->userdata('tuser'), $permisos_requerido );
+					}
+				}
 				else
 					$sesion_activa = FALSE;
 			}
@@ -73,7 +78,7 @@ class MY_Session extends CI_Session
 	**/
 	public function intentos_conexion( $usuario_id ){
 		$existe 		= FALSE;
-		$intentos 	= MAX_CON_FAIL;
+		$intentos 		= MAX_CON_FAIL;
 
 		if ( $this->has_userdata('intentos') )
 			$this->s_icon_fallida = $this->userdata('intentos');

@@ -72,11 +72,11 @@ function fn_iniciar_sistema(){
 	$("#is-acceder").click(function (e) {
 		e.preventDefault();
 		let acceso  = true, mensaje = '',
-			 inputs 	= [ {nombre: 'correo_electronico', id: 'is-correo'},
-							 {nombre: 'password', id: 'is-password'}];
+			inputs  = [ {nombre: 'correo_electronico', id: 'is-rfc'},
+					    {nombre: 'password', id: 'is-password'}       ];
 
-		if ( $("#form-inicio-sesion #is-correo").val().length < 10 ){
-			mensaje += 'Ingrese un <b>correo electrónico</b> válido.<br>';
+		if ( $("#form-inicio-sesion #is-rfc").val().length < 12 ){
+			mensaje += 'Ingrese un <b>RFC</b> válido.<br>';
 			acceso = false;
 		}
 		if ( $("#form-inicio-sesion #is-password").val().length < 6 ){

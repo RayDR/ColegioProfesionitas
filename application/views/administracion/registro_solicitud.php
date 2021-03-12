@@ -1,5 +1,6 @@
 <div class="container">
 	<!--- formulario de asociacion ----->
+	<?php $datos = ( $datos )? $datos[0] : []; ?>
 	<div class="row">
 		<button class="btn btn-lg btn-block btn-dark boton-rojo" type="button" data-toggle="collapse"
 				data-target="#modal-form-registro-asc"
@@ -17,8 +18,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="rfc">RFC de la Asociación</label>
-					<input required type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC"
-						   required>
+					<input required type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC" required value="<?= $datos->rfc ?>">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="municipio">Municipio</label>
@@ -40,16 +40,15 @@
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="calle">Calle</label>
-					<input required type="text" class="form-control" id="calle" name="calle" data-nombre="Calle">
+					<input required type="text" class="form-control" id="calle" name="calle" data-nombre="Calle" value="<?= $datos->calle ?>">
 				</div>
 				<div class="form-group col-lg-2">
 					<label for="numero">Número</label>
-					<input required type="text" class="form-control" id="numero" name="numero" data-nombre="Número">
+					<input required type="text" class="form-control" id="numero" name="numero" data-nombre="Número" value="<?= $datos->numero ?>">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="fecha_constitucion">Fecha de constitución </label>
-					<input required type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion"
-						   data-nombre="Fecha de constitución">
+					<input required type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion" data-nombre="Fecha de constitución">
 				</div>
 			</div>
 		</form>
@@ -69,21 +68,19 @@
 				<legend class="col-12">Datos del representante</legend>
 				<div class="form-group col-lg-4">
 					<label for="nombre">Nombre(s)</label>
-					<input required type="text" class="form-control" id="nombre" name="nombre" data-nombre="Nombre">
+					<input required type="text" class="form-control" id="nombre" name="nombre" data-nombre="Nombre" value="<?= $datos->solicitante_nombre ?>">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="primer_apellido">Primer apellido</label>
-					<input required type="text" class="form-control" id="primer_apellido" name="primer_apellido"
-						   data-nombre="Primer apellido">
+					<input required type="text" class="form-control" id="primer_apellido" name="primer_apellido" data-nombre="Primer apellido" value="<?= $datos->solicitante_primer_apellido ?>">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="segundo_apellido">Segundo apellido </label>
-					<input required type="text" class="form-control" id="segundo_apellido" name="segundo_apellido"
-						   data-nombre="Segundo apellido">
+					<input required type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" data-nombre="Segundo apellido" value="<?= $datos->solicitante_segundo_apellido ?>">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="rfc">RFC</label>
-					<input required type="text" class="form-control validar-rfc" id="rfc_col" name="rfc_col" data-nombre="RFC">
+					<input required type="text" class="form-control validar-rfc" id="rfc_col" name="rfc_col" data-nombre="RFC"  value="<?= $datos->rfc ?>">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="curp">CURP</label>
@@ -93,7 +90,7 @@
 				<div class="form-group col-lg-8">
 					<label for="colegio">Nombre del colegio </label>
 					<input required type="text" class="form-control" id="colegio" name="colegio"
-						   data-nombre="Nombre del colegio">
+						   data-nombre="Nombre del colegio"  value="<?= $datos->nombre_asociacion ?>">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="municipio">Municipio</label>
@@ -115,11 +112,11 @@
 				</div>
 				<div class="form-group col-lg-10">
 					<label for="calle">Calle</label>
-					<input required type="text" class="form-control" id="calle_col" name="calle_col" data-nombre="Calle">
+					<input required type="text" class="form-control" id="calle_col" name="calle_col" data-nombre="Calle" value="<?= $datos->calle ?>">
 				</div>
 				<div class="form-group col-lg-2">
 					<label for="numero">Número</label>
-					<input required type="text" class="form-control util_snumeros" id="numero_col" name="numero_col" data-nombre="Número">
+					<input required type="text" class="form-control util_snumeros" id="numero_col" name="numero_col" data-nombre="Número" value="<?= $datos->numero ?>">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="mapa">Mapa</label>
@@ -139,12 +136,12 @@
 				<legend class="col-12">Datos de contacto</legend>
 				<div class="form-group col-lg-4">
 					<label for="email">Correo electrónico</label>
-					<input required type="text" class="form-control" id="email" name="email" data-nombre="Correo electrónico">
+					<input required type="text" class="form-control" id="email" name="email" data-nombre="Correo electrónico" value="<?= $datos->solicitante_email ?>">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="telefono">Número telefónico</label>
 					<input required type="tel" class="form-control futil_solo_numeros" id="telefono" data-nombre="Número telefónico"
-						   name="telefono">
+						   name="telefono" value="<?= $datos->solicitante_telefono ?>">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="pagina-web">Pagina web<span
@@ -185,6 +182,6 @@
 		</form>
 	</div>
 	
-	<input type="button" id="enviar-registro" value="Registrar" class="mt-3 px-5 btn btn-lg btn-secondary boton-rojo">
+	<input type="button" id="enviar-registro" value="Registrar" class="mt-3 px-5 btn btn-lg btn-secondary boton-rojo boton-registro" data-solicitud="<?= $datos->solicitud_registro_id ?>">
 </div>
 <script type="application/javascript" src="<?= base_url('sources/js/administracion/registro.js') ?>?<?= date('dmYHis') ?>"></script>

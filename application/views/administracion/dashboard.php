@@ -4,15 +4,19 @@
 	</div>
 	<div>
 		<div class="container-fluid">
-			<!-- <?php print_r($this->session->userdata('uid')); ?> -->
 			<div class="row my-3">
 				<legend class="col-12 lead text-center texto-dorado">Menú de opciones</legend>
 				<div class="col-12">
 					<nav id="menu-navegacion" class="nav nav-pills shadow rounded bg-light flex-column flex-sm-row" style="font-size: 1rem;">
-						<a class="flex-sm-fill text-sm-center nav-link active" href="#dashboard">Tablero</a>
-						<a class="flex-sm-fill text-sm-center nav-link" href="#registrar">Registrar Asociación</a>
-						<a class="flex-sm-fill text-sm-center nav-link" href="#solicitudes">Solicitudes de Registro</a>
-						<a class="flex-sm-fill text-sm-center nav-link" href="#perfil" tabindex="-1" aria-disabled="true">Mi Asociación</a>
+						<a class="flex-sm-fill text-sm-center nav-link border active" href="#dashboard">Tablero</a>
+
+						<?php if ( $this->session->userdata('tuser') < 3 ): ?>
+						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#registrar">Registrar Asociación</a>
+						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#solicitudes">Solicitudes de Registro</a>
+						<a class="flex-sm-fill text-sm-center nav-link border" href="#perfil" tabindex="-1" aria-disabled="true">Perfil</a>
+						<?php elseif ( $this->session->userdata('tuser') > 3 ): ?>
+						<a class="flex-sm-fill text-sm-center nav-link border" href="#perfil" tabindex="-1" aria-disabled="true">Perfil del Colegio</a>
+						<?php endif; ?>
 					</nav>
 				</div>
 			</div>

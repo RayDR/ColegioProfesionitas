@@ -55,10 +55,15 @@ class Inicio extends CI_Controller {
          'exito'     =>  FALSE,
          'mensaje'   =>  ''
       );
-		$email 		= $this->input->post('correo_electronico');
+		$rfc 		   = $this->input->post('rfc');
 		$password 	= $this->input->post('password');
+      $recuerdame = $this->input->post('recuerdame');
+      if ( $recuerdame == 'on' )
+         $this->session->sess_expiration = '0';
+      else
+         $this->session->sess_expiration = '7200';
 
-      $db_usuario	= $this->model_sistema->get_usuario_acceso($email);
+      $db_usuario	= $this->model_sistema->get_usuario_acceso($rfc);
       if ( $db_usuario ) 
       {  // Comprobación de usuario
          if ( $db_usuario->status_usuario_id != 1 )
@@ -77,7 +82,7 @@ class Inicio extends CI_Controller {
             }
          } else if ( password_verify( $password, $db_usuario->password ) )
          {  // Todo correcto - Permitir Login
-            $array_login = array('ulogin' => TRUE);
+            $array_login = array('ulogin' => TRUE, 'tuser' => $db_usuario->tipo_usuario_id );
             if ($this->session->establecer_sesion($db_usuario->usuario_id, $array_login))
             {
                $respuesta["exito"]     =   TRUE;

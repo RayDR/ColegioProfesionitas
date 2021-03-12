@@ -1,7 +1,7 @@
 <div class="row align-items-center fondo-rojo border-0 rounded-bottom">
 	<nav class="col navbar navbar-expand-lg navbar-dark bg-dark border-0 rounded-bottom">
 		<a class="navbar-brand" href="https://tabasco.gob.mx/educacion">
-			<b class="h4"><strong>tabasco</strong><strong class="fa fa-circle" style="font-size: 8px;"></strong></b>gob.mx
+			<b class="h4"><strong>tabasco</strong><strong class="fa fa-circle" tabindex="-1" style="font-size: 8px;"></strong></b>gob.mx
 		</a>
 
 		<div class="text-muted ml-auto px-2" id="progress">

@@ -62,7 +62,7 @@ function fn_guardar_registro() {
 		nombre = $(`#modal-form-registro-asc #${dato.name}`).data('nombre') ?
 			$(`#modal-form-registro-asc #${dato.name}`).data('nombre') :
 			dato.name;
-		if (dato.value == '') {
+		if (dato.value == '' && $(`#modal-form-registro-asc #${dato.name}`).prop('required') ) {
 			errores += `El campo <b><a href="#modal-form-registro-asc #${dato.name}">${nombre}</a></b> es requerido.<br>`;
 			futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), false);
 		} else if (dato.name == "rfc") {
@@ -99,7 +99,7 @@ function fn_guardar_registro() {
 		nombre = $(`#modal-form-registro-cole #${dato.name}`).data('nombre') ?
 		$(`#modal-form-registro-cole #${dato.name}`).data('nombre') :
 		dato.name;
-		if (dato.value == '') {
+		if (dato.value == '' && $(`#modal-form-registro-cole #${dato.name}`).prop('required') ) {
 			if (dato.name != "cuenta") {
 				cole_errores += `El campo <b><a href="#${dato.name}">${nombre}</a></b> es requerido.<br>`;
 				futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), false);
@@ -126,7 +126,6 @@ function fn_guardar_registro() {
 	if (!errores && !cole_errores) {
 		futil_alerta('', '', "#ascociacion-errores"); 
 		futil_alerta('', '', "#cole-errores");
-		futil_toast("Datos correctos", '', "success");
 
 		var respuesta=futil_json_query( 'Administracion/guardar_registro',
 										{ 
@@ -134,6 +133,11 @@ function fn_guardar_registro() {
 											colegio   : datos_colegio,
 											redes_sociales:redes_sociales
 										});
+		if ( respuesta.exito )
+			futil_toast('Colegio registrado.');
+		else
+			futil_toast(respuesta.mensaje, '', 'danger');
+		
 	} else {
 		futil_toast("Por favor, valide los campos requeridos.", '', "danger");
 		futil_alerta(errores, 'danger', "#ascociacion-errores");
