@@ -150,7 +150,7 @@ class Administracion extends CI_Controller {
 			$db_solicitud = $this->model_solicitudes ->get_solicitudes_registro(
 								['solicitud_registro_id' => $solicitud_id] );
 			if ( $db_solicitud ){
-				$datos = $db_solicitud[0];
+				$datos = $db_solicitud[0];				
 				if ( $datos->estatus != 'Aprobado' ){
 					if ( ! $this->model_solicitudes->set_estatus_solicitud($solicitud_id, $estatus_id) ){
 						$json['exito']		= FALSE;
@@ -196,6 +196,7 @@ class Administracion extends CI_Controller {
 			'usuario'			=> $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
 			'redes_sociales'	=> $this->model_catalogos->get_rds()
 		);
+		
 		$json['html'] = $this->load->view( $data["view"], $data, TRUE );
 		return print(json_encode($json));
 	}

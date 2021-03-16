@@ -1,4 +1,5 @@
 var dt;
+var estatus_;
 
 $(document).off('click.aprobar', '#enviar-registro').on('click.aprobar', '#enviar-registro', fn_aprobar);
 $(document).ready(function($) {
@@ -95,7 +96,8 @@ function fn_inciar_datatable(){
     });
 }
 
-function fn_cambiar_estatu(solicitud, estatus){
+function fn_cambiar_estatu(solicitud, estatus) {
+	estatus_=estatus;
 	if ( estatus == 2 ){
 		var html = futil_muestra_vista( url(`Administracion/modal_aprobar_solicitud/${solicitud}`, true, false) );
 		futil_modal(
@@ -115,11 +117,12 @@ function fn_aprobar(){
 }
 
 function fn_actualiza_estatus_solicitud(solicitud, estatus){
-	if ( solicitud && estatus ){
+	if (solicitud && estatus) {
 		var respuesta = futil_json_query(
 							url('Administracion/actualizar_solicitud', true, false),
 							{ 'solicitud': solicitud, 'estatus': estatus }
-						);
+		);
+		
 		if ( respuesta.exito )
 			fn_actualizar_dt(`Solicitud #${solicitud} ha sido actualizada.`);
 		else 
