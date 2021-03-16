@@ -242,8 +242,6 @@ class Administracion extends CI_Controller {
 	}
 
 	protected function vista_perfil(){
-		if ( $this->session->estatus_usuario_sesion( [3, 4, 5] ) == FALSE )
-			return $this->vista_tablero();
 		$usuario = $this->session->userdata('uid');
 		$data = array(
 			'view'					=>	'administracion/perfil',
