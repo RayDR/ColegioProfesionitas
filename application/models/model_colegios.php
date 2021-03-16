@@ -27,7 +27,7 @@ class Model_colegios extends CI_Model {
 			$this->db->where('rfc', $_asociacion["rfc"]);
 			$asociacion = $this->db->get('asociaciones');
 			if ( $asociacion->num_rows() > 0 )
-			throw new Exception('Ya existe una solicitud con este RFC.');
+				throw new Exception('Ya existe una solicitud con este RFC.');
 			$datos_db = array(
 				'nombre_asociacion' 			=>	$_asociacion["colegio"],
 				'rfc' 							=>	$_asociacion["rfc"],
@@ -45,8 +45,8 @@ class Model_colegios extends CI_Model {
 			
 			$this->db->where('rfc',$_colegio["rfc_col"]);
 			$colegio=$this->db->get('colegios');
-			if($colegio->num_rows()>0)
-			throw new Exception('Ya existe el colegio con este RFC.');
+			if( $colegio->num_rows()>0 )
+				throw new Exception('Ya existe el colegio con este RFC.');
 			$datos_db=array(
 				'asociacion_id'				=>	$asociacion_id,
 				'nombres'					=>	$_colegio["nombre"],
@@ -72,17 +72,38 @@ class Model_colegios extends CI_Model {
 			$this->db->insert('colegios', $datos_db);
 			
 			$colegio_id=$this->db->insert_id();
-			
-			foreach ($redes_sociales as $name => $value) {
-				$datos_db=array(
-					'colegio_id'			=>	$colegio_id,
-					'rfc'					=>	$_colegio['rfc_col'],
-					'red_social_id'			=>	$value['tipo'],
-					'cuenta'				=>	$value['cuenta'],
-					'usuario_id'			=>	$id_usuario
-				);
-				$this->db->insert('colegios_redes_sociales', $datos_db);
+
+			if ( is_array($redes_sociales) ){			
+				foreach ($redes_sociales as $name => $value) {
+					$datos_db=array(
+						'colegio_id'			=>	$colegio_id,
+						'rfc'					=>	$_colegio['rfc_col'],
+						'red_social_id'			=>	$value['tipo'],
+						'cuenta'				=>	$value['cuenta'],
+						'usuario_id'			=>	$id_usuario
+					);
+					$this->db->insert('colegios_redes_sociales', $datos_db);
+				}
 			}
+
+			$this->db->where('rfc', $_asociacion["rfc"]);
+			$this->db->or_where('rfc', $_colegio["rfc_col"]);
+			$solicitudes = $this->db->get('solicitudes_registro');
+			if ( $solicitudes->num_rows() > 0 ){
+				$this->db->where('rfc', $_asociacion["rfc"]);
+				$this->db->or_where('rfc', $_colegio["rfc_col"]);
+				$this->db->update( 'solicitudes_registro', 
+                               [ 'estatus_registro_id' =>  2 ] );
+			}
+
+			// Crear usuario
+			$datos_usuarios = array(
+				'password' => password_hash('Setab' . date('Y'), PASSWORD_DEFAULT),
+				'rfc'	   => $_asociacion["rfc"],
+				'tipo_usuario_id' => 5,
+				'status_usuario_id' => 1
+			);
+			$this->db->insert('usuarios', $datos_usuarios);
 
 			$this->db->trans_commit();
 		} catch (Exception $e) {

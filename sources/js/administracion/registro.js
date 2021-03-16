@@ -139,13 +139,14 @@ function fn_guardar_registro() {
 			futil_toast(respuesta.mensaje, '', 'danger');
 		
 	} else {
-		if (estatus_==2) {
+		estatus = ( ! estatus_ )? null : ( estatus_ == 2 )? true: null;
+		if ( estatus ) {
 			futil_toast('Colegio aprobado.');
 		} else {
 			futil_toast("Por favor, valide los campos requeridos.", '', "danger");
 			futil_alerta(errores, 'danger', "#ascociacion-errores");
 			futil_alerta(cole_errores, 'danger', "#cole-errores");			
-		 }
+		}
 
 	}
 }

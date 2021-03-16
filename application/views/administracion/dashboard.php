@@ -13,7 +13,6 @@
 						<?php if ( $this->session->userdata('tuser') < 3 ): ?>
 						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#registrar">Registrar Asociación</a>
 						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#solicitudes">Solicitudes de Registro</a>
-						<a class="flex-sm-fill text-sm-center nav-link border" href="#perfil" tabindex="-1" aria-disabled="true">Perfil</a>
 						<?php elseif ( $this->session->userdata('tuser') > 3 ): ?>
 						<a class="flex-sm-fill text-sm-center nav-link border" href="#perfil" tabindex="-1" aria-disabled="true">Perfil del Colegio</a>
 						<?php endif; ?>

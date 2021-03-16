@@ -97,7 +97,7 @@ function fn_inciar_datatable(){
 }
 
 function fn_cambiar_estatu(solicitud, estatus) {
-	estatus_=estatus;
+	estatus_ = estatus;
 	if ( estatus == 2 ){
 		var html = futil_muestra_vista( url(`Administracion/modal_aprobar_solicitud/${solicitud}`, true, false) );
 		futil_modal(
@@ -110,25 +110,11 @@ function fn_cambiar_estatu(solicitud, estatus) {
 
 function fn_aprobar(){
 	var solicitud = $(this).data('solicitud');
-	if ( solicitud ){
-		futil_modal();
-		fn_actualiza_estatus_solicitud(solicitud, 2);
-	}
-}
-
-function fn_actualiza_estatus_solicitud(solicitud, estatus){
-	if (solicitud && estatus) {
-		var respuesta = futil_json_query(
-							url('Administracion/actualizar_solicitud', true, false),
-							{ 'solicitud': solicitud, 'estatus': estatus }
-		);
-		
-		if ( respuesta.exito )
-			fn_actualizar_dt(`Solicitud #${solicitud} ha sido actualizada.`);
-		else 
-			fn_actualizar_dt(respuesta.mensaje, 'danger');
-	} else 
-		futil_toast('No se pudo cambiar el estatus de la solicitud.', '', 'danger');
+    if ( estatus_ == 2 ){
+    	if ( solicitud ){
+    		futil_modal();
+    	}
+    }
 }
 
 function fn_actualizar_dt(mensaje = '', tipo = ''){

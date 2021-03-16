@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'produccion';
 $query_builder = TRUE;
 
-$hostname = 'localhost'; // 10.57.18.80
-$password = '';
+$hostname = '10.57.18.80'; //
+$password = 'SuperDba2020#';
 
 $db['catalogos']   = array(
    'dsn'      => '',
@@ -34,7 +34,7 @@ $db['produccion'] = array(
    'hostname' => $hostname,
    'username' => 'root',
    'password' => $password,
-   'database' => 'colegios_profesionistas',
+   'database' => 'colegios',
    'dbdriver' => 'mysqli',
    'dbprefix' => '',
    'pconnect' => FALSE,

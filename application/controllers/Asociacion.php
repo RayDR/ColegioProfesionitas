@@ -21,7 +21,7 @@ class Asociacion extends CI_Controller {
 	public function index(){
 		$usuario 	= $this->session->userdata('uid');
 		$data = array(
-			'titulo'				=>	'Bienvenido a ' . SISTEMA,
+			'titulo'			=>	'Bienvenido a ' . SISTEMA,
 			'template'			=>	$this->template,
 			'view'				=>	'administracion/dashboard',
 			'comunicados'		=>	array(),

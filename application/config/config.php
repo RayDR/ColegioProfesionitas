@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-//$config['base_url'] = 'http://aplicaciones.setab.gob.mx/becas/';
-$config['base_url'] = 'http://localhost/ColegioProfesionistas/';
+$config['base_url'] = 'https://aplicaciones.setab.gob.mx/colegios';
+//$config['base_url'] = 'http://localhost/colegios/';
 
 
 /*

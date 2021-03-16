@@ -87,6 +87,9 @@ switch ($inconoNav) {
 <?php if ( $this->session->userdata('tuser') < 3 ): ?>
 <div class="row my-3 mx-1">
 	<div class="shadow bg-white  rounded col-12">
+
+		<h4 class="col-12 mt-4">Colegios Registrados</h4>
+		<hr>
 		<div class="col-12 table-responsive-sm mt-4 mt-md-0 p-5">
 			<table id="tb_colegios" name="colegios" class="table table-hover text-center w-100 ">
 				<thead>

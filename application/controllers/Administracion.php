@@ -172,12 +172,24 @@ class Administracion extends CI_Controller {
 		return print( json_encode($json) );
 	}
 
-	public function modal_colegio()
+	public function modal_colegio()	
 	{
 		$json	=	array('exito' => TRUE);
 
 		$datos=$this->input->post();
-		$json['html']	=	$this->load->view('administracion/colegio_detalles',['datos'=>$datos],true);
+		$usuario = $this->session->userdata('uid');
+
+		$data = array(
+			'carreras'				=>	$this->model_catalogos->get_carreras(),
+			'usuario'				=>	$this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+			'niveles'				=>	$this->model_catalogos->get_niveles(),
+			'instituciones'			=> 	$this->model_catalogos->get_instut(),
+			'estatus_asociados'		=>	$this->model_catalogos->get_estatus_asocioados(),
+			'asociados_list'		=>	$this->model_catalogos->get_asociados(),
+			'datos'					=>  $datos
+		);
+
+		$json['html'] = $this->load->view('administracion/colegio_detalles',$data,true);
 		return print(json_encode($json));
 	}
 
@@ -200,6 +212,22 @@ class Administracion extends CI_Controller {
 		$json['html'] = $this->load->view( $data["view"], $data, TRUE );
 		return print(json_encode($json));
 	}
+
+	public function vista_asociados_ajax(){
+		$json	=	array('exito' => TRUE);
+		$data = array(
+			'view'					=>	'administracion/perfil/integrantes',
+			'carreras'				=>	$this->model_catalogos->get_carreras(),
+			'usuario'				=>	$this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+			'niveles'				=>	$this->model_catalogos->get_niveles(),
+			'instituciones'			=> 	$this->model_catalogos->get_instut(),
+			'estatus_asociados'		=>	$this->model_catalogos->get_estatus_asocioados(),
+			'asociados_list'		=>	$this->model_catalogos->get_asociados()
+		);
+		$json['html'] = $this->load->view( $data["view"], $data, TRUE );
+		return print(json_encode($json));
+	}
+
 
 /*
 |--------------------------------------------------------------------------
@@ -243,6 +271,8 @@ class Administracion extends CI_Controller {
 	}
 
 	protected function vista_perfil(){
+		if ( $this->session->estatus_usuario_sesion( [3,4,5] ) == FALSE )
+			return $this->vista_tablero();
 		$usuario = $this->session->userdata('uid');
 		$data = array(
 			'view'					=>	'administracion/perfil',
