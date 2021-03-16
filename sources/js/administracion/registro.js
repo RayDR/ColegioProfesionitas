@@ -154,7 +154,7 @@ function fn_guardar_registro() {
 function fn_add_red_social() {
 	var red_social = $("#red-social"),
 		cuenta = $("#cuenta").val();
-	if (red_social.val() != '' && cuenta != '') {
+	if (red_social.val() != null && cuenta != '') {
 		let duplicado=false;
 		redes_sociales.forEach(function (red, indice) {
 			if(red.cuenta==cuenta && red.tipo==red_social.val())
