@@ -45,8 +45,9 @@ class Inicio extends CI_Controller {
 |--------------------------------------------------------------------------
 */
 	public function guardar_preregistro(){
+      $this->load->model('model_solicitudes');
 		$datos 		= $this->input->post();
-		$respuesta 	= $this->model_colegios->solicitud_registro($datos);
+		$respuesta 	= $this->model_solicitudes->solicitud_registro($datos);
 		return print(json_encode($respuesta));
 	}
 
