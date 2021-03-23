@@ -17,8 +17,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="rfc">RFC de la Asociación</label>
-					<input required type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC"
-						   required>
+					<input required type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC" required>
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="municipio">Municipio</label>
@@ -131,8 +130,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="periodo-mesa-directiva">Periodo mesa directiva</label>
-					<input required type="date" class="form-control" id="periodo-mesa-directiva"
-						   name="periodo-mesa-directiva" data-nombre="Periodo mesa directiva">
+					<input required type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : '0'" class="form-control" id="periodo-mesa-directiva"  name="periodo-mesa-directiva" data-nombre="Periodo mesa directiva">
 				</div>
 			</div>
 			<div class="form-row px-4 py-2">

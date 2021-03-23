@@ -5,7 +5,7 @@ $(document).ready(function () {
     $("#email").blur(fn_validar_email);
 });
 
-function fn_validar_curp() {
+function fn_validar_curp(e) {
     let curp = $(this).val();
     if (curp.length < 1) {
         return;
@@ -14,9 +14,10 @@ function fn_validar_curp() {
         futil_toast("Formato de CURP invalido", '', "danger");
 }
 
-function fn_validar_email() {
+function fn_validar_email(e) {
     let mail = $(this).val();
-    if (mail.length < 1) {
+    console.log(mail);
+    if (mail.length < 1 || mail == undefined || mail == null ) {
         return;
     }
     if (!futil_validar_correo(mail)) {

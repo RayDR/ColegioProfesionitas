@@ -1,10 +1,44 @@
 <div class="container">
+	<div class="shadow-lg bg-white p-5">
+		<div class="table-responsive-md">
+			<table id="t_asociados" class="table table-hover text-center">
+				<thead>
+					<tr>
+						<th>Nombres Completo</th>
+						<th>CURP</th>
+						<th>Fecha Afiliación</th>
+						<th>Nivel Educativo</th>
+						<th>Institución</th>
+						<th>Carrera</th>
+						<th>Número de Cédula</th>
+						<th>Telefono</th>
+						<th>Correo Electrónico</th>
+						<th>Horas de Servicio</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($asociados_list as $key => $asociado) : ?>
+						<tr>
+							<td><?= $asociado->nombres ?> <?= $asociado->primer_apellido ?> <?= $asociado->segundo_apellido ?></td>
+							<td><?= $asociado->curp ?></td>
+							<td><?= $asociado->fecha_sercp ?></td>
+							<td><?= $asociado->nivel_educativo ?></td>
+							<td><?= $asociado->institucion ?></td>
+							<td><?= $asociado->carrera ?></td>
+							<td><?= $asociado->numero_cedula ?></td>
+							<td><?= $asociado->telefono ?></td>
+							<td><?= $asociado->email ?></td>
+							<td><?= $asociado->horas_servicio_social ?></td>
+						</tr>
+					<?php endforeach ?>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-	<div class="row mt-2 px-0">
-		<button class="btn btn-dark btn-block" type="button" data-toggle="collapse" data-target="#modal-form-registro-asc" aria-expanded="false" aria-controls="collapseExample">
-			Información de asociados
-		</button>
+	<div class="shadow-lg bg-white p-5">
 		<form id="modal-form-registro-asc" class="collapse show shadow bg-light rounded col-12">
+			<legend>Registrar nuevo asociado</legend>
 			<div class="form-row p-4">
 				<div class="col-12 my-3" id="errores-form">
 					<?PHP $this->load->view('template/utiles/alertas'); ?>
@@ -26,7 +60,7 @@
 					<input type="text" class="form-control" id="curp" name="curp" data-nombre="CURP">
 				</div>
 				<div class="form-group col-lg-3">
-					<label for="fecha_constitucion">Fecha sercp </label>
+					<label for="fecha_constitucion">Fecha Afiliación</label>
 					<input type="date" class="form-control" id="fecha_sercp" name="fecha_sercp" data-nombre="Fecha constitucion">
 				</div>
 				<div class="form-group col-lg-3">
@@ -57,7 +91,7 @@
 					</select>
 				</div>
 				<div class="form-group col-lg-3">
-					<label for="numero_cedula">Número de cédula</label>
+					<label for="numero_cedula">Número de Cédula</label>
 					<input type="text" class="form-control" id="numero_cedula" name="numero_cedula" data-nombre="Numero cedula">
 				</div>
 				<div class="form-group col-lg-3">
@@ -65,12 +99,12 @@
 					<input type="text" class="form-control util_snumeros" id="telefono" name="telefono" data-nombre="Telefono">
 				</div>
 				<div class="form-group col-lg-4">
-					<label for="email">Correo electrónico</label>
+					<label for="email">Correo Electrónico</label>
 					<input type="text" class="form-control" id="email" name="email" data-nombre="Correo electronico">
 				</div>
 				<div class="form-group col-lg-2">
-					<label for="horas_servicio_social">Horas de servicio social</label>
-					<input type="text" class="form-control util_snumeros" id="horas_servicio_social" name="horas_servicio_social" data-nombre="Horas Servicio">
+					<label for="horas_servicio_social">Horas de Servicio</label>
+					<input type="number" min="0" value="0" readonly class="form-control util_snumeros" id="horas_servicio_social" name="horas_servicio_social" data-nombre="Horas Servicio">
 				</div>
 
 				<div class="form-group col-lg-12">
@@ -79,50 +113,4 @@
 			</div>
 		</form>
 	</div>
-	<div class="row mt-2 px-0">
-		<button class="btn btn-dark btn-block" type="button" data-toggle="collapse" data-target="#modal-form-asc" aria-expanded="false" aria-controls="collapseExample">
-			Asociados
-		</button>
-		<panel id="modal-form-asc" class="collapse shadow-lg bg-light rounded col-12">
-			<div class="col-lg-9 table-responsive-sm mt-4 mt-md-0">
-				<table id="t_asociados" class="table table-hover text-center">
-					<thead>
-						<tr>
-							<th>Nombres</th>
-							<th>Primero Apellido</th>
-							<th>Segundo Apellido</th>
-							<th>CURP</th>
-							<th>Fecha SERCP</th>
-							<th>Nivel educativo</th>
-							<th>Institución</th>
-							<th>Carrera</th>
-							<th>Número de cédula</th>
-							<th>Telefono</th>
-							<th>Correo electrónico</th>
-							<th>Horas de servicio social</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach ($asociados_list as $key => $asociado) : ?>
-							<tr>
-								<td><?= $asociado->nombres ?></td>
-								<td><?= $asociado->primer_apellido ?></td>
-								<td><?= $asociado->segundo_apellido ?></td>
-								<td><?= $asociado->curp ?></td>
-								<td><?= $asociado->fecha_sercp ?></td>
-								<td><?= $asociado->nivel_educativo ?></td>
-								<td><?= $asociado->institucion ?></td>
-								<td><?= $asociado->carrera ?></td>
-								<td><?= $asociado->numero_cedula ?></td>
-								<td><?= $asociado->telefono ?></td>
-								<td><?= $asociado->email ?></td>
-								<td><?= $asociado->horas_servicio_social ?></td>
-							</tr>
-						<?php endforeach ?>
-					</tbody>
-				</table>
-			</div>
-		</panel>
-	</div>
 </div>
-<script type="text/javascript" src="<?= base_url("sources/js/administracion/perfil.js") ?>"></script>
