@@ -17,6 +17,9 @@
 				</li>
 				<?php else: ?>
 				<li class="nav-item">
+					<a class="nav-link active" href="">Inicio</a>
+				</li>
+				<li class="nav-item">
 					<a id="inicio-sesion" class="nav-link active" href="#">Iniciar Sesión</a>
 				</li>
 				<form id="form-inicio-sesion" class="inicio-sesion text-body form-mostrar" style="display: none;">
