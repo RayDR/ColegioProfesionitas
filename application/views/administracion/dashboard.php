@@ -10,7 +10,7 @@
 					<nav id="menu-navegacion" class="nav nav-pills shadow rounded bg-light flex-column flex-sm-row" style="font-size: 1rem;">
 						<a class="flex-sm-fill text-sm-center nav-link border active" href="#dashboard">Tablero</a>
 
-						<?php if ( $this->session->userdata('tuser') < 3 ): ?>
+						<?php if ( $this->session->userdata('tuser') < 4 ): ?>
 						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#registrar">Registrar Asociación</a>
 						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#solicitudes">Solicitudes de Registro</a>
 						<?php elseif ( $this->session->userdata('tuser') > 3 ): ?>
