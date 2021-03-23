@@ -17,7 +17,7 @@
 				</li>
 				<?php else: ?>
 				<li class="nav-item">
-					<a class="nav-link active" href="">Inicio</a>
+					<a class="nav-link active" href="https://aplicaciones.setab.gob.mx/profesiones/">Inicio</a>
 				</li>
 				<li class="nav-item">
 					<a id="inicio-sesion" class="nav-link active" href="#">Iniciar Sesión</a>

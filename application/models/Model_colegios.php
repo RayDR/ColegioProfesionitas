@@ -35,7 +35,8 @@ class Model_colegios extends CI_Model {
 				'cp_id' 						=>	$_asociacion["codigo_postal"],
 				'calle' 						=>	$_asociacion["calle"],
 				'numero' 						=>	$_asociacion["numero"],
-				'fecha'							=>	$_asociacion["fecha_constitucion"],
+				'fecha'							=>	$_asociacion["fecha_constitucion"],				
+				'acta_notariada'  				=>  $_asociacion["acta_notariada_ac"],
 				'usuario_id'					=>	$id_usuario				
 			);
 			
@@ -65,8 +66,9 @@ class Model_colegios extends CI_Model {
 				'pagina_web'				=>	$_colegio["pagina-web"],
 				'fecha'						=>	$_colegio["fecha_constitucion_col"],
 				'periodo_mesa_directiva'	=> 	$_colegio["periodo-mesa-directiva"],
-				'usuario_id'				=>	$id_usuario
-				
+				'usuario_id'				=>	$id_usuario,
+				'acta_notariada'  			=>  $_colegio["acta_notariada_cole"],
+				'acta_secretaria_economia'  =>  $_colegio["acta_secretaria_economia"]				
 			);
 			
 			$this->db->insert('colegios', $datos_db);
@@ -100,7 +102,7 @@ class Model_colegios extends CI_Model {
 			$datos_usuarios = array(
 				'password' => password_hash('Setab' . date('Y'), PASSWORD_DEFAULT),
 				'rfc'	   => $_asociacion["rfc"],
-				'tipo_usuario_id' => 5,
+				'tipo_usuario_id' => 4,
 				'status_usuario_id' => 1
 			);
 			$this->db->insert('usuarios', $datos_usuarios);

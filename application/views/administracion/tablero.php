@@ -84,7 +84,7 @@ switch ($inconoNav) {
 	</div>
 </div>
 
-<?php if ( $this->session->userdata('tuser') < 3 ): ?>
+<?php if ( $this->session->userdata('tuser') < 4 ): ?>
 <div class="row my-3 mx-1">
 	<div class="shadow bg-white  rounded col-12">
 

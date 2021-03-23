@@ -37,18 +37,23 @@
 						<option selected disabled>Seleccione primero un municipio</option>
 					</select>
 				</div>
-				<div class="form-group col-lg-6">
+				<div class="form-group col-lg-8">
 					<label for="calle">Calle</label>
 					<input required type="text" class="form-control" id="calle" name="calle" data-nombre="Calle">
 				</div>
-				<div class="form-group col-lg-2">
+				<div class="form-group col-lg-4">
 					<label for="numero">Número</label>
 					<input required type="text" class="form-control" id="numero" name="numero" data-nombre="Número">
 				</div>
-				<div class="form-group col-lg-4">
+				<div class="form-group col-lg-6">
 					<label for="fecha_constitucion">Fecha de constitución </label>
 					<input required type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion"
 						   data-nombre="Fecha de constitución">
+				</div>
+				<div class="form-group col-lg-6">
+					<label for="acta_notarida_ac">Acta Notariada (opcional)</label>
+					<input type="text" class="form-control" id="acta_notarida_ac" name="acta_notarida_ac"
+						   data-nombre="Acta Notariada">
 				</div>
 			</div>
 		</form>
@@ -131,6 +136,15 @@
 				<div class="form-group col-lg-4">
 					<label for="periodo-mesa-directiva">Periodo mesa directiva</label>
 					<input required type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : '0'" class="form-control" id="periodo-mesa-directiva"  name="periodo-mesa-directiva" data-nombre="Periodo mesa directiva">
+				</div>
+				<div class="form-group col-lg-6">
+					<label for="acta_notarida_cole">Acta Notariada (opcional)</label>
+					<input type="text" class="form-control" id="acta_notarida_cole" name="acta_notarida_cole" data-nombre="Acta Notariada">
+				</div>
+				<div class="form-group col-lg-6">
+					<label for="acta_secretaria_economia">Acta de Secretaría de Economía (opcional)</label>
+					<input type="text" class="form-control" id="acta_secretaria_economia" name="acta_secretaria_economia"
+						   data-nombre="Acta de Secretaría de Economía">
 				</div>
 			</div>
 			<div class="form-row px-4 py-2">
