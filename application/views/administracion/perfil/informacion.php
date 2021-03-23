@@ -1,7 +1,4 @@
 <div class="container">
-   <?php print_r($this->session->userdata()); ?>
-   <br>
-   <?php print_r($usuario); ?>
    <div class="shadow-lg bg-white p-4">
       <div class="picture-container text-center">
          <div class="picture">

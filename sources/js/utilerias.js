@@ -489,7 +489,7 @@ function futil_form_controller(URL, formconf = [], inputs = [], contenedor = "ma
 */
 
 // Función para validar el RFC
-function futil_valida_rfc(rfc, aceptarGenerico = true) {¿
+function futil_valida_rfc(rfc, aceptarGenerico = true) {
     const re       = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
     var   validado = rfc.match(re);
 
@@ -523,7 +523,7 @@ function futil_valida_rfc(rfc, aceptarGenerico = true) {¿
         return false;
     else if (!aceptarGenerico && rfcSinDigito + digitoVerificador == "XEXX010101000")
         return false;
-    return rfcSinDigito + digitoVerificador;¿
+    return rfcSinDigito + digitoVerificador;
 }
 
 // Función que valida que una CURP cumpla con el formato obligatorio
