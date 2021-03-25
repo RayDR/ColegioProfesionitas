@@ -131,10 +131,11 @@ class Model_colegios extends CI_Model {
 			
 			$this->db->trans_begin();
 			
-			//$this->db->where('curp', $_asociado["curp"]);
-			//$asociaciado = $this->db->get('asociaciones');
-			//if ( $asociaciado->num_rows() > 0 )
-			//throw new Exception('Ya existe una solicitud con este RFC.');
+			$this->db->where('curp', $_asociado["curp"]);
+			$this->db->where('numero_cedula', $_asociado["numero_cedula"]);
+			$asociaciado = $this->db->get('asociaciones');
+			if ( $asociaciado->num_rows() > 0 )
+				throw new Exception('Ya existe un asociado registrado con este número de cédula en algun colegio.');
 			$datos_db = array(
 				'nombres'					=>	$_asociado['nombre'],
 				'primer_apellido'			=>	$_asociado['primer_apellido'],

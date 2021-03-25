@@ -62,7 +62,7 @@ switch ($inconoNav) {
 	</div>
 	<div class="col-md-5 col-lg-4 mb-2 ">
 		<h5 class="text-center text-muted mt-1 mt-lg-3">
-			<small>Bienvenido</small>&nbsp;<span class="texto-rojo"><?= $usuario->nombres, ' ', $usuario->primer_apellido, ' ', $usuario->primer_apellido ?></span>
+			<small>Bienvenido</small>&nbsp;<span class="texto-rojo"><?= $usuario->nombres, ' ', $usuario->primer_apellido, ' ', $usuario->segundo_apellido ?></span>
 		</h5>
 		<div class="row my-1 my-lg-3">
 			<div class="col-3 col-sm-4 text-center d-flex align-items-middle">

@@ -1,12 +1,7 @@
 <div class="container">
 	<!--- formulario de asociacion ----->
 	<?php $datos = ( $datos )? $datos[0] : []; ?>
-	<div class="row">
-		<button class="btn btn-lg btn-block btn-dark boton-rojo" type="button" data-toggle="collapse"
-				data-target="#modal-form-registro-asc"
-				aria-expanded="false" aria-controls="collapseExample">
-			Información de la Asociación 
-		</button>
+	<div class="shadow-xl p-3">
 		<form id="modal-form-registro-asc" class="collapse show shadow bg-light rounded-top col-12">
 			<div class="form-row p-4">
 				<div class="col-12 my-3" id="ascociacion-errores">

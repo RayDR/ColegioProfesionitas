@@ -1,62 +1,62 @@
 var datos_asociacion = {},
 	datos_colegio    = {},
 	redes_sociales   = [];
-$(document).off('click.remove', '#remove_red').on('click.remove', '#remove_red', fn_remove_red_social);
+
+$(document).off('click.remove', '#remove_red')
+		   .on('click.remove' , '#remove_red', fn_remove_red_social);
+
 $(document).ready(function () {
 	$('.cargar_cps').change(cargarCp);
 	$('.validar-rfc').blur(validarRFC);
 	$('.valdar-curp').blur(validarCurp);
-	$('#enviar-registro').click(fn_guardar_registro);
-	$('.add-red-social').click(fn_add_red_social);
 	$('#email').blur(validarEmail);
-	//$('#remove_red').click(fn_remove_red_social);
-	//add-red-social
+
+	$('.add-red-social').click(fn_add_red_social);
+
+	$('#enviar-registro').click(fn_guardar_registro);
 });
+
 function validarEmail() {
 	let mail = $(this).val();
-	if (mail.length < 1) {
+	if (mail.length < 1)
 		return;
-	}
-	if (!futil_validar_correo(mail)) {
+	if (! futil_validar_correo(mail) )
 		futil_toast("Formato de correo electronico invalido", '', "danger");
-	}
 }
 
 function validarRFC() {
 	let rfc = $(this).val();
-	if (rfc.length < 1) {
+	if (rfc.length < 1)
 		return;
-	}
-	if (!futil_valida_rfc(rfc)) {
+	if (! futil_valida_rfc(rfc) )
 		futil_toast("Formato de RFC invalido", '', "danger");
-	}
 }
 
 function validarCurp() {
 	let curp = $(this).val();
-	if (curp.length < 1) {
+	if (curp.length < 1) 
 		return;
-	}
-	if (!futil_valida_curp(curp))
+
+	if (! futil_valida_curp(curp) )
 		futil_toast("Formato de CURP invalido", '', "danger");
 }
 
 function cargarCp(e) {
 	let id = $(this).data("objetivo");
 	let muncipio = $(this).val();
-	$(id).html(futil_muestra_vista("Administracion/listar_cps/" + muncipio));
+	$(id).html( futil_muestra_vista("Administracion/listar_cps/" + muncipio) );
 }
 
 function fn_guardar_registro() {
-	var select_asociacion = ['municipio', 'codigo_postal'],
-		select_colegio = ['municipio', 'codigo-postal'],
-		errores = '',
-		cole_errores = '';
+	var select_asociacion 	= ['municipio', 'codigo_postal'],
+		select_colegio 		= ['municipio', 'codigo-postal'],
+		errores 			= '',
+		cole_errores 		= '';
 
-	datos_asociacion_aux = $("#modal-form-registro-asc").serializeArray();
-	datos_colegio_aux = $("#modal-form-registro-cole").serializeArray();
-	datos_asociacion = (datos_asociacion_aux) ? datos_asociacion_aux : datos_asociacion;
-	datos_colegio = (datos_colegio_aux) ? datos_colegio_aux : datos_colegio;
+	datos_asociacion_aux 	= $("#modal-form-registro-asc").serializeArray();
+	datos_colegio_aux 		= $("#modal-form-registro-cole").serializeArray();
+	datos_asociacion 		= (datos_asociacion_aux) ? datos_asociacion_aux : datos_asociacion;
+	datos_colegio 			= (datos_colegio_aux) ? datos_colegio_aux : datos_colegio;
 
 	datos_asociacion.forEach(function (dato, indice) {
 		nombre = $(`#modal-form-registro-asc #${dato.name}`).data('nombre') ?
@@ -83,16 +83,6 @@ function fn_guardar_registro() {
 			errores += `Por favor, seleccione un <b><a href="#modal-form-registro-asc #${select}">${nombre}</a></b> válido.<br>`;
 			futil_validacion_input($(`#modal-form-registro-asc #${select}`), false);
 		} 
-	});
-
-	select_colegio.forEach(function (select, indice) {
-		if ($(`#${select}`).val() == null) {
-			nombre= $(`#modal-form-registro-cole #${select}`).data('nombre')?
-					$(`#modal-form-registro-cole #${select}`).data('nombre'):
-					select;
-			cole_errores += `Por favor, seleccione un <b><a href="#modal-form-registro-cole #${select}">${nombre}</a></b> válido.<br>`;
-			futil_validacion_input($(`#modal-form-registro-cole #${select}`), false);
-		}
 	});
 
 	datos_colegio.forEach(function (dato, indice) {
@@ -123,51 +113,64 @@ function fn_guardar_registro() {
 			futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), true);
 	});
 
-	if (!errores && !cole_errores) {
+	select_colegio.forEach(function (select, indice) {
+		if ($(`#${select}`).val() == null) {
+			nombre= $(`#modal-form-registro-cole #${select}`).data('nombre')?
+					$(`#modal-form-registro-cole #${select}`).data('nombre'):
+					select;
+			cole_errores += `Por favor, seleccione un <b><a href="#modal-form-registro-cole #${select}">${nombre}</a></b> válido.<br>`;
+			futil_validacion_input($(`#modal-form-registro-cole #${select}`), false);
+		}
+	});
+
+
+	if ( !errores && !cole_errores ) {
+		// Cerrar las alertas
 		futil_alerta('', '', "#ascociacion-errores"); 
 		futil_alerta('', '', "#cole-errores");
 
-		var respuesta=futil_json_query( 'Administracion/guardar_registro',
-										{ 
-											asociacion: datos_asociacion,
-											colegio   : datos_colegio,
-											redes_sociales:redes_sociales
-										});
-		if ( respuesta.exito )
-			futil_toast('Colegio registrado.');
-		else
-			futil_toast(respuesta.mensaje, '', 'danger');
-		
-	} else {
-		estatus = ( ! estatus_ )? null : ( estatus_ == 2 )? true: null;
-		if ( estatus ) {
-			futil_toast('Colegio aprobado.');
-		} else {
-			futil_toast("Por favor, valide los campos requeridos.", '', "danger");
-			futil_alerta(errores, 'danger', "#ascociacion-errores");
-			futil_alerta(cole_errores, 'danger', "#cole-errores");			
+		var respuesta = futil_json_query( 
+			'Administracion/guardar_registro',
+			{ 
+				asociacion: datos_asociacion,
+				colegio   : datos_colegio,
+				redes_sociales:redes_sociales
+			});
+
+		if ( respuesta.exito ){
+			futil_toast('Registro de colegio exitoso.');
+
+			setTimeout(function() {
+				window.location.replace(url());
+			}, 500);
 		}
+		else
+			futil_toast(respuesta.mensaje, '', 'danger');		
+	} else {
+		futil_toast("Por favor, valide los campos requeridos.", '', "danger");
+		futil_alerta(errores, 'danger', "#ascociacion-errores");
+		futil_alerta(cole_errores, 'danger', "#cole-errores");	
 
 	}
 }
 
 function fn_add_red_social() {
-	var red_social = $("#red-social"),
-		cuenta = $("#cuenta").val();
+	var red_social  = $("#red-social"),
+		cuenta 		= $("#cuenta").val();
 	if (red_social.val() != null && cuenta != '') {
-		let duplicado=false;
+		let duplicado =false;
 		redes_sociales.forEach(function (red, indice) {
-			if(red.cuenta==cuenta && red.tipo==red_social.val())
+			if(red.cuenta == cuenta && red.tipo == red_social.val())
 			{
 				//futil_validacion_input(red_social,false);
 				futil_toast('Ya exite esta red social.', '', 'danger');
 				duplicado=true;
 			}
 		});
-		if(!duplicado)
+		if(! duplicado )
 		{
-		redes_sociales.push({'tipo': red_social.val(), 'cuenta': cuenta,nombre:$("#red-social option:selected").text()});
-		fn_actualiza_tabla_redes();
+			redes_sociales.push({'tipo': red_social.val(), 'cuenta': cuenta,nombre:$("#red-social option:selected").text()});
+			fn_actualiza_tabla_redes();
 		}
 	} else
 		futil_toast('Complete los campos de cuenta y tipo de red social.', '', 'danger');
@@ -192,7 +195,6 @@ function fn_actualiza_tabla_redes() {
 				</tr>`);
 
 	redes_sociales.forEach(function (red, index) {
-		console.log(red.nombre);
 		table.append(`
 		<tr>		
 			<td class="tipo_cuenta">${red.cuenta}</td>

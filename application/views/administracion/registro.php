@@ -1,14 +1,10 @@
 <div class="container">
 	<!--- formulario de asociacion ----->
-	<div class="row">
-		<button class="btn btn-lg btn-block btn-dark boton-rojo" type="button" data-toggle="collapse"
-				data-target="#modal-form-registro-asc"
-				aria-expanded="false" aria-controls="collapseExample">
-			Información de la Asociación 
-		</button>
-		<form id="modal-form-registro-asc" class="collapse show shadow bg-light rounded-top col-12">
+	<div class="row shadow-lg">
+		<form id="modal-form-registro-asc" class="col-12">
 			<div class="form-row p-4">
-				<div class="col-12 my-3" id="ascociacion-errores">
+				<legend class="texto-rojo">Información de la Asociación</legend>
+				<div class="col-12 my-1" id="ascociacion-errores">
 					<?PHP $this->load->view('template/utiles/alertas'); ?>
 				</div>
 				<div class="form-group col-lg-8">
@@ -59,14 +55,11 @@
 		</form>
 	</div>
 	<!--- formulario de colegio ----->
-	<div class="row mt-2 px-0">
-		<button class="btn btn-lg btn-block btn-dark boton-rojo" type="button" data-toggle="collapse"
-				data-target="#modal-form-registro-cole" aria-expanded="false" aria-controls="collapseExample">
-			Información del Colegio de Profesionistas
-		</button>
-		<form id="modal-form-registro-cole" class="collapse show shadow bg-light rounded col-12">
+	<div class="row shadow-lg">
+		<form id="modal-form-registro-cole" class="col-12">
 			<div class="form-row p-4">
-				<div class="col-12 my-3" id="cole-errores">
+				<legend class="texto-rojo">Información del Colegio</legend>
+				<div class="col-12 my-1" id="cole-errores">
 					<?PHP $this->load->view('template/utiles/alertas'); ?>
 				</div>
 
