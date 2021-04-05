@@ -176,7 +176,11 @@
 }
 
 
-* {
+* { 
+  -moz-filter: grayscale(100%) !important;    
+  -webkit-filter: grayscale(100%) !important;    
+  filter: gray !important;    
+  filter: grayscale(100%) !important;
   scrollbar-color: #525965 #525965;
   scrollbar-width: thin;
 }
