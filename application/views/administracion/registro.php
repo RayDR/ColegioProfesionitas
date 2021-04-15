@@ -13,7 +13,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="rfc">RFC de la Asociación</label>
-					<input required type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC" required>
+					<input type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="municipio">Municipio</label>
@@ -43,7 +43,7 @@
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="fecha_constitucion">Fecha de constitución </label>
-					<input required type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion"
+					<input type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion"
 						   data-nombre="Fecha de constitución">
 				</div>
 				<div class="form-group col-lg-6">
@@ -80,7 +80,7 @@
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="rfc">RFC</label>
-					<input required type="text" class="form-control validar-rfc" id="rfc_col" name="rfc_col" data-nombre="RFC">
+					<input type="text" class="form-control validar-rfc" id="rfc_col" name="rfc_col" data-nombre="RFC">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="curp">CURP</label>
@@ -120,7 +120,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="mapa">Mapa</label>
-					<input required type="text" class="form-control" id="mapa" name="mapa" data-nombre="Mapa">
+					<input type="text" class="form-control" id="mapa" name="mapa" data-nombre="Mapa">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="fecha_constitucion">Fecha de constitución del Colegio </label>
@@ -144,7 +144,7 @@
 				<legend class="col-12">Datos de contacto</legend>
 				<div class="form-group col-lg-4">
 					<label for="email">Correo electrónico</label>
-					<input required type="text" class="form-control" id="email" name="email" data-nombre="Correo electrónico">
+					<input type="text" class="form-control" id="email" name="email" data-nombre="Correo electrónico">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="telefono">Número telefónico</label>

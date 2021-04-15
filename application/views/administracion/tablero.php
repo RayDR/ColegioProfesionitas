@@ -100,8 +100,8 @@ switch ($inconoNav) {
 						<th>Nombre</th>
 						<th>Domicilio</th>
 						<th>Mapa</th>
-						<th>Fecha de constiticón</th>
-						<th>Perido mesa directiva</th>
+						<th>Fecha de constitución</th>
+						<th>Fecha de periodo mesa directiva</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
