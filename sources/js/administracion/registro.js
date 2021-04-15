@@ -66,11 +66,13 @@ function fn_guardar_registro() {
 			errores += `El campo <b><a href="#modal-form-registro-asc #${dato.name}">${nombre}</a></b> es requerido.<br>`;
 			futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), false);
 		} else if (dato.name == "rfc") {
-			if (!futil_valida_rfc(dato.value)) {
-				cole_errores += `El <b><a href="#modal-form-registro-asc #${dato.name}">${nombre}</a></b> no es válido.<br>`;
-				futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), false);
-			} else
-				futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), true);
+			if ( data.value == '' ){
+				if (!futil_valida_rfc(dato.value)) {
+					cole_errores += `El <b><a href="#modal-form-registro-asc #${dato.name}">${nombre}</a></b> no es válido.<br>`;
+					futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), false);
+				} else
+					futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), true);
+			}
 		} else
 			futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), true);
 	});
@@ -95,11 +97,13 @@ function fn_guardar_registro() {
 				futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), false);
 			}
 		} else if (dato.name == "rfc_col") {
-			if (!futil_valida_rfc(dato.value)) {
-				cole_errores += `El  <b><a href="#${dato.name}">${nombre}</a></b> no es valido.<br>`;
-				futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), false);
-			} else
-				futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), true);
+			if ( dato.value != '' ){
+				if (!futil_valida_rfc(dato.value)) {
+					cole_errores += `El  <b><a href="#${dato.name}">${nombre}</a></b> no es valido.<br>`;
+					futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), false);
+				} else
+					futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), true);
+			}
 		} else if (dato.name == "curp") {
 			if (!futil_valida_curp(dato.value)) {
 				cole_errores += `La  <b><a href="#${dato.name}">${nombre}</a></b> no es valida.<br>`;
