@@ -66,7 +66,7 @@ function fn_guardar_registro() {
 			errores += `El campo <b><a href="#modal-form-registro-asc #${dato.name}">${nombre}</a></b> es requerido.<br>`;
 			futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), false);
 		} else if (dato.name == "rfc") {
-			if ( dato.value == '' ){
+			if ( dato.value != '' ){
 				if (!futil_valida_rfc(dato.value)) {
 					cole_errores += `El <b><a href="#modal-form-registro-asc #${dato.name}">${nombre}</a></b> no es válido.<br>`;
 					futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), false);
