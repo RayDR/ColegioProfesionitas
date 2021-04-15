@@ -122,15 +122,17 @@ class Model_catalogos extends CI_Model {
 	/**
 	 |	Función para obtener los comunicados
 	 **/
-	public function get_comunicados($filtros = null, $tipo = TRUE){
+	public function get_comunicados($filtros = null, $limite = 0, $tipo = TRUE){
 		if ( is_array($filtros) ){
 			foreach ($filtros as $nombre => $valor) {
 				$this->db->where($nombre, $valor);
 			}
 		} else 
 		$this->db->where('estatus', 1);
+
+		$limite = ( $limite < 1 )? NULL: $limite;
 		
-		$db_datos = $this->db->get('vw_comunicados');
+		$db_datos = $this->db->get('vw_comunicados', $limite);
 		if ( $tipo )
 		return $db_datos->result();
 		else
