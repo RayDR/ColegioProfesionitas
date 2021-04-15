@@ -72,7 +72,8 @@ function fn_guardar_registro() {
 					futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), false);
 				} else
 					futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), true);
-			}
+			} else 
+				futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), true);
 		} else
 			futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), true);
 	});
@@ -103,7 +104,8 @@ function fn_guardar_registro() {
 					futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), false);
 				} else
 					futil_validacion_input($(`#modal-form-registro-cole #${dato.name}`), true);
-			}
+			} else 
+				futil_validacion_input($(`#modal-form-registro-asc #${dato.name}`), true);
 		} else if (dato.name == "curp") {
 			if (!futil_valida_curp(dato.value)) {
 				cole_errores += `La  <b><a href="#${dato.name}">${nombre}</a></b> no es valida.<br>`;
