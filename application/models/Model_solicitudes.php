@@ -14,17 +14,17 @@ class Model_solicitudes extends CI_Model {
         if ( $asociacion->num_rows() > 0 )
             throw new Exception('Ya existe una solicitud con este RFC.');
         $datos_db = array(
-            'rfc'                       =>  $datos_preregistro["rfc"],
-            'nombre_asociacion'         =>  $datos_preregistro["colegio"],
-            'municipio_id'          =>  $datos_preregistro["municipio"],
+            'rfc'                           =>  $datos_preregistro["rfc"],
+            'nombre_asociacion'             =>  $datos_preregistro["colegio"],
+            'municipio_id'                  =>  $datos_preregistro["municipio"],
             'cp_id'                         =>  $datos_preregistro["colonia"],
             'calle'                         =>  $datos_preregistro["calle"],
-            'numero'                    =>  $datos_preregistro["numero"],
-            'solicitante_nombre'                =>  $datos_preregistro["nombre"],
+            'numero'                        =>  $datos_preregistro["numero"],
+            'solicitante_nombre'            =>  $datos_preregistro["nombre"],
             'solicitante_primer_apellido'   =>  $datos_preregistro["primer_apellido"],
             'solicitante_segundo_apellido'  =>  $datos_preregistro["segundo_apellido"],
-            'solicitante_email'                     =>  $datos_preregistro["correo_electronico"],
-            'solicitante_telefono'              =>  $datos_preregistro["telefono"],
+            'solicitante_email'             =>  $datos_preregistro["correo_electronico"],
+            'solicitante_telefono'          =>  $datos_preregistro["telefono"],
         );
             $this->db->insert('solicitudes_registro', $datos_db);
             $this->db->trans_commit();

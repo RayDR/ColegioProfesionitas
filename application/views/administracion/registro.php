@@ -12,12 +12,12 @@
 					<input required type="text" class="form-control" id="colegio" name="colegio" data-nombre="Colegio">
 				</div>
 				<div class="form-group col-lg-4">
-					<label for="rfc">RFC de la Asociación</label>
+					<label for="rfc">RFC de la Asociación (opcional)</label>
 					<input type="text" class="form-control validar-rfc" id="rfc" name="rfc" data-nombre="RFC">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="municipio">Municipio</label>
-					<select requiered id="municipio" name="municipio" data-nombre="Municipio" class="custom-select cargar_cps"
+					<select required id="municipio" name="municipio" data-nombre="Municipio" class="custom-select cargar_cps"
 							data-objetivo="#modal-form-registro-asc #codigo_postal">
 						<option selected disabled>Seleccione una opción</option>
 						<?php foreach ($municipios as $key => $municipio): ?>
@@ -28,27 +28,27 @@
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="codigo_postal">Colonia</label>
-					<select requiered id="codigo_postal" name="codigo_postal" data-nombre="Código Postal"
+					<select required id="codigo_postal" name="codigo_postal" data-nombre="Código Postal"
 							class="custom-select">
 						<option selected disabled>Seleccione primero un municipio</option>
 					</select>
 				</div>
 				<div class="form-group col-lg-8">
-					<label for="calle">Calle</label>
-					<input required type="text" class="form-control" id="calle" name="calle" data-nombre="Calle">
+					<label for="calle">Calle (opcional)</label>
+					<input type="text" class="form-control" id="calle" name="calle" data-nombre="Calle">
 				</div>
 				<div class="form-group col-lg-4">
-					<label for="numero">Número</label>
-					<input required type="text" class="form-control" id="numero" name="numero" data-nombre="Número">
+					<label for="numero">Número (opcional)</label>
+					<input type="text" class="form-control" id="numero" name="numero" data-nombre="Número">
 				</div>
 				<div class="form-group col-lg-6">
-					<label for="fecha_constitucion">Fecha de constitución </label>
+					<label for="fecha_constitucion">Fecha de constitución (opcional)</label>
 					<input type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion"
 						   data-nombre="Fecha de constitución">
 				</div>
 				<div class="form-group col-lg-6">
-					<label for="acta_notarida_ac">Acta Notariada (opcional)</label>
-					<input type="text" class="form-control" id="acta_notarida_ac" name="acta_notarida_ac"
+					<label for="acta_notariada_asociacion">Acta Notariada (opcional)</label>
+					<input type="text" class="form-control" id="acta_notariada_asociacion" name="acta_notariada_asociacion"
 						   data-nombre="Acta Notariada">
 				</div>
 			</div>
@@ -79,18 +79,22 @@
 						   data-nombre="Segundo apellido">
 				</div>
 				<div class="form-group col-lg-6">
-					<label for="rfc">RFC</label>
-					<input type="text" class="form-control validar-rfc" id="rfc_col" name="rfc_col" data-nombre="RFC">
+					<label for="rfc">RFC (opcional)</label>
+					<input type="text" class="form-control validar-rfc" id="rfc_representante" name="rfc_representante" data-nombre="RFC">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="curp">CURP</label>
 					<input required type="text" class="form-control valdar-curp" id="curp" name="curp" data-nombre="CURP">
 				</div>
 				<legend class="col-12">Datos generales</legend>
-				<div class="form-group col-lg-8">
+				<div class="form-group col-lg-6">
 					<label for="colegio">Nombre del colegio </label>
 					<input required type="text" class="form-control" id="colegio" name="colegio"
 						   data-nombre="Nombre del colegio">
+				</div>
+				<div class="form-group col-lg-6">
+					<label for="rfc">RFC</label>
+					<input type="text" class="form-control validar-rfc" id="rfc_colegio" name="rfc_colegio" data-nombre="RFC">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="municipio">Municipio</label>
@@ -119,7 +123,7 @@
 					<input required type="text" class="form-control util_snumeros" id="numero_col" name="numero_col" data-nombre="Número">
 				</div>
 				<div class="form-group col-lg-4">
-					<label for="mapa">Mapa</label>
+					<label for="mapa">Mapa (opcional)</label>
 					<input type="text" class="form-control" id="mapa" name="mapa" data-nombre="Mapa">
 				</div>
 				<div class="form-group col-lg-4">
@@ -131,8 +135,8 @@
 					<input required type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : '0'" class="form-control" id="periodo-mesa-directiva"  name="periodo-mesa-directiva" data-nombre="Periodo mesa directiva">
 				</div>
 				<div class="form-group col-lg-6">
-					<label for="acta_notarida_cole">Acta Notariada (opcional)</label>
-					<input type="text" class="form-control" id="acta_notarida_cole" name="acta_notarida_cole" data-nombre="Acta Notariada">
+					<label for="acta_notariada_colegio">Acta Notariada (opcional)</label>
+					<input type="text" class="form-control" id="acta_notariada_colegio" name="acta_notariada_colegio" data-nombre="Acta Notariada">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="acta_secretaria_economia">Acta de Secretaría de Economía (opcional)</label>
@@ -143,7 +147,7 @@
 			<div class="form-row px-4 py-2">
 				<legend class="col-12">Datos de contacto</legend>
 				<div class="form-group col-lg-4">
-					<label for="email">Correo electrónico</label>
+					<label for="email">Correo electrónico (opcional)</label>
 					<input type="text" class="form-control" id="email" name="email" data-nombre="Correo electrónico">
 				</div>
 				<div class="form-group col-lg-4">
