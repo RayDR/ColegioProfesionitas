@@ -153,7 +153,7 @@ function fn_guardar_registro() {
 			futil_toast('Registro de colegio exitoso.');
 
 			setTimeout(function() {
-				window.location.replace(url());
+				window.location.replace(url('Administracion'));
 			}, 500);
 		}
 		else

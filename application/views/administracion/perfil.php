@@ -1,19 +1,22 @@
 <main class="page-content">
 	<div id="ajax-perfil" class="mx-auto">
-		<form id="formulario-perfil" class="form-row">
+		<input type="hidden" id="usuario_id" name="usuario_id" value="<?= $usuario->usuario_id ?>">
+		<input type="hidden" id="colegio_id" name="colegio_id" value="<?= $usuario->colegio_id ?>">
+		<input type="hidden" id="asociacion_id" name="asociacion_id" value="<?= $usuario->asociacion_id ?>">
+		<div id="formulario-perfil" class="form-row">
 			<div class="col-5 col-md-3">
 				<div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
 					<a class="nav-link shadow active" id="informacion-tab" data-toggle="pill" href="#informacion" role="tab" aria-controls="informacion" aria-selected="true">Información</a>
 					<a class="nav-link shadow" id="asociados-tab" data-toggle="pill" href="#asociados" role="tab" aria-controls="asociados" aria-selected="false">Asociados</a>
 					<a class="nav-link shadow" id="eventos-tab" data-toggle="pill" href="#eventos" role="tab" aria-controls="eventos" aria-selected="false">Eventos</a>
 					<a class="nav-link shadow" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">Cambiar Contraseña</a>
-					<a class="nav-link shadow" id="cerrar-tab" data-toggle="pill" href="<?= base_url('index.php/Administracion/logout') ?>" role="tab" aria-controls="cerrar" aria-selected="false">Cerrar Sesión</a>
+					<a class="nav-link shadow" id="cerrar-tab" href="<?= base_url('index.php/Administracion/logout') ?>" aria-selected="false">Cerrar Sesión</a>
 				</div>
 			</div>
 			<div class="col-8 col-md-9">
 				<div class="tab-content">
 					<div class="tab-pane fade show active" id="informacion" role="tabpanel" aria-labelledby="informacion-tab">
-						<?php $this->load->view('administracion/perfil/informacion'); ?>
+						<?php $this->load->view('administracion/perfil/informacion', ['usuario' => $usuario]); ?>
 					</div>
 					<div class="tab-pane fade" id="asociados" role="tabpanel" aria-labelledby="asociados-tab">
 						<?php $this->load->view('administracion/perfil/integrantes'); ?>
@@ -24,11 +27,9 @@
 					<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="menu-password-tab">
 						<?php $this->load->view('administracion/perfil/password'); ?>
 					</div>
-					<div class="tab-pane fade" id="cerrar" role="tabpanel" aria-labelledby="cerrar-tab">
-					</div>
 				</div>
 			</div>
-		</form>
+		</div>
 </main>
 
 

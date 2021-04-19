@@ -107,9 +107,9 @@ class Model_catalogos extends CI_Model {
 
 		$db_datos = $this->db->get('vw_asociados');
 		if ($tipo)
-		return $db_datos->result();
+			return $db_datos->result();
 		else
-		return $db_datos->result_array();
+			return $db_datos->result_array();
 	}
 	
 	
@@ -171,7 +171,7 @@ class Model_catalogos extends CI_Model {
 		return $db_datos->result_array();
 	}
 
-	public function get_instut($filtros = null, $tipo = TRUE)
+	public function get_instituciones($filtros = null, $tipo = TRUE)
 	{
 		if ( is_array($filtros) ){
 			foreach ($filtros as $nombre => $valor) {

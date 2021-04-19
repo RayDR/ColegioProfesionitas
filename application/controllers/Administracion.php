@@ -56,37 +56,37 @@ class Administracion extends CI_Controller {
     }
 
     public function logout(){
-      // Eliminar datos de sesión
-      $this->session->sess_destroy();
-      redirect( base_url(),'refresh' );
-   }
-
-   public function menu(){
-    $respuesta  = ['exito' => true];
-    $link       = $this->input->post('link');
-    switch ($link) {
-        case 'dashboard':
-            $respuesta["html"] = $this->vista_tablero();
-            break;
-        case 'registrar':
-            $respuesta["html"] = $this->vista_registro();
-            break;
-        case 'solicitudes':
-            $respuesta["html"] = $this->vista_solicitudes();
-            break;
-        case 'perfil':
-            $respuesta["html"] = $this->vista_perfil();
-            break;          
-        default:
-            $respuesta["exito"] = false;
-            break;
+        // Eliminar datos de sesión
+        $this->session->sess_destroy();
+        redirect( base_url(),'refresh' );
     }
+
+    public function menu(){
+        $respuesta  = ['exito' => true];
+        $link       = $this->input->post('link');
+        switch ($link) {
+            case 'dashboard':
+                $respuesta["html"] = $this->vista_tablero();
+                break;
+            case 'registrar':
+                $respuesta["html"] = $this->vista_registro();
+                break;
+            case 'solicitudes':
+                $respuesta["html"] = $this->vista_solicitudes();
+                break;
+            case 'perfil':
+                $respuesta["html"] = $this->vista_perfil();
+                break;          
+            default:
+                $respuesta["exito"] = false;
+                break;
+        }
         if ( ! $this->session->estatus_usuario_sesion() ) {
             $respuesta["exito"] = false;
             $respuesta["error"] = 'ACCESS';
         }
-    return print(json_encode($respuesta));
-   }
+        return print(json_encode($respuesta));
+    }
 
     public function vista_form_solicitud_modal(){
         $json = array('exito' => TRUE);
@@ -122,9 +122,9 @@ class Administracion extends CI_Controller {
         if($asociado){
             $json['modelo']=$this->model_colegios->registrar_asociado($asociado);
         }else {
-            $json['exito']=FALSE;
+            $json['exito']  =FALSE;
             $json['mensaje']='No se encontraron datos';
-            $json['datos']=$asociado;
+            $json['datos']  =$asociado;
         }
         return print(json_encode($json));
     }
@@ -183,7 +183,7 @@ class Administracion extends CI_Controller {
             'carreras'              =>  $this->model_catalogos->get_carreras(),
             'usuario'               =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
             'niveles'               =>  $this->model_catalogos->get_niveles(),
-            'instituciones'         =>  $this->model_catalogos->get_instut(),
+            'instituciones'         =>  $this->model_catalogos->get_instituciones(),
             'estatus_asociados'     =>  $this->model_catalogos->get_estatus_asocioados(),
             'asociados_list'        =>  $this->model_catalogos->get_asociados(),
             'datos'                 =>  $datos
@@ -197,13 +197,12 @@ class Administracion extends CI_Controller {
         if ( $this->session->estatus_usuario_sesion( [1,2,3] ) == FALSE )
             return $this->vista_tablero();
         $this->load->model('model_solicitudes');
-        $usuario = $this->session->userdata('uid');
         $json   =   array('exito' => TRUE);
+
+        $usuario = $this->session->userdata('uid');
         $data = array(
             'view'              => 'administracion/registro_solicitud',
-            'datos'             => $this->model_solicitudes->get_solicitudes_registro(
-                                        ['solicitud_registro_id' => $solicitud_id]
-                                    ),
+            'datos'             => $this->model_solicitudes->get_solicitudes_registro( ['solicitud_registro_id' => $solicitud_id] ),
             'municipios'        => $this->model_catalogos->get_municipios(),
             'usuario'           => $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
             'redes_sociales'    => $this->model_catalogos->get_rds()
@@ -213,22 +212,17 @@ class Administracion extends CI_Controller {
         return print(json_encode($json));
     }
 
-    public function vista_asociados_ajax(){
+    public function actualizar_listado_asociados(){
         $json   =   array('exito' => TRUE);
+
+        $colegio_id = $this->input->post('colegio_id');
         $data = array(
-            'view'                  =>  'administracion/perfil/integrantes',
-            'carreras'              =>  $this->model_catalogos->get_carreras(),
-            'usuario'               =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
-            'niveles'               =>  $this->model_catalogos->get_niveles(),
-            'instituciones'         =>  $this->model_catalogos->get_instut(),
-            'estatus_asociados'     =>  $this->model_catalogos->get_estatus_asocioados(),
-            'asociados_list'        =>  $this->model_catalogos->get_asociados()
+            'view'             =>  'administracion/perfil/listado_asociados',
+            'asociados'        =>  $this->model_catalogos->get_asociados(['colegio_id' => $colegio_id])
         );
         $json['html'] = $this->load->view( $data["view"], $data, TRUE );
         return print(json_encode($json));
     }
-
-
 /*
 |--------------------------------------------------------------------------
 | VISTAS PROTEGIDAS
@@ -273,15 +267,16 @@ class Administracion extends CI_Controller {
     protected function vista_perfil(){
         if ( $this->session->estatus_usuario_sesion( [4,5] ) == FALSE )
             return $this->vista_tablero();
-        $usuario = $this->session->userdata('uid');
+        $usuario    = $this->session->userdata('uid');
+        $db_usuario = $this->model_sistema->get_usuario(['usuario_id' => $usuario]);
         $data = array(
             'view'                  =>  'administracion/perfil',
             'carreras'              =>  $this->model_catalogos->get_carreras(),
-            'usuario'               =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+            'usuario'               =>  $db_usuario,
             'niveles'               =>  $this->model_catalogos->get_niveles(),
-            'instituciones'         =>  $this->model_catalogos->get_instut(),
+            'instituciones'         =>  $this->model_catalogos->get_instituciones(),
             'estatus_asociados'     =>  $this->model_catalogos->get_estatus_asocioados(),
-            'asociados_list'        =>  $this->model_catalogos->get_asociados()
+            'asociados_list'        =>  $this->model_catalogos->get_asociados(['colegio_id' => $db_usuario->colegio_id])
         );
         return $this->load->view( $data["view"], $data, TRUE );
     }
