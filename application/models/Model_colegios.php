@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_colegios extends CI_Model {
 
+
+    public function get_galeria_colegios(){
+        $this->db->select( 'nombre_colegio, pagina_web, email, telefono, cuenta, red_social' );
+        $colegios = $this->db->get('vw_colegios_redes');
+        return $colegios->result();
+    }
+
     public function registrar_asociacion($asociacion,$colegio,$redes_sociales){
         $_asociacion=[];
         $_colegio=[];
@@ -13,8 +20,7 @@ class Model_colegios extends CI_Model {
         }
         foreach ($colegio as $name => $value) {
             $_colegio[$value['name']]=$value['value'];
-        }
-        
+        }        
         
         $resultado  = [ 'exito' => TRUE ];
         $resultado['colegio'] = $_colegio;

@@ -3,68 +3,68 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Inicio extends CI_Controller {
 
-	private $template	= 'template/';
-	private $contenido	= 'template/body_landing';
+   private $template = 'template/';
+   private $contenido   = 'template/body_landing';
 
-	public function __construct(){
-		parent::__construct();
-		$this->load->model('model_catalogos');
-		$this->load->model('model_colegios');
-		$this->load->model('model_sistema');
-	}
+   public function __construct(){
+      parent::__construct();
+      $this->load->model('model_catalogos');
+      $this->load->model('model_colegios');
+      $this->load->model('model_sistema');
+   }
 
 /*
 |--------------------------------------------------------------------------
 | VISTAS
 |--------------------------------------------------------------------------
 */
-	public function index(){
-		$data=array(
-			'titulo'			=>	'Bienvenido a ' . SISTEMA,
-			'template'			=>	$this->template,
-			'view'				=>	'index',
-			'comunicados'		=>	array(),
-		);
-		$this->load->view( $this->contenido, $data );
-	}
+   public function index(){
+      $data=array(
+         'titulo'    => 'Bienvenido a ' . SISTEMA,
+         'template'  => $this->template,
+         'view'      => 'index',
+         'colegios'  => $this->model_colegios->get_galeria_colegios(),
+      );
+      $this->load->view( $this->contenido, $data );
+   }
 
-	public function registro(){
+   public function registro(){
       $respuesta  = ['exito' => true];
-		$data=array(
-			'view'				=>	'registro',
-			'municipios'		=>	$this->model_catalogos->get_municipios(),
-			'colonias'			=>	$this->model_catalogos->get_cps()
-		);
-		$respuesta["html"] = $this->load->view( $data["view"] , $data, TRUE );
+      $data=array(
+         'view'         => 'registro',
+         'municipios'   => $this->model_catalogos->get_municipios(),
+         'colonias'     => $this->model_catalogos->get_cps()
+      );
+      $respuesta["html"] = $this->load->view( $data["view"] , $data, TRUE );
       return print(json_encode($respuesta));
-	}
+   }
 
 /*
 |--------------------------------------------------------------------------
 | FUNCTIONES AJAX
 |--------------------------------------------------------------------------
 */
-	public function guardar_preregistro(){
+   public function guardar_preregistro(){
       $this->load->model('model_solicitudes');
-		$datos 		= $this->input->post();
-		$respuesta 	= $this->model_solicitudes->solicitud_registro($datos);
-		return print(json_encode($respuesta));
-	}
+      $datos      = $this->input->post();
+      $respuesta  = $this->model_solicitudes->solicitud_registro($datos);
+      return print(json_encode($respuesta));
+   }
 
-	public function acceder(){
+   public function acceder(){
       $respuesta = array(
          'exito'     =>  FALSE,
          'mensaje'   =>  ''
       );
-		$rfc 		   = $this->input->post('rfc');
-		$password 	= $this->input->post('password');
+      $rfc        = $this->input->post('rfc');
+      $password   = $this->input->post('password');
       $recuerdame = $this->input->post('recuerdame');
       if ( $recuerdame == 'on' )
          $this->session->sess_expiration = '0';
       else
          $this->session->sess_expiration = '7200';
 
-      $db_usuario	= $this->model_sistema->get_usuario_acceso($rfc);
+      $db_usuario = $this->model_sistema->get_usuario_acceso($rfc);
       if ( $db_usuario ) 
       {  // Comprobación de usuario
          if ( $db_usuario->status_usuario_id != 1 )
@@ -102,7 +102,7 @@ class Inicio extends CI_Controller {
       } else
          $respuesta["mensaje"]   =   "<b>El usuario ingresado no existe.</b>";
       return print( json_encode($respuesta) );
-	}
+   }
 
 }
 

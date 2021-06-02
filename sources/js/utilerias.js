@@ -285,7 +285,10 @@ function futil_muestra_password(){
   }
 }
 
-function futil_back_to_top(){ $('html, body').animate( { scrollTop : 0 }, 300 ); }
+function futil_back_to_top(){ 
+  $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+  $('html, body').animate( { scrollTop : 0 }, 300 ); 
+}
 
 function futil_scroll_page(){
   if (this.hash !== "") {

@@ -177,10 +177,6 @@
 
 
 html { 
-  -moz-filter: grayscale(100%) !important;    
-  -webkit-filter: grayscale(100%) !important;    
-  filter: gray !important;    
-  filter: grayscale(100%) !important;
   scrollbar-color: #525965 #525965;
   scrollbar-width: thin;
 }
@@ -596,7 +592,7 @@ a:hover {
 }
 
 .nav-link.active:hover {
-  font-weight: 800;
+  color:  rgba(179, 142, 93, 0.8);
 }
 
 .sticky-top .nav-link{

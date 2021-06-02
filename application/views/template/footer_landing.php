@@ -1,4 +1,3 @@
-<hr class="borde-grueso borde-dorado mb-0 pb-0 mt-4">
 <footer class="footer bg-light page-content" style="min-height: 20vh;">
 	<div class="container-fluid py-2">
 		<div class="row align-items-center texto-dorado py-5">

@@ -25,7 +25,7 @@ class Administracion extends CI_Controller {
         
         $usuario    = $this->session->userdata('uid');
         $data = array(
-            'titulo'                =>  'Bienvenido a ' . SISTEMA,
+            'titulo'            =>  'Bienvenido a ' . SISTEMA,
             'template'          =>  $this->template,
             'view'              =>  'administracion/dashboard',
             'comunicados'       =>  $this->model_catalogos->get_comunicados(),
