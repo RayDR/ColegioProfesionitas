@@ -490,8 +490,8 @@ function futil_form_controller(URL, formconf = [], inputs = [], contenedor = "ma
 
 // Función para validar el RFC
 function futil_valida_rfc(rfc, aceptarGenerico = true) {
-  var valid   = ( rfc.length == 12 )? 
-                '^(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))' : 
+  var valid   = (rfc.length == 9)?     '^(([A-Z]|[a-z]){3})([0-9]{6})': 
+                ( rfc.length == 12 )?  '^(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))' : 
                 '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
 
   var validRfc  = new RegExp(valid);

@@ -10,23 +10,6 @@
             <input id="colegio" type="text" class="form-control" readonly value="<?= $usuario->nombre_colegio ?>">
          </div>
       </div>
-      <legend class="my-3 texto-dorado lead">Datos del Representante</legend>
-      <div class="row">
-         <div class="col form-label-group mx-auto">
-            <label for="nombres" class="text-muted"><small>Nombre(s)</small></label>
-            <input id="nombres" name="nombres" type="text" class="form-control"  value="<?= $usuario->nombres ?>">
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-lg-6 form-label-group mx-auto">
-            <label for="apellido_paterno" class="text-muted"><small>Primer Apellido</small></label>
-            <input id="apellido_paterno" name="apellido_paterno" type="text" class="form-control" value="<?= $usuario->primer_apellido ?>">
-         </div>
-         <div class="col-lg-6 form-label-group mx-auto">
-            <label for="apellido_materno" class="text-muted"><small>Segundo Apellido</small></label>
-            <input id="apellido_materno" name="apellido_materno" type="text" class="form-control" value="<?= $usuario->segundo_apellido ?>">
-         </div>
-      </div>
       <legend class="my-3 texto-dorado lead">Información de Contacto</legend>
       <div class="row">
          <div class="col-md-6 form-label-group mx-auto">

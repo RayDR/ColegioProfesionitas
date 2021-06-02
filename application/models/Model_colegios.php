@@ -104,7 +104,8 @@ class Model_colegios extends CI_Model {
                 'rfc'               => $_asociacion["rfc"],
                 'colegio_id'        => $colegio_id,
                 'tipo_usuario_id'   => 4,
-                'status_usuario_id' => 1
+                'status_usuario_id' => 1,
+                'nombres'           => $_colegio["colegio"]
             );
             $this->db->insert('usuarios', $datos_usuarios);
 

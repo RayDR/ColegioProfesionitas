@@ -11,7 +11,8 @@
 						<a class="flex-sm-fill text-sm-center nav-link border active" href="#dashboard">Tablero</a>
 
 						<?php if ( $this->session->userdata('tuser') < 4 ): ?>
-						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#registrar">Registrar Asociación</a>
+						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#registrar">Registrar Colegio</a>
+						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#registrar">Validación de Información</a>
 						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#solicitudes">Solicitudes de Registro</a>
 						<?php elseif ( $this->session->userdata('tuser') > 3 ): ?>
 						<a class="flex-sm-fill text-sm-center nav-link border" href="#perfil" tabindex="-1" aria-disabled="true">Perfil del Colegio</a>

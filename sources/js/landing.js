@@ -75,7 +75,7 @@ function fn_iniciar_sistema(){
 			inputs  = [ {nombre: 'correo_electronico', id: 'is-rfc'},
 					    {nombre: 'password', id: 'is-password'}       ];
 
-		if ( $("#form-inicio-sesion #is-rfc").val().length < 12 ){
+		if ( $("#form-inicio-sesion #is-rfc").val().length < 9 ){
 			mensaje += 'Ingrese un <b>RFC</b> válido.<br>';
 			acceso = false;
 		}
