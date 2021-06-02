@@ -13,14 +13,17 @@
 					<a class="nav-link text-white" href="<?= base_url('index.php/Administracion'); ?>">Panel de Control</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-white" href="<?= base_url('index.php/Administracion/logout'); ?>">Salir</a>
+					<a class="nav-link text-white" href="<?= base_url('index.php/Administracion/logout'); ?>">Cerrar Sesión</a>
 				</li>
 				<?php else: ?>
 				<li class="nav-item">
-					<a class="nav-link active" href="https://aplicaciones.setab.gob.mx/profesiones/">Inicio</a>
+					<a class="nav-link text-white" href="https://aplicaciones.setab.gob.mx/profesiones/">Volver a Profesiones</a>
 				</li>
 				<li class="nav-item">
-					<a id="inicio-sesion" class="nav-link active" href="#">Iniciar Sesión</a>
+					<a class="nav-link text-white active" href="<?= base_url() ?>">Inicio</a>
+				</li>
+				<li class="nav-item">
+					<a id="inicio-sesion" class="nav-link text-white" href="#">Iniciar Sesión</a>
 				</li>
 				<form id="form-inicio-sesion" class="inicio-sesion text-body form-mostrar" style="display: none;">
 					<?php $this->load->view('template/utiles/alertas'); ?>
