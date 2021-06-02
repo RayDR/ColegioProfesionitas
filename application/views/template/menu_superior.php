@@ -28,7 +28,7 @@
 						<span class="fas fa-user-circle" style="font-size: 2rem;" data-toggle="tooltip" data-title="Trabajadores" data-placement="bottom"></span>
 						<span class="d-block d-md-none ml-2"></span>
 						<?PHP else: ?>
-						<span class="fas fa-user-tie" style="font-size: 2rem;" data-toggle="tooltip" data-title="Volver al Sistema" data-placement="bottom"></span>
+						<span class="fas fa-user-tie" style="font-size: 2rem;" data-toggle="tooltip" data-title="Volver al sistema" data-placement="bottom"></span>
 						<span class="d-block d-md-none ml-2"></span>
 						<?PHP endif; ?>
 					</a>

@@ -16,7 +16,6 @@ function fn_iniciar_sistema(){
 			$("#ajax-admin-html").html(ajax_html);
 		else{
 			$(".toast").toast('hide');
-			futil_toast('Cargando solicitud.', '', 'info');
 		}
 	});
 }

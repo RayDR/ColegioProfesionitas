@@ -14,13 +14,13 @@
                <a class="nav-link" href="<?= base_url() ?>">Inicio</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="<?= base_url('index.php/Administracion') ?>">Panel de Control</a>
+               <a class="nav-link" href="<?= base_url('index.php/Administracion') ?>">Panel de administración</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="https://aplicaciones.setab.gob.mx/profesiones/">Volver a Profesiones</a>
+               <a class="nav-link" href="https://aplicaciones.setab.gob.mx/profesiones/">Volver a profesiones</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="<?= base_url('index.php/Administracion/logout') ?>">Cerrar Sesión</a>
+               <a class="nav-link" href="<?= base_url('index.php/Administracion/logout') ?>">Cerrar sesión</a>
             </li>
          </ul>
       </div>

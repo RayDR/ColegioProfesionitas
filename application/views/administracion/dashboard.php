@@ -5,18 +5,40 @@
 	<div>
 		<div class="container-fluid">
 			<div class="row my-3">
-				<legend class="col-12 lead text-center texto-dorado">Menú de opciones</legend>
 				<div class="col-12">
-					<nav id="menu-navegacion" class="nav nav-pills shadow rounded bg-light flex-column flex-sm-row" style="font-size: 1rem;">
-						<a class="flex-sm-fill text-sm-center nav-link border active" href="#dashboard">Tablero</a>
-
-						<?php if ( $this->session->userdata('tuser') < 4 ): ?>
-						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#registrar">Registrar Colegio</a>
-						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#registrar">Validación de Información</a>
-						<a class="flex-sm-fill text-sm-center nav-link border" tabindex="-1" href="#solicitudes">Solicitudes de Registro</a>
-						<?php elseif ( $this->session->userdata('tuser') > 3 ): ?>
-						<a class="flex-sm-fill text-sm-center nav-link border" href="#perfil" tabindex="-1" aria-disabled="true">Perfil del Colegio</a>
-						<?php endif; ?>
+					<nav id="menu-navegacion" class="navbar navbar-expand navbar-dark bg-dark rounded p-0">
+						<a class="navbar-brand ml-2 d-none d-lg-block" href="<?= base_url('index.php/Administracion') ?>">Menú de opciones</a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navOpciones" aria-controls="navOpciones" aria-expanded="false" aria-label="Ocultar">
+						    <span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="navbar-nav-scroll mx-auto" id="navOpciones">
+    						<ul class="navbar-nav">
+    							<li class="nav-item">
+									<a class="nav-link py-3" href="#dashboard">Tablero</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link py-3" href="#dashboard">Asociados</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link py-3" href="#dashboard">Eventos</a>
+								</li>
+								<?php if ( $this->session->userdata('tuser') < 4 ): ?>
+								<li class="nav-item">
+									<a class="nav-link py-3" tabindex="-1" href="#registrar">Registrar colegio</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link py-3" tabindex="-1" href="#registrar">Validación de información</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link py-3" tabindex="-1" href="#solicitudes">Solicitudes de registro</a>
+								</li>
+								<?php elseif ( $this->session->userdata('tuser') > 3 ): ?>
+								<li class="nav-item">
+									<a class="nav-link py-3" href="#perfil" tabindex="-1" aria-disabled="true">Perfil del colegio</a>
+								</li>
+								<?php endif; ?>
+							</ul>
+						</div>
 					</nav>
 				</div>
 			</div>

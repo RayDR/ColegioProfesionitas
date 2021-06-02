@@ -68,11 +68,20 @@ class Administracion extends CI_Controller {
             case 'dashboard':
                 $respuesta["html"] = $this->vista_tablero();
                 break;
+            case 'asociados':
+                $respuesta["html"] = $this->vista_asociados();
+                break; 
+            case 'eventos':
+                $respuesta["html"] = $this->vista_eventos();
+                break; 
             case 'registrar':
                 $respuesta["html"] = $this->vista_registro();
                 break;
             case 'solicitudes':
                 $respuesta["html"] = $this->vista_solicitudes();
+                break;
+            case 'validacion':
+                $respuesta["html"] = $this->vista_validacion();
                 break;
             case 'perfil':
                 $respuesta["html"] = $this->vista_perfil();
@@ -281,8 +290,38 @@ class Administracion extends CI_Controller {
         return $this->load->view( $data["view"], $data, TRUE );
     }
 
+    protected function vista_asociados(){
+        $usuario = $this->session->userdata('uid');
+        $data = array(
+            'view'              =>  'administracion/tablero',
+            'comunicados'       =>  $this->model_catalogos->get_comunicados(),
+            'usuario'           =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+            'colegios'          =>  $this->model_catalogos->get_colegios()
+        );
+        return $this->load->view( $data["view"], $data, TRUE );
+    }
+    
+    protected function vista_eventos(){
+        $usuario = $this->session->userdata('uid');
+        $data = array(
+            'view'              =>  'administracion/tablero',
+            'comunicados'       =>  $this->model_catalogos->get_comunicados(),
+            'usuario'           =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+            'colegios'          =>  $this->model_catalogos->get_colegios()
+        );
+        return $this->load->view( $data["view"], $data, TRUE );
+    }
 
-
+    protected function vista_validacion(){
+        $usuario = $this->session->userdata('uid');
+        $data = array(
+            'view'              =>  'administracion/tablero',
+            'comunicados'       =>  $this->model_catalogos->get_comunicados(),
+            'usuario'           =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
+            'colegios'          =>  $this->model_catalogos->get_colegios()
+        );
+        return $this->load->view( $data["view"], $data, TRUE );
+    }
 }
 
 /* End of file Inicio.php */

@@ -10,20 +10,20 @@
 			<ul class="navbar-nav ml-auto">
 				<?php if( $this->session->userdata('ulogin') == true && $this->session->userdata('uid') ): ?>
 				<li class="nav-item">
-					<a class="nav-link text-white" href="<?= base_url('index.php/Administracion'); ?>">Panel de Control</a>
+					<a class="nav-link text-white" href="<?= base_url('index.php/Administracion'); ?>">Panel de control</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-white" href="<?= base_url('index.php/Administracion/logout'); ?>">Cerrar Sesión</a>
+					<a class="nav-link text-white" href="<?= base_url('index.php/Administracion/logout'); ?>">Cerrar sesión</a>
 				</li>
 				<?php else: ?>
 				<li class="nav-item">
-					<a class="nav-link text-white" href="https://aplicaciones.setab.gob.mx/profesiones/">Volver a Profesiones</a>
+					<a class="nav-link text-white" href="https://aplicaciones.setab.gob.mx/profesiones/">Volver a profesiones</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link text-white active" href="<?= base_url() ?>">Inicio</a>
 				</li>
 				<li class="nav-item">
-					<a id="inicio-sesion" class="nav-link text-white" href="#">Iniciar Sesión</a>
+					<a id="inicio-sesion" class="nav-link text-white" href="#">Iniciar sesión</a>
 				</li>
 				<form id="form-inicio-sesion" class="inicio-sesion text-body form-mostrar" style="display: none;">
 					<?php $this->load->view('template/utiles/alertas'); ?>

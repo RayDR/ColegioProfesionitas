@@ -7,8 +7,6 @@
 			<div class="col-12 col-md-3 mb-3 mb-lg-1">
 				<div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
 					<a class="nav-link shadow active" id="informacion-tab" data-toggle="pill" href="#informacion" role="tab" aria-controls="informacion" aria-selected="true">Información</a>
-					<a class="nav-link shadow" id="asociados-tab" data-toggle="pill" href="#asociados" role="tab" aria-controls="asociados" aria-selected="false">Asociados</a>
-					<a class="nav-link shadow" id="eventos-tab" data-toggle="pill" href="#eventos" role="tab" aria-controls="eventos" aria-selected="false">Eventos</a>
 					<a class="nav-link shadow" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">Cambiar Contraseña</a>
 					<a class="nav-link shadow" id="cerrar-tab" href="<?= base_url('index.php/Administracion/logout') ?>" aria-selected="false">Cerrar Sesión</a>
 				</div>

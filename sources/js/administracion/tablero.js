@@ -63,7 +63,6 @@ function fn_iniciar_dt() {
 }
 
 function fn_ver_detalle(params) {
-    futil_toast('Cargando ...');
     var datos = dt.row($(this).closest('tr')).data();
     futil_modal(
         datos.nombre_colegio,
