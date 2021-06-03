@@ -3,12 +3,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_colegios extends CI_Model {
 
+// --- GETTERS --------------------------------------- 
+
+    public function get_colegio_id_galeria( $colegio_id ){
+        $this->db->select('colegio_id, nombre_colegio, pagina_web, email, telefono, imagen, mapa');
+        $this->db->where( 'colegio_id', $colegio_id );
+
+        $colegios = $this->db->get('vw_colegio_imagen');
+
+        return $colegios->row();
+    }
 
     public function get_galeria_colegios(){
-        $this->db->select( 'nombre_colegio, pagina_web, email, telefono, cuenta, red_social' );
-        $colegios = $this->db->get('vw_colegios_redes');
+        $this->db->select( 'colegio_id, nombre_colegio, pagina_web, email, telefono, imagen, mapa' );
+        $colegios = $this->db->get('vw_colegio_imagen');
         return $colegios->result();
     }
+
+    public function get_counters(){
+        return $this->db->get('vw_counters')->row();
+    }
+
+
+// --- SETTERS --------------------------------------- 
 
     public function registrar_asociacion($asociacion,$colegio,$redes_sociales){
         $_asociacion=[];

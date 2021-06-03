@@ -1,10 +1,11 @@
 var menuFlotante = false;
 $(document)
 		.off('change', '#form-registro-municipio')
-		.on('change', '#form-registro-municipio', fn_municipio_colonias);
+		.on('change',  '#form-registro-municipio', fn_municipio_colonias);
 $(document)
 		.off('click', '#form-registro-solicitar')
-		.on('click', '#form-registro-solicitar', fn_solicitar_registro);
+		.on('click',  '#form-registro-solicitar', fn_solicitar_registro);
+
 $(document).ready(fn_iniciar_sistema);
 
 function fn_iniciar_sistema(){
@@ -119,6 +120,8 @@ function fn_iniciar_sistema(){
 	      }
 	   });
 	});
+
+	$('.ver-colegio').click(flanding_VerColegio);
 }
 
 function fn_municipio_colonias(){
@@ -240,4 +243,22 @@ function validar_registro(){
 		futil_alerta(mensaje_error,'warning', '#modal-form-registro', false, true);
 	}
 	return exito;
+}
+
+function flanding_VerColegio(){
+	loader();
+	var colegio = $(this).data('colegio'),
+		nombre  = $(this).data('nombre');
+	setTimeout(function() {
+		let vColegio = futil_json_query(url('Inicio/ver_colegio'), {colegio: colegio});
+		if ( vColegio.exito ){			
+			futil_modal(
+				'',
+				vColegio.html,
+				''
+			);
+		} else 
+			futil_toast((data.error)? data.error : 'No se pudo cargar la información del colegio', '', 'danger');
+		loader(false);
+	}, 10);
 }

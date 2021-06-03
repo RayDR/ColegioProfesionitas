@@ -24,6 +24,7 @@ class Inicio extends CI_Controller {
          'template'  => $this->template,
          'view'      => 'index',
          'colegios'  => $this->model_colegios->get_galeria_colegios(),
+         'counters'  => $this->model_colegios->get_counters()
       );
       $this->load->view( $this->contenido, $data );
    }
@@ -102,6 +103,27 @@ class Inicio extends CI_Controller {
       } else
          $respuesta["mensaje"]   =   "<b>El usuario ingresado no existe.</b>";
       return print( json_encode($respuesta) );
+   }
+
+   // Modal para previsualizar datos públicos de un colegio
+   public function ver_colegio(){
+      $json       = array('exito' => TRUE);
+      $colegio_id = $this->input->post('colegio');
+
+      if ( $colegio_id ){
+         $colegio = $this->model_colegios->get_colegio_id_galeria($colegio_id);
+         if ( $colegio ){
+            $data = array(
+               'view'         => 'modal_colegio',
+               'colegio'      => $colegio
+            );
+            $json["html"] = $this->load->view( $data["view"], $data, TRUE );
+         } else
+            $json = array('exito' => FALSE, 'error' => 'No se encontró el colegio.');
+      } else 
+         $json = array('exito' => FALSE, 'error' => 'No se recibió el índice del colegio.');
+
+      return print(json_encode($json));
    }
 
 }

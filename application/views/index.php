@@ -10,7 +10,7 @@
 						<h3 class="text-center texto-dorado">Colegios</h3>
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<h2 class="text-white my-auto">44</h2>
+								<h2 class="text-white my-auto"><?= $counters->counter_colegios ?></h2>
 							</div>
 						</div>
 					</div>
@@ -18,7 +18,7 @@
 						<h3 class="text-center texto-dorado">Asociados</h3>
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<h2 class="text-white my-auto">?</h2>
+								<h2 class="text-white my-auto"><?= $counters->counter_asociados ?></h2>
 								<i class="fas fa-users fa-3x text-white ml-3"></i>
 							</div>
 						</div>
@@ -103,7 +103,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div id="colegios" class="row py-5 my-3">
 		<h3 class="col-12 font-weight-bolder text-center texto-dorado">Colegios registrados</h3>
 		<hr class="col-md-10 borde-grueso borde-dorado">
@@ -129,10 +128,15 @@
                      <div class="row">
                   <?php endif; ?>
                      <div class="col-md-6 col-lg-4 m-auto">
-                        <div class="card" style="height: 230px;">
-                           <div class="card-body my-auto">
+                        <div class="card">
+                        	<?php if ( $colegio->imagen ): ?>
+                        	<img src="<?= base_url( RUTA_COLEGIOS . $colegio->colegio_id . $colegio->imagen) ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>">
+                        	<?php else: ?>
+                        	<img src="<?= base_url('sources/img/SETAB_COLOR.png') ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>">
+                        	<?php endif ?>
+                           <div class="card-body my-auto" style="min-height: 180px;">
                               <h5 class="card-title"><?= $colegio->nombre_colegio ?></h5>
-                              <a href="#colegio<?= $key ?>" class="card-link stretched-link">Ver Colegio</a>
+                              <a href="#colegio<?= $colegio->colegio_id ?>" data-colegio="<?= $colegio->colegio_id ?>" data-nombre="<?= $colegio->nombre_colegio ?>" class="card-link stretched-link ver-colegio">Ver Colegio</a>
 
                               <?php if ( $colegio->pagina_web ): ?>
                               <div class="position-relative text-right mb-auto">

@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Administracion extends CI_Controller {
 
-    private $template       = 'template/';
+    private $template   = 'template/';
     private $contenido  = 'template/body_admin';
     private $bcontenido = 'template/body';
 
@@ -12,6 +12,8 @@ class Administracion extends CI_Controller {
         $this->load->model('model_sistema');
         $this->load->model('model_catalogos');
         $this->load->model('model_colegios');
+
+        defined('HOME_ADM') OR define('HOME_ADM', 'index.php/Administracion');
     }
 
 /*
@@ -241,7 +243,7 @@ class Administracion extends CI_Controller {
     protected function vista_tablero(){
         $usuario = $this->session->userdata('uid');
         $data = array(
-            'view'              =>  'administracion/tablero',
+            'view'              =>  'administracion/menu/tablero',
             'comunicados'       =>  $this->model_catalogos->get_comunicados(),
             'usuario'           =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
             'colegios'          =>  $this->model_catalogos->get_colegios()
@@ -256,6 +258,7 @@ class Administracion extends CI_Controller {
         $usuario = $this->session->userdata('uid');
         $data = array(
             'view'              => 'administracion/registro',
+            'titulo_pagina'     => 'Registro de Colegio',
             'municipios'        => $this->model_catalogos->get_municipios(),
             'usuario'           => $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
             'redes_sociales'    => $this->model_catalogos->get_rds()
@@ -268,7 +271,8 @@ class Administracion extends CI_Controller {
             return $this->vista_tablero();
         $usuario = $this->session->userdata('uid');
         $data = array(
-            'view'              =>  'administracion/solicitudes',
+            'view'              => 'administracion/menu/solicitudes',
+            'titulo_pagina'     => 'Solicitudes de Registro e Información',
         );
         return $this->load->view( $data["view"], $data, TRUE );
     }
@@ -293,10 +297,8 @@ class Administracion extends CI_Controller {
     protected function vista_asociados(){
         $usuario = $this->session->userdata('uid');
         $data = array(
-            'view'              =>  'administracion/tablero',
-            'comunicados'       =>  $this->model_catalogos->get_comunicados(),
-            'usuario'           =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
-            'colegios'          =>  $this->model_catalogos->get_colegios()
+            'view'          =>  'administracion/menu/asociados',
+            'titulo_pagina' => 'Asociados',
         );
         return $this->load->view( $data["view"], $data, TRUE );
     }
@@ -304,10 +306,9 @@ class Administracion extends CI_Controller {
     protected function vista_eventos(){
         $usuario = $this->session->userdata('uid');
         $data = array(
-            'view'              =>  'administracion/tablero',
-            'comunicados'       =>  $this->model_catalogos->get_comunicados(),
-            'usuario'           =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
-            'colegios'          =>  $this->model_catalogos->get_colegios()
+            'view'          =>  'administracion/menu/eventos',
+            'titulo_pagina' => 'Eventos',
+            'eventos'       =>  array()
         );
         return $this->load->view( $data["view"], $data, TRUE );
     }
@@ -315,10 +316,8 @@ class Administracion extends CI_Controller {
     protected function vista_validacion(){
         $usuario = $this->session->userdata('uid');
         $data = array(
-            'view'              =>  'administracion/tablero',
-            'comunicados'       =>  $this->model_catalogos->get_comunicados(),
-            'usuario'           =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
-            'colegios'          =>  $this->model_catalogos->get_colegios()
+            'view'              =>  'administracion/menu/validacion',
+            'titulo_pagina'     => 'Validar Solicitudes de Cambio de Información',
         );
         return $this->load->view( $data["view"], $data, TRUE );
     }

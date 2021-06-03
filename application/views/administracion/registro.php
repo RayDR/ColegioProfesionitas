@@ -1,6 +1,14 @@
+<div class="pb-4 rounded">	
+	<nav aria-label="breadcrumb" style="margin: 0; !important">
+	    <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+	        <li class="breadcrumb-item"><a href="<?= base_url(HOME_ADM) ?>"><span class="fas fa-home"></span></a></li>
+	        <li class="breadcrumb-item active" aria-current="page"><?= $titulo_pagina ?></li>
+	    </ol>
+	</nav>
+</div>
 <div class="container">
 	<!--- formulario de asociacion ----->
-	<div class="row shadow-lg">
+	<div class="row shadow-lg bg-white mb-3">
 		<form id="modal-form-registro-asc" class="col-12">
 			<div class="form-row p-4">
 				<legend class="texto-rojo">Información de la Asociación</legend>
@@ -55,7 +63,7 @@
 		</form>
 	</div>
 	<!--- formulario de colegio ----->
-	<div class="row shadow-lg">
+	<div class="row shadow-lg bg-light">
 		<form id="modal-form-registro-cole" class="col-12">
 			<div class="form-row p-4">
 				<legend class="texto-rojo">Información del Colegio</legend>
@@ -193,7 +201,10 @@
 			<?php $this->load->view('template/utiles/alertas'); ?>
 		</form>
 	</div>
-	
-	<input type="button" id="enviar-registro" value="Registrar" class="mt-3 px-5 btn btn-lg btn-secondary boton-rojo">
+	<div class="row mx-auto">
+		<div class="col-md-10 col-lg-6 mx-auto">
+			<input type="button" id="enviar-registro" value="Registrar" class="mt-3 px-5 btn btn-lg btn-block btn-secondary boton-rojo">
+		</div>
+	</div>
 </div>
 <script type="application/javascript" src="<?= base_url('sources/js/administracion/registro.js') ?>?<?= date('dmYHis') ?>"></script>
