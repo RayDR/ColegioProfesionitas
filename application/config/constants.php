@@ -6,14 +6,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | NOMBRE DE LA APLICACIÓN
 |--------------------------------------------------------------------------
 */
-define('LOGO', 'Secretaría de Educación Tabasco');
-define('SISTEMA', 'SERCP');
+defined('LOGO')                 OR  define('LOGO', 'Secretaría de Educación Tabasco');
+defined('SISTEMA')              OR  define('SISTEMA', 'SERCP');
 /*
 |--------------------------------------------------------------------------
-| LIMITE DE CONEXIÓN FALLIDAS
+| CONFIGURADOR DE APLICACION
 |--------------------------------------------------------------------------
 */
-define('MAX_CON_FAIL', 3);
+// -- RUTA DE TEMAS
+defined('BASE_TEMA')            OR define('BASE_TEMA', 'template/');                        // Ruta Base Templates
+defined('TEMA_PUBLICO')         OR define('TEMA_PUBLICO', BASE_TEMA . 'body_landing/');     // Tema público
+defined('TEMA_ADMIN')           OR define('TEMA_ADMIN',   BASE_TEMA . 'body_admin/');       // Tema administrador
+defined('RUTA_UTILES')          OR define('RUTA_UTILES',  BASE_TEMA . 'utiles/');           // Utilerias
+// -- LOGIN
+defined('MAX_CON_FAIL')         OR  define('MAX_CON_FAIL', 10);                             // Limite de Conexiones
+// -- CARGA DE DOCUMENTOS
+defined('ALLOWED_MIMES_IMG')    OR  define('ALLOWED_MIMES_IMG', 'jpg|jpeg|png|bmp');        // Extensiones permitidas IMG
+defined('ALLOWED_MIMES_FILES')  OR  define('ALLOWED_MIMES_FILES', 'pdf');                   // Extensiones permitidas FILES
+defined('MAX_SIZE_IMG')         OR  define('MAX_IMG_SIZE', 2048);                           // Tamaño máximo imagenes
+defined('MAX_FILE_SIZE')        OR  define('MAX_FILE_SIZE', 10240);                         // Tamaño máximo archivos
+
+defined('UPLOAD_FOLDER')        OR  define('UPLOAD_FOLDER', 'uploads');                     // Folder carga de archivos
+defined('RUTA_NOTICIAS')        OR  define('RUTA_NOTICIAS', UPLOAD_FOLDER . 'noticias/');   // Ruta de imagenes de noticias
+defined('RUTA_COLEGIOS')        OR  define('RUTA_COLEGIOS', UPLOAD_FOLDER . 'colegios/');   // Ruta de imagenes de colegios 
+defined('UPLOAD_FPATH')         OR  define('UPLOAD_FPATH', FCPATH . UPLOAD_FOLDER );        // Ruta absoluta de archivos
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace
