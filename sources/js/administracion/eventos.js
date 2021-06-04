@@ -49,7 +49,7 @@ function finiciar_scheduler(){
       new Y.Scheduler(
         {
           boundingBox : scheduler,
-          activeView  : agenda,
+          activeView  : calMes,
           date        : new Date(),
           items       : datos,
           render      : true,
@@ -64,6 +64,9 @@ function finiciar_scheduler(){
           views         : [ agenda, calMes, calSemana, calDia ]
         }
       );
+
+
+      futil_back_to_top();
     }
   );
 

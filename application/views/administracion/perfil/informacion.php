@@ -1,6 +1,11 @@
 <div class="container">
    <div class="shadow-lg bg-white p-4">
       <div class="row">
+         <div class="col-12">
+            <img src="<?= base_url('sources/img/SETAB_COLOR.png') ?>" class="mx-auto d-block" style="width: 60%; height: auto;" alt="">
+         </div>
+      </div>
+      <div class="row">
          <div class="col-lg-4 form-label-group mx-auto">
             <label for="rfc" class="text-muted"><small>RFC de Asociación</small></label>
             <input id="rfc" type="text" class="form-control" readonly value="<?= $usuario->rfc ?>">

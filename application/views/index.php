@@ -127,14 +127,10 @@
                   <div class="carousel-item <?= ($key == 0)? 'active' : '' ?>">
                      <div class="row">
                   <?php endif; ?>
-                     <div class="col-md-6 col-lg-4 m-auto">
+                     <div class="col-md-6 col-lg-4 mt-auto">
                         <div class="card">
-                        	<?php if ( $colegio->imagen ): ?>
-                        	<img src="<?= base_url( RUTA_COLEGIOS . $colegio->colegio_id . '/' .$colegio->imagen) ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>" style="max-height: 180px; background-size: contain;">
-                        	<?php else: ?>
-                        	<img src="<?= base_url('sources/img/SETAB_COLOR.png') ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>">
-                        	<?php endif ?>
-                           <div class="card-body my-auto" style="min-height: 180px;">
+                        	<img class="img-card-top mx-auto" style="width: 90%; max-height: 200px; object-fit: fill;" src="<?= ( $colegio->imagen )? base_url( RUTA_COLEGIOS . $colegio->colegio_id . '/' .$colegio->imagen): base_url('sources/img/SETAB_COLOR.png') ?>" alt="<?= $colegio->nombre_colegio ?>">
+                           <div class="card-body my-auto">
                               <h5 class="card-title"><?= $colegio->nombre_colegio ?></h5>
                               <a href="#colegio<?= $colegio->colegio_id ?>" data-colegio="<?= $colegio->colegio_id ?>" data-nombre="<?= $colegio->nombre_colegio ?>" class="card-link stretched-link ver-colegio">Ver Colegio</a>
 

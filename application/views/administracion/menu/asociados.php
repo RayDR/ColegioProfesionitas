@@ -15,10 +15,9 @@
 		</div>
 	</div>
 	<div class="table-responsive">
-		<table id="dtSolicitudes" class="table table-hover bg-light ">
+		<table id="dtAsociados" class="table table-hover bg-light ">
 			<thead>
 			<tr>
-				<th>#</th>
 				<th>CURP</th>
 				<th>Nombre Completo</th>
 				<th>Profesión</th>

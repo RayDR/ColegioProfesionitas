@@ -1,6 +1,5 @@
 <!-- AlloyUI JS -->
-<script src="<?= base_url('vendor/alloyui_3.0.1/build/aui/aui-min.js') ?>" type="text/javascript" charset="utf-8" async defer></script> 
-<!-- AlloyUI -->
+<script src="<?= base_url('vendor/alloyui_3.0.1/build/aui/aui-min.js') ?>" type="text/javascript" charset="utf-8" async defer></script>
 <link type="text/css" href="<?= base_url('sources/css/alloyui.css') ?>" rel="stylesheet">
 <!-- Global CSS -->
 <link href="<?= base_url('sources/css/global.css') ?>" rel="stylesheet" />

@@ -84,7 +84,7 @@ class Inicio extends CI_Controller {
             }
          } else if ( password_verify( $password, $db_usuario->password ) )
          {  // Todo correcto - Permitir Login
-            $array_login = array('ulogin' => TRUE, 'tuser' => $db_usuario->tipo_usuario_id );
+            $array_login = array('ulogin' => TRUE, 'tuser' => $db_usuario->tipo_usuario_id, 'colegio_id' => $db_usuario->colegio_id );
             if ($this->session->establecer_sesion($db_usuario->usuario_id, $array_login))
             {
                $respuesta["exito"]     =   TRUE;

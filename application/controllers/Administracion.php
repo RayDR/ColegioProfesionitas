@@ -24,7 +24,6 @@ class Administracion extends CI_Controller {
     public function index(){        
         if ( ! $this->session->estatus_usuario_sesion() )
             redirect(base_url(),'refresh');
-        
         $usuario    = $this->session->userdata('uid');
         $data = array(
             'titulo'            =>  'Bienvenido a ' . SISTEMA,
@@ -147,6 +146,14 @@ class Administracion extends CI_Controller {
     public function get_solicitudes_ajax(){     
         $this->load->model('model_solicitudes');
         $json= $this->model_solicitudes->get_solicitudes_registro();
+        return print(json_encode($json));
+    }
+
+    public function get_datatable_asociados(){
+        $condicion = NULL;
+        if ( $this->session->userdata('colegio_id') )
+            $condicion = array('colegio_id' => $this->session->userdata('colegio_id') );
+        $json= $this->model_catalogos->get_asociados($condicion);
         return print(json_encode($json));
     }
 
