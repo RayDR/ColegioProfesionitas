@@ -9,6 +9,9 @@
 			<div class="col-12 col-lg-6">
 				<div class="text-center mb-2 font-weight-bold h5">CONTACTO</div>
 				<hr class="borde-dorado mx-0 mx-lg-5">
+				<a class="card-link" href="mailto:dirprofesiones.colprofesionistas@correo.setab.gob.mx">
+					<p class="text-center">dirprofesiones.colprofesionistas@correo.setab.gob.mx</p>
+				</a>
 			</div>
 		</div>
 	</div>

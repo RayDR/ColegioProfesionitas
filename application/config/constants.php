@@ -26,7 +26,7 @@ defined('ALLOWED_MIMES_FILES')  OR  define('ALLOWED_MIMES_FILES', 'pdf');       
 defined('MAX_SIZE_IMG')         OR  define('MAX_IMG_SIZE', 2048);                           // Tamaño máximo imagenes
 defined('MAX_FILE_SIZE')        OR  define('MAX_FILE_SIZE', 10240);                         // Tamaño máximo archivos
 
-defined('UPLOAD_FOLDER')        OR  define('UPLOAD_FOLDER', 'uploads');                     // Folder carga de archivos
+defined('UPLOAD_FOLDER')        OR  define('UPLOAD_FOLDER', 'uploads/');                     // Folder carga de archivos
 defined('RUTA_NOTICIAS')        OR  define('RUTA_NOTICIAS', UPLOAD_FOLDER . 'noticias/');   // Ruta de imagenes de noticias
 defined('RUTA_COLEGIOS')        OR  define('RUTA_COLEGIOS', UPLOAD_FOLDER . 'colegios/');   // Ruta de imagenes de colegios 
 defined('UPLOAD_FPATH')         OR  define('UPLOAD_FPATH', FCPATH . UPLOAD_FOLDER );        // Ruta absoluta de archivos

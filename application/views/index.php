@@ -45,7 +45,7 @@
 <?php $this->load->view($template.'menu_landing');?>
 
 <div class="contenido-mostrar">
-	<div id="descripcion" class="row">
+	<div id="descripcion" class="row fondo-2">
 		<div class="col shadow-sm py-5">
 			<div class="row py-5">
 				<div class="col-md-10 mx-auto py-4">
@@ -57,7 +57,7 @@
 		</div>
 	</div>
 
-	<div id="objetivo" class="row fondo-2">
+	<div id="objetivo" class="row">
 		<div class="col-md-7 my-auto">
 			<div class="container py-5">
 				<h3 class="display-4 my-4">
@@ -67,13 +67,13 @@
 			</div>
 		</div>
 		<div class="col-md-5 pr-0">
-			<img class="img-fluid" src="<?= base_url('sources/img/persona_leyendo.jpg') ?>">
+			<img class="img-fluid" src="<?= base_url('sources/img/fondo4.jpg') ?>">
 		</div>
 	</div>
 
-	<div id="marcolegal" class="row">
+	<div id="marcolegal" class="row bg-light">
 		<div class="col-md-5 pl-0">
-			<img class="img-fluid" src="<?= base_url('sources/img/reunion.jpg') ?>">
+			<img class="img-fluid" src="<?= base_url('sources/img/fondo5.jpg') ?>">
 		</div>
 		<div class="col-md-7 my-auto">
 			<div class="container">
@@ -130,7 +130,7 @@
                      <div class="col-md-6 col-lg-4 m-auto">
                         <div class="card">
                         	<?php if ( $colegio->imagen ): ?>
-                        	<img src="<?= base_url( RUTA_COLEGIOS . $colegio->colegio_id . $colegio->imagen) ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>">
+                        	<img src="<?= base_url( RUTA_COLEGIOS . $colegio->colegio_id . '/' .$colegio->imagen) ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>" style="max-height: 180px; background-size: contain;">
                         	<?php else: ?>
                         	<img src="<?= base_url('sources/img/SETAB_COLOR.png') ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>">
                         	<?php endif ?>

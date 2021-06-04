@@ -1,11 +1,16 @@
 <div class="card">
   <?php if ( $colegio->imagen ): ?>
-  <img src="<?= base_url( RUTA_COLEGIOS . $colegio->colegio_id . $colegio->imagen) ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>">
+  <img src="<?= base_url( RUTA_COLEGIOS . $colegio->colegio_id . '/' . $colegio->imagen) ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>">
   <?php else: ?>
   <img src="<?= base_url('sources/img/SETAB_COLOR.png') ?>" class="card-img-top" alt="<?= $colegio->nombre_colegio ?>">
   <?php endif ?>
   <div class="card-body fondo-cuadros fondo-2">
     <h5 class="card-title text-center h4 texto-rojo"><?= $colegio->nombre_colegio ?></h5>
+    <div class="container-fluid">
+      <div class="jumbotron-fluid">
+        <p class="lead"><b>Representante: </b><?= $colegio->nombres ?> <?= $colegio->primer_apellido ?> <?= $colegio->segundo_apellido ?></p>
+      </div>
+    </div>
     <div class="row">
       <?php if ( $colegio->pagina_web): ?>
       <div class="col-12">
