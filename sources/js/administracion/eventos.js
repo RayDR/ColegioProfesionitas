@@ -22,6 +22,7 @@ function finiciar_scheduler(){
   YUI({lang: 'es-MX'}).use(
     'aui-scheduler',
     function(Y) {
+      var eventRecorder = new Y.SchedulerEventRecorder();
 
       var agenda    = new Y.SchedulerAgendaView({
             isoTime   : true,
@@ -51,6 +52,7 @@ function finiciar_scheduler(){
           boundingBox : scheduler,
           activeView  : calMes,
           date        : new Date(),
+          eventRecorder: eventRecorder,
           items       : datos,
           render      : true,
           strings: {
