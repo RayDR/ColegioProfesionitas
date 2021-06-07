@@ -23,3 +23,9 @@
 	color: white !important;
 	top: 49px;
 }
+
+.counter{
+	font-size:25px;
+	font-weight:bold;
+	text-align:center;
+}

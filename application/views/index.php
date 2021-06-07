@@ -1,4 +1,4 @@
-<div id="landing_jumbo" class="row" style="min-height: 80vh;">
+<div id="landing_jumbo" class="row" style="min-height: 80vh;" onmouseover="contador()">
 	<div class="col-12 m-auto">
 		<div class="row ">
 			<div class="col-md-10 col-lg-8 mx-auto my-auto" >
@@ -10,7 +10,7 @@
 						<h3 class="text-center texto-dorado">Colegios</h3>
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<h2 class="text-white my-auto"><?= $counters->counter_colegios ?></h2>
+								<h2 class="text-white my-auto counter" data-target="<?= $counters->counter_colegios ?>">0</h2>
 							</div>
 						</div>
 					</div>
@@ -18,8 +18,7 @@
 						<h3 class="text-center texto-dorado">Asociados</h3>
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<h2 class="text-white my-auto"><?= $counters->counter_asociados ?></h2>
-								<i class="fas fa-users fa-3x text-white ml-3"></i>
+								<h2 class="text-white my-auto counter" data-target="<?= $counters->counter_asociados ?>">0</h2>
 							</div>
 						</div>
 					</div>
@@ -27,8 +26,7 @@
 						<h3 class="text-center texto-dorado">Eventos</h3>
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<h2 class="text-white lead my-auto">PRÓXIMAMENTE</h2>
-								<i class="fas fa-bullhorn fa-3x text-white ml-3"></i>
+								<h2 class="text-white h4 my-auto">PRÓXIMAMENTE</h2>
 							</div>
 						</div>
 					</div>
@@ -63,7 +61,7 @@
 				<h3 class="display-4 my-4">
 					<span class="font-weight-bolder text-muted">Objetivo</span>
 				</h3>
-				<p class="lead text-justify">Dar certidumbre a la sociedad tabasqueña, de las agrupaciones constituidas como Colegios de Profesionistas vigentes, cuyo propósito tienda al cumplimiento de sus estatutos y elevar los servicios profesionales en el Estado.</p>
+				<p class="lead text-justify">Dar certidumbre a la sociedad tabasqueña, a los profesionistas y a las Instituciones que vinculan el ejercicio profesional de las agrupaciones constituidas como <b>Colegios de Profesionistas</b> vigentes, cuyo propósito garantice el cumplimiento de sus estatutos y elevar la calidad del servicio profesional en el Estado.</p>
 			</div>
 		</div>
 		<div class="col-md-5 pr-0">
@@ -91,6 +89,18 @@
 						<div class="media-body">
 							<i class="fas fa-angle-right"></i>
 							<a href="https://congresotabasco.gob.mx/leyes/" class="card-link" target="_blank">Código Civil para el Estado de Tabasco</a>
+						</div>
+					</li>
+					<li class="media text-justify mb-2">
+						<div class="media-body">
+							<i class="fas fa-angle-right"></i>
+							<a href="https://tabasco.gob.mx/leyes/descargar/0/502#:~:text=Tiene%20por%20objeto%20regular%20la,en%20contra%20de%20sus%20resoluciones." class="card-link" target="_blank">Ley de Justicia Administrativa del Estado</a>
+						</div>
+					</li>
+					<li class="media text-justify mb-2">
+						<div class="media-body">
+							<i class="fas fa-angle-right"></i>
+							<a href="https://tabasco.gob.mx/leyes/descargar/0/508" class="card-link" target="_blank">Ley Orgánica del Poder Ejecutivo del Estado de Tabasco</a>
 						</div>
 					</li>
 					<li class="media text-justify mb-2">

@@ -8,8 +8,6 @@
 				</div>
 			</div>
 			<div class="col-12 col-lg-6">
-				<div class="text-center mb-2 font-weight-bold h5">CONTACTO</div>
-				<hr class="borde-dorado mx-0 mx-lg-5">
 			</div>
 		</div>
 	</div>
