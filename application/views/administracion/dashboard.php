@@ -4,6 +4,12 @@
 	</div>
 	<div>
 		<div class="container-fluid mb-0 pb-0">
+			<div tabindex="-1" class="alert alert-${color}" role="alert">    
+		      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		        <span aria-hidden="true">&times;</span>
+		      </button>
+		      <span>El registro y modificación de información será habilitado el <b>08/06/2021</b> a las <b>10:00 horas</b>, correspondientes a la sección de <b>Asociados</b> y <b>Consejo Directivo</b>. Agradecemos su amable espera.</span>
+		   </div>
 			<div class="row mt-3">
 				<div class="col-12">
 					<nav id="menu-navegacion" class="navbar navbar-expand navbar-dark bg-dark rounded p-0 mb-0">

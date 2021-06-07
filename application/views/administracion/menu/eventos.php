@@ -16,12 +16,13 @@
 	</nav>
 </div>
 <div class="container">
+	<legend>PRÓXIMAMENTE</legend>
 	<div class="pb-4">
 		<div class="btn-group" role="group" aria-label="Botones de Acción">
-		    <button id="evento-crear" class="btn btn-secondary boton-rojo">
+		    <button id="evento-crear" class="btn btn-secondary boton-rojo" disabled>
 		        <span class="fas fa-plus"></span><span class="d-none d-md-inline">&nbsp;Nuevo Evento</span>
 		    </button>
-		    <button id="evento-buscar" class="btn btn-dark" type="button">
+		    <button id="evento-buscar" class="btn btn-dark" type="button" disabled>
 		        <span class="fas fa-search"></span><span class="d-none d-md-inline">&nbsp;Buscar Evento</span>
 		    </button>
 		</div>
