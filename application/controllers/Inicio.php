@@ -40,6 +40,23 @@ class Inicio extends CI_Controller {
       return print(json_encode($respuesta));
    }
 
+   public function colegio($colegio_id = NULL){
+      if ( !$colegio_id )
+         return $this->index();
+      $datosColegio = $this->model_colegios->get_colegio_id_galeria($colegio_id);
+      if ( !$datosColegio )
+         return $this->index();
+      $data=array(
+         'titulo'    => $datosColegio->nombre_colegio . ' | ' . SISTEMA,
+         'asociados' => $this->model_colegios->get_colegio_asociados($colegio_id),
+         'redes'     => $this->model_colegios->get_colegio_redes($colegio_id),
+         'colegio'   => $datosColegio,
+         'template'  => $this->template,
+         'view'      => 'pagina_colegio',
+      );
+      $this->load->view( $this->contenido, $data );
+   }
+
 /*
 |--------------------------------------------------------------------------
 | FUNCTIONES AJAX

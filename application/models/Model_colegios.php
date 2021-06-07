@@ -6,7 +6,6 @@ class Model_colegios extends CI_Model {
 // --- GETTERS --------------------------------------- 
 
     public function get_colegio_id_galeria( $colegio_id ){
-//        $this->db->select('colegio_id, nombre_colegio, pagina_web, email, telefono, imagen, mapa');
         $this->db->where( 'colegio_id', $colegio_id );
 
         $colegios = $this->db->get('vw_colegio_imagen');
@@ -22,6 +21,20 @@ class Model_colegios extends CI_Model {
 
     public function get_counters(){
         return $this->db->get('vw_counters')->row();
+    }
+
+    public function get_colegio_asociados( $colegio_id ){
+        $this->db->where( 'colegio_id', $colegio_id );
+
+        $colegios = $this->db->get('vw_asociados');
+        return $colegios->result();
+    }
+
+    public function get_colegio_redes( $colegio_id ){
+        $this->db->where( 'colegio_id', $colegio_id );
+
+        $colegios = $this->db->get('colegios_redes_sociales');
+        return $colegios->result();
     }
 
 

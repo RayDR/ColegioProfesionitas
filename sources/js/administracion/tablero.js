@@ -45,7 +45,15 @@ function fn_iniciar_dt() {
             { data: 'rfc_colegio' },
             { data: 'nombre' },
             { data: 'domicilio' },
-            { data: 'mapa' },
+            {
+                data: null,
+                visible: false,
+                render: function(data){
+                    if ( data.mapa )
+                        return `<a href="${data.mapa}" target="_blank">Abrir mapa</a>`;
+                    return '';
+                }
+            },
             { data: 'fecha' },
             { data: 'periodo_mesa_directiva' },
             {data: null,render:function (data) {
