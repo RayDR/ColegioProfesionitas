@@ -12,7 +12,7 @@ function finiciar_scheduler(){
   var datos = [];
   eventos.forEach( function(evento, index) {
     datos.push({
-      disabled  : true,
+      disabled  : false,
       content: evento.evento,
       startDate: new Date(evento.fecha_inicio),
       endDate: new Date(evento.fecha_fin)
