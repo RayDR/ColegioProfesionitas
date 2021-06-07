@@ -7,7 +7,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="menu-superior">
-			<ul id="menu-estatico" class="navbar-nav ml-auto">
+			<ul  class="navbar-nav ml-auto">
 				<?php if( $this->session->userdata('ulogin') == true && $this->session->userdata('uid') ): ?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?= base_url('index.php/Administracion'); ?>">Panel de control</a>
@@ -21,50 +21,6 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" href="<?= base_url() ?>">Inicio</a>
-				</li>
-				<li class="nav-item">
-					<a id="inicio-sesion" class="nav-link" href="#">Iniciar sesión</a>
-				</li>
-				<form id="form-inicio-sesion" class="inicio-sesion text-body form-mostrar" style="display: none;">
-					<?php $this->load->view('template/utiles/alertas'); ?>
-					<div class="form-group">
-						<label for="is-rfc">RFC</label>
-						<input type="email" class="form-control" id="is-rfc" name="rfc">
-					</div>
-					<div class="form-group">
-						<label for="is-password">Password</label>
-						<input type="password" class="form-control" id="is-password" name="password">
-					</div>
-					<div class="form-group form-check">
-						<input type="checkbox" class="form-check-input" id="is-recuerdame" name="recuerdame">
-						<label class="form-check-label" for="is-recuerdame">Recuerdame</label>
-					</div>
-					<div class="text-right">
-						<button id="is-acceder" type="submit" class="btn btn-secondary boton-dorado px-5">Ingresar</button>
-					</div>
-				</form>
-				<?php endif; ?>
-			</ul>
-			<ul id="menu-flotante" class="d-none navbar-nav ml-auto">
-				<?php if( $this->session->userdata('ulogin') == true && $this->session->userdata('uid') ): ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?= base_url('index.php/Administracion'); ?>">Panel de control</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?= base_url('index.php/Administracion/logout'); ?>">Cerrar sesión</a>
-				</li>
-				<?php else: ?>
-				<li class="nav-item">
-					<a class="nav-link" data-spy="scroll" data-target="#descripcion" href="#descripcion">Acerca de</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-spy="scroll" data-target="#descripcion" href="#descripcion">Objetivo</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-spy="scroll" data-target="#descripcion" href="#descripcion">Fundamento legal</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-spy="scroll" data-target="#descripcion" href="#descripcion">Colegios registrados</a>
 				</li>
 				<li class="nav-item">
 					<a id="inicio-sesion" class="nav-link" href="#">Iniciar sesión</a>
