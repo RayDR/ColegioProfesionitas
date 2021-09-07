@@ -1,6 +1,8 @@
 var dt;
 $(document).ready(function () {
     fn_iniciar_dt();
+
+    $('#asociado-agregar').click(fn_agregar_asociado);
 });
 
 function fn_iniciar_dt() {
@@ -72,3 +74,20 @@ function fn_ver_detalle(params) {
         'xl'
     );
 }
+
+function fn_agregar_asociado(e){
+    loader();
+    $.get(url('Administracion/modal_asociado')).then(function(data){
+        return JSON.parse(data);
+    }).then(function(data){
+        if( data.exito ){
+            futil_modal('Registrar ', data.html);
+        } else 
+            futil_toast( (data.error)? data.error: '', '', 'danger');
+    }).catch(function(error){
+        futil_toast(`Ha ocurrido un error<br><b>${error.message}</b>`, '', 'danger');
+    }).always(function(){
+        loader(false);
+    });
+}
+
