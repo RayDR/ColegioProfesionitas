@@ -1,13 +1,14 @@
-<div class="pb-4 rounded">	
+<div class="pb-4 rounded">
 	<nav aria-label="breadcrumb" style="margin: 0; !important">
-	    <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-	        <li class="breadcrumb-item"><a href="<?= base_url(HOME_ADM) ?>"><span class="fas fa-home"></span></a></li>
-	        <li class="breadcrumb-item active" aria-current="page"><?= $titulo_pagina ?></li>
-	    </ol>
+		<ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+			<li class="breadcrumb-item"><a href="<?= base_url(HOME_ADM) ?>"><span class="fas fa-home"></span></a></li>
+			<li class="breadcrumb-item active" aria-current="page"><?= $titulo_pagina ?></li>
+		</ol>
 	</nav>
 </div>
 <div class="container">
 	<!--- formulario de asociacion ----->
+
 	<div class="row shadow-lg bg-white mb-3">
 		<form id="modal-form-registro-asc" class="col-12">
 			<div class="form-row p-4">
@@ -25,19 +26,16 @@
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="municipio">Municipio</label>
-					<select required id="municipio" name="municipio" data-nombre="Municipio" class="custom-select cargar_cps"
-							data-objetivo="#modal-form-registro-asc #codigo_postal">
+					<select required id="municipio" name="municipio" data-nombre="Municipio" class="custom-select cargar_cps" data-objetivo="#modal-form-registro-asc #codigo_postal">
 						<option selected disabled>Seleccione una opción</option>
-						<?php foreach ($municipios as $key => $municipio): ?>
-							<option value="<?= $municipio->municipio_id ?>"
-									data-estado="<?= $municipio->estado_id ?>"><?= $municipio->nombre_municipio ?></option>
+						<?php foreach ($municipios as $key => $municipio) : ?>
+							<option value="<?= $municipio->municipio_id ?>" data-estado="<?= $municipio->estado_id ?>"><?= $municipio->nombre_municipio ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="codigo_postal">Colonia</label>
-					<select required id="codigo_postal" name="codigo_postal" data-nombre="Código Postal"
-							class="custom-select">
+					<select required id="codigo_postal" name="codigo_postal" data-nombre="Código Postal" class="custom-select">
 						<option selected disabled>Seleccione primero un municipio</option>
 					</select>
 				</div>
@@ -51,13 +49,11 @@
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="fecha_constitucion">Fecha de constitución (opcional)</label>
-					<input type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion"
-						   data-nombre="Fecha de constitución">
+					<input type="date" class="form-control" id="fecha_constitucion" name="fecha_constitucion" data-nombre="Fecha de constitución">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="acta_notariada_asociacion">Acta Notariada (opcional)</label>
-					<input type="text" class="form-control" id="acta_notariada_asociacion" name="acta_notariada_asociacion"
-						   data-nombre="Acta Notariada">
+					<input type="text" class="form-control" id="acta_notariada_asociacion" name="acta_notariada_asociacion" data-nombre="Acta Notariada">
 				</div>
 			</div>
 		</form>
@@ -78,13 +74,11 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="primer_apellido">Primer apellido</label>
-					<input required type="text" class="form-control" id="primer_apellido" name="primer_apellido"
-						   data-nombre="Primer apellido">
+					<input required type="text" class="form-control" id="primer_apellido" name="primer_apellido" data-nombre="Primer apellido">
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="segundo_apellido">Segundo apellido </label>
-					<input required type="text" class="form-control" id="segundo_apellido" name="segundo_apellido"
-						   data-nombre="Segundo apellido">
+					<input required type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" data-nombre="Segundo apellido">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="rfc">RFC (opcional)</label>
@@ -97,8 +91,7 @@
 				<legend class="col-12">Datos generales</legend>
 				<div class="form-group col-lg-6">
 					<label for="colegio">Nombre del colegio </label>
-					<input required type="text" class="form-control" id="colegio" name="colegio"
-						   data-nombre="Nombre del colegio">
+					<input required type="text" class="form-control" id="colegio" name="colegio" data-nombre="Nombre del colegio">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="rfc">RFC</label>
@@ -106,19 +99,16 @@
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="municipio">Municipio</label>
-					<select requiered id="municipio" name="municipio_col" class="custom-select cargar_cps"
-							data-objetivo="#modal-form-registro-cole #codigo-postal" data-nombre="Municipio">
+					<select requiered id="municipio" name="municipio_col" class="custom-select cargar_cps" data-objetivo="#modal-form-registro-cole #codigo-postal" data-nombre="Municipio">
 						<option selected disabled>Seleccione una opción</option>
-						<?php foreach ($municipios as $key => $municipio): ?>
-							<option value="<?= $municipio->municipio_id ?>"
-									data-estado="<?= $municipio->estado_id ?>"><?= $municipio->nombre_municipio ?></option>
+						<?php foreach ($municipios as $key => $municipio) : ?>
+							<option value="<?= $municipio->municipio_id ?>" data-estado="<?= $municipio->estado_id ?>"><?= $municipio->nombre_municipio ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="codigo-postal">Colonia</label>
-					<select requiered id="codigo-postal" name="codigo_postal_col" class="custom-select"
-							data-nombre="Código postal">
+					<select requiered id="codigo-postal" name="codigo_postal_col" class="custom-select" data-nombre="Código postal">
 						<option selected disabled>Seleccione primero un municipio</option>
 					</select>
 				</div>
@@ -140,7 +130,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="periodo-mesa-directiva">Periodo mesa directiva</label>
-					<input required type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : '0'" class="form-control" id="periodo-mesa-directiva"  name="periodo-mesa-directiva" data-nombre="Periodo mesa directiva">
+					<input required type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : '0'" class="form-control" id="periodo-mesa-directiva" name="periodo-mesa-directiva" data-nombre="Periodo mesa directiva">
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="acta_notariada_colegio">Acta Notariada (opcional)</label>
@@ -148,8 +138,7 @@
 				</div>
 				<div class="form-group col-lg-6">
 					<label for="acta_secretaria_economia">Acta de Secretaría de Economía (opcional)</label>
-					<input type="text" class="form-control" id="acta_secretaria_economia" name="acta_secretaria_economia"
-						   data-nombre="Acta de Secretaría de Economía">
+					<input type="text" class="form-control" id="acta_secretaria_economia" name="acta_secretaria_economia" data-nombre="Acta de Secretaría de Economía">
 				</div>
 			</div>
 			<div class="form-row px-4 py-2">
@@ -160,14 +149,11 @@
 				</div>
 				<div class="form-group col-lg-4">
 					<label for="telefono">Número telefónico</label>
-					<input required type="tel" class="form-control futil_solo_numeros" id="telefono" data-nombre="Número telefónico"
-						   name="telefono">
+					<input required type="tel" class="form-control futil_solo_numeros" id="telefono" data-nombre="Número telefónico" name="telefono">
 				</div>
 				<div class="form-group col-lg-4">
-					<label for="pagina-web">Pagina web<span
-								class="text-muted">(Opcional)</span></label>
-					<input type="text" class="form-control futil_solo_numeros" id="pagina-web"
-						   name="pagina-web" data-nombre="Pagina web">
+					<label for="pagina-web">Pagina web<span class="text-muted">(Opcional)</span></label>
+					<input type="text" class="form-control futil_solo_numeros" id="pagina-web" name="pagina-web" data-nombre="Pagina web">
 				</div>
 			</div>
 
@@ -181,8 +167,8 @@
 				<div class="form-group col-10 col-md-9 col-lg-4">
 					<label for="red-social">Red social</label>
 					<select requiered id="red-social" name="red-social" class="custom-select" data-nombre="Red social">
-							<?php $this->load->view('ajax/redes_sociales', ['redes_sociales'=>$redes_sociales], FALSE);
-							?>
+						<?php $this->load->view('ajax/redes_sociales', ['redes_sociales' => $redes_sociales], FALSE);
+						?>
 					</select>
 				</div>
 				<div class="form-group col-2 col-md-3 col-lg-4 my-auto">

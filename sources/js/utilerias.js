@@ -159,7 +159,6 @@ function futil_modal(titulo, contenido = "", botones = "", anchura = "lg", html 
     titulo    = "404 - Página no encontrada";
     contenido = "No se localizó la página que estaba consultado.";
   }
-  
   if( contenido == "" )
     return;
 

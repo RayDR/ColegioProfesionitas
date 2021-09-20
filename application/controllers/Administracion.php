@@ -12,6 +12,7 @@ class Administracion extends CI_Controller {
         $this->load->model('model_sistema');
         $this->load->model('model_catalogos');
         $this->load->model('model_colegios');
+        $this->load->model('model_evento');
 
         defined('HOME_ADM') OR define('HOME_ADM', 'index.php/Administracion');
     }
@@ -138,6 +139,7 @@ class Administracion extends CI_Controller {
         }
         return print(json_encode($json));
     }
+    
     public function get_colegios_ajax(){
         $json= $this->model_catalogos->get_colegios();
         return print(json_encode($json));
@@ -241,7 +243,38 @@ class Administracion extends CI_Controller {
         $json['html'] = $this->load->view( $data["view"], $data, TRUE );
         return print(json_encode($json));
     }
+
+    public function modal_evento(){
+        $json = array('exito' => TRUE);
+        $json['html'] = $this->load->view( 'modales/modal_evento', null, TRUE);
+        return print(json_encode($json));
+    }
+
+    public function guardar_evento(){
+        $json   =   array('exito' => TRUE);
+        #id_sesion
+        $usuario=   $this->session->userdata('uid');
+        #Consigo id de colegio??
+        $this->db->where('colegio_id', $usuario);
+        $colegio_id = $this->db->get('usuarios')->row('colegio_id');
+        #
+        $evento =   $this->input->post('evento');
+
+        if ($evento) {
+            $json['modelo']=$this->model_evento->registrar_evento($colegio_id, $evento, $usuario);
+        }else{
+            $json['exito'] = FALSE;
+            $json['mensaje'] = 'No se encontraron datos';
+            $json['datos']=$evento;
+        }
+
+        return print(json_encode($json));
+
+    }
+    
+   
 /*
+
 |--------------------------------------------------------------------------
 | VISTAS PROTEGIDAS
 |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <!-- AlloyUI JS -->
-<script src="<?= base_url('vendor/alloyui_3.0.1/build/aui/aui-min.js') ?>" type="text/javascript" charset="utf-8" async defer></script>
-<link type="text/css" href="<?= base_url('sources/css/alloyui.css') ?>" rel="stylesheet">
+<!-- <script src="<?= base_url('vendor/alloyui_3.0.1/build/aui/aui-min.js') ?>" type="text/javascript" charset="utf-8" async defer></script> -->
+<!-- <link type="text/css" href="<?= base_url('sources/css/alloyui.css') ?>" rel="stylesheet"> -->
 <!-- Global CSS -->
 <link href="<?= base_url('sources/css/global.css') ?>" rel="stylesheet" />
 
@@ -19,7 +19,7 @@
 	<legend>PRÓXIMAMENTE</legend>
 	<div class="pb-4">
 		<div class="btn-group" role="group" aria-label="Botones de Acción">
-		    <button id="evento-crear" class="btn btn-secondary boton-rojo" disabled>
+		    <button id="evento-crear" class="btn btn-secondary boton-rojo" >
 		        <span class="fas fa-plus"></span><span class="d-none d-md-inline">&nbsp;Nuevo Evento</span>
 		    </button>
 		    <button id="evento-buscar" class="btn btn-dark" type="button" disabled>
