@@ -99,6 +99,16 @@ class Administracion extends CI_Controller {
         return print(json_encode($respuesta));
     }
 
+    public function modal_asociado(){
+        $json = array('exito' => TRUE);
+        $data = array('niveles_educativos' => $this->model_catalogos->get_niveles(),
+        'instituciones' => $this->model_catalogos->get_instituciones(),
+        'colegios' => $this->model_catalogos->get_colegioss(),
+        'carreras' => $this->model_catalogos->get_carreras());
+        $json['html'] = $this->load->view( 'administracion/modales/modal_asociado', $data, TRUE );
+        return print(json_encode($json));
+    }
+
     public function vista_form_solicitud_modal(){
         $json = array('exito' => TRUE);
         $json['html'] = $this->load->view( 'administracion/registro', null, TRUE );

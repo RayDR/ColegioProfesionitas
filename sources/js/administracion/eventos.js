@@ -7,7 +7,7 @@ $(document)
   .on('click','.scheduler-event-content', function(event) {});
 
 $(document).ready(function($) {
-  // finiciar_scheduler();
+  finiciar_scheduler();
   $('#evento-crear').click(fn_agregar_evento);
 });
 

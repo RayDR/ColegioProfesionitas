@@ -9,7 +9,7 @@
 <div class="container">
 	<div class="pb-4">
 		<div class="btn-group" role="group" aria-label="Botones de Acción">
-		    <button id="asociado-agregar" class="btn btn-secondary boton-rojo" disabled>
+		    <button id="asociado-agregar" class="btn btn-secondary boton-rojo">
 		        <span class="fas fa-plus"></span><span class="d-none d-md-inline">&nbsp;Agregar Asociado</span>
 		    </button>
 		</div>
