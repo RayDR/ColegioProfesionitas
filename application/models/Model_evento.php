@@ -4,11 +4,11 @@ defined('BASEPATH') OR exit ('No direct script access allowed');
 class Model_evento extends CI_Model{
     // ==> GETTERS <==
     public function get_eventos_colegio(){
-        $this->db->select();
-        $eventos = $this->db->get();
+        $this->db->select('evento_id, nombre_evento,fecha_desde, fecha_hasta');
+        $eventos = $this->db->get('eventos');
         return $eventos->result();
     }
-    
+
     // ==> SETTERS <==
     public function registrar_evento($colegio_id, $evento, $usuario){
         $_evento=[];
