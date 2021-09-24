@@ -28,6 +28,7 @@ function fn_registrar_asociado(e) {
         errores   = '';
     datos = ( !datos_aux )? datos : datos_aux;
     campos_obligatorios = [
+        { 'input': 'Colegio', 'id': 'colegio_id' },
         { 'input': 'Nombre(s)', 'id': 'nombre' },
         { 'input': 'Primer apellido', 'id': 'primer_apellido' },
         { 'input': 'Número de Cédula', 'id': 'numero_cedula' }

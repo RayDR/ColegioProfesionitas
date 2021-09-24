@@ -212,8 +212,23 @@ class Model_catalogos extends CI_Model {
 		else
 		return $db_datos->result_array();
 	}
-	
+
+	public function get_colegioss($filtros = null, $tipo = TRUE)
+	{
+		if (is_array($filtros)) {
+			foreach ($filtros as $nombre => $valor) {
+				$this->db->where($nombre, $valor);
+			}
+		}
+		$db_datos = $this->db->get('colegios');
+		if ($tipo)
+		return $db_datos->result();
+		else
+		return $db_datos->result_array();
+	}
+
 }
+
 
 /* End of file model_catalogos.php */
 /* Location: ./application/models/model_catalogos.php */
