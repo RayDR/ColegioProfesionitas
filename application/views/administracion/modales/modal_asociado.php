@@ -7,6 +7,7 @@
 				<div class="col-12 my-1" id="errores-form">
 					<?PHP $this->load->view('template/utiles/alertas'); ?>
 				</div>
+				<?php if( $this->session->userdata('tuser') < 4): ?>
 				<div class="form-group col-lg-12">
 					<label for="colegio">Colegio</label>
 					<select requiered id="colegio_id" name="colegio_id" data-nombre="Colegios" class="custom-select"
@@ -17,6 +18,9 @@
 						<?php endforeach; ?>
 					</select>
 				</div>
+				<?php else: ?>
+				<input type="hidden" id="colegio_id" name="colegio_id" value="<?= $colegios->colegio_id ?>">					
+				<?php endif ?>
 				<div class="form-group col-lg-4">
 					<label for="nombre">Nombre(s)</label>
 					<input required type="text" class="form-control" id="nombre" name="nombre" data-nombre="Nombre">
@@ -96,4 +100,4 @@
 	</div>
 </div>
 
-<script type="application/javascript" src="<?= base_url('sources/js/administracion/perfil.js') ?>?<?= date('dmYHis') ?>"></script>
+<script type="application/javascript" src="<?= base_url('sources/js/administracion/modal_asociado.js') ?>?<?= date('dmYHis') ?>"></script>

@@ -101,10 +101,21 @@ class Administracion extends CI_Controller {
 
     public function modal_asociado(){
         $json = array('exito' => TRUE);
-        $data = array('niveles_educativos' => $this->model_catalogos->get_niveles(),
-        'instituciones' => $this->model_catalogos->get_instituciones(),
-        'colegios' => $this->model_catalogos->get_colegioss(),
-        'carreras' => $this->model_catalogos->get_carreras());
+
+        $usuario    = $this->session->userdata('uid');
+        $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario]);
+
+        if ( $dbUsuario->colegio_id )
+            $colegios = $this->model_catalogos->get_colegio_id($dbUsuario->colegio_id);
+        else 
+            $colegios = $this->model_catalogos->get_colegioss();
+
+        $data = array(
+            'niveles_educativos'    => $this->model_catalogos->get_niveles(),
+            'instituciones'         => $this->model_catalogos->get_instituciones(),
+            'colegios'              => $colegios,
+            'carreras'              => $this->model_catalogos->get_carreras()
+        );
         $json['html'] = $this->load->view( 'administracion/modales/modal_asociado', $data, TRUE );
         return print(json_encode($json));
     }
@@ -256,35 +267,46 @@ class Administracion extends CI_Controller {
 
     public function modal_evento(){
         $json = array('exito' => TRUE);
-        $json['html'] = $this->load->view( 'modales/modal_evento', null, TRUE);
+        $data = array(
+            'colegios' => $this->model_catalogos->get_colegioss()
+        );
+        $json['html'] = $this->load->view( 'modales/modal_evento', $data, TRUE);
         return print(json_encode($json));
     }
 
     public function guardar_evento(){
-        $json   =   array('exito' => TRUE);
+        $json   =   array('exito' => FALSE);
         #id_sesion
-        $usuario=   $this->session->userdata('uid');
-        #Consigo id de colegio??
-        $this->db->where('colegio_id', $usuario);
-        $colegio_id = $this->db->get('usuarios')->row('colegio_id');
-        #
-        $evento =   $this->input->post('evento');
+        $usuario_id = $this->session->userdata('uid');
+        $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario_id]);
 
-        if ($evento) {
-            $respuesta = $this->model_evento->registrar_evento($colegio_id, $evento, $usuario);
-            $json['exito']=$respuesta['exito'];
-            if(! $json['exito'])
-                $json['mensaje']=$respuesta['error'];
-        }else{
-            $json['exito'] = FALSE;
-            $json['mensaje'] = 'No se encontraron datos';
-            $json['datos']=$evento;
+        if ( $dbUsuario ){
+            $colegio_id = (isset($dbUsuario->colegio_id))? $dbUsuario->colegio_id : $this->input->post('colegio_id');
+            if ( $colegio_id ){
+                $evento =   $this->input->post();
+                if ($evento) {
+                    $respuesta = $this->model_evento->registrar_evento($dbUsuario->colegio_id, $evento, $usuario_id);
+                    $json['exito']=$respuesta['exito'];
+                    if(! $json['exito'])
+                        $json['mensaje']=$respuesta['error'];
+                }else{
+                    $json['exito'] = FALSE;
+                    $json['mensaje'] = 'No se encontraron datos';
+                    $json['datos']=$evento;
+                }
+            } else 
+                $json = array('exito' => FALSE, 'error' => 'No se pudo obtener el folio del Colegio.');
+        } else {
+            $json = array('exito' => FALSE, 'error' => 'No se pudo obtener los datos del asociado.');
         }
         return print(json_encode($json));
     }
     
     public function get_eventos_ajax(){
-        $json=$this->model_evento->get_eventos_colegio();
+        $usuario_id = $this->session->userdata('uid');
+        $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario_id]);
+
+        $json=$this->model_evento->get_eventos_colegio($dbUsuario->colegio_id);
         return print_r(json_encode($json));
     }
 /*

@@ -3,7 +3,10 @@ defined('BASEPATH') OR exit ('No direct script access allowed');
 
 class Model_evento extends CI_Model{
     // ==> GETTERS <==
-    public function get_eventos_colegio(){
+    public function get_eventos_colegio($colegio_id = NULL){
+        if ( !is_null($colegio_id) )
+            $this->db->where('colegio_id', $colegio_id);
+        
         $this->db->select('evento_id, nombre_evento,fecha_desde, fecha_hasta');
         $eventos = $this->db->get('eventos');
         return $eventos->result();
@@ -11,34 +14,25 @@ class Model_evento extends CI_Model{
 
     // ==> SETTERS <==
     public function registrar_evento($colegio_id, $evento, $usuario){
-        $_evento=[];
-        foreach ($evento as $name => $value) {
-            $_evento[$value['name']]=$value['value'];
-        }
-        $resultado=['exito'=> TRUE];
-        $resultado['evento'] = $_evento;
+        $resultado = array('exito' => TRUE);
         try{
             $this->db->trans_begin();
-            // #Checo si existe algun evento con los mismos datos
-            // $array = array('nombre_evento'=> $_evento['nombre_evento'], 
-            //                 'fecha_desde' => $_evento['fecha_inicio'], 
-            //                 'fecha_hasta' => $_evento['fecha_termino']);
-            // $this->db->where($array);
-            $this->db->where('nombre_evento', $_evento["nombre_evento"]);
-            $this->db->or_where('fecha_desde', $_evento['fecha_inicio']);
-            $this->db->or_where('fecha_hasta', $_evento['fecha_termino']);
-            $evento = $this->db->get('eventos');
-            if ($evento->num_rows() > 0)
-                throw new Exception('Ya existe un evento con los mismos datos');
+            // #Checo si existe algun evento con los mismos datos            
+            $this->db->where('nombre_evento', $evento["nombre_evento"]);
+            $this->db->where('fecha_desde', $evento['fecha_inicio']);
+            $this->db->where('fecha_hasta', $evento['fecha_termino']);
+
+            $dbEvento = $this->db->get('eventos');
+
+            if ($dbEvento->num_rows() > 0)
+                throw new Exception('Ya existe un evento registrado con los mismos datos');
+
             $datos_db = array(
                 'colegio_id'        => $colegio_id,
-                'nombre_evento'     => $_evento["nombre_evento"],
-                'fecha_desde'       => $_evento["fecha_inicio"],
-                'fecha_hasta'       => $_evento["fecha_termino"],
-                'fecha_creacion'    => date('Y-m-d H:m:s'),
-                'fecha_modificacion'=> date('Y-m-d H:m:s'),
+                'nombre_evento'     => $evento["nombre_evento"],
+                'fecha_desde'       => $evento["fecha_inicio"],
+                'fecha_hasta'       => $evento["fecha_termino"],
                 'usuario_id_creador'=> $usuario,
-                'usuario_id'        => $usuario,
                 'status'            => 1
             );
 

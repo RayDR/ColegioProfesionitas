@@ -5,6 +5,11 @@ class Model_colegios extends CI_Model {
 
 // --- GETTERS --------------------------------------- 
 
+    public function get_colegio($colegio_id){
+        $this->db->where('colegio_id', $colegio_id);
+        $colegio = $this->db->get('usuarios')->row('colegio_id');
+    }
+
     public function get_colegio_id_galeria( $colegio_id ){
         $this->db->where( 'colegio_id', $colegio_id );
 

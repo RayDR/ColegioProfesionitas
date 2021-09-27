@@ -213,18 +213,25 @@ class Model_catalogos extends CI_Model {
 		return $db_datos->result_array();
 	}
 
-	public function get_colegioss($filtros = null, $tipo = TRUE)
+	public function get_colegioss($colegio_id = null, $tipo = TRUE)
 	{
-		if (is_array($filtros)) {
-			foreach ($filtros as $nombre => $valor) {
-				$this->db->where($nombre, $valor);
-			}
-		}
+		if ( !is_null($colegio_id) )
+			$this->db->where('colegio_id', $colegio_id);
+
 		$db_datos = $this->db->get('colegios');
+
 		if ($tipo)
-		return $db_datos->result();
+			return $db_datos->result();
 		else
-		return $db_datos->result_array();
+			return $db_datos->result_array();
+	}
+
+	public function get_colegio_id($colegio_id)
+	{
+		$this->db->where('colegio_id', $colegio_id);
+		$db_datos = $this->db->get('colegios');
+
+		return $db_datos->row();
 	}
 
 }

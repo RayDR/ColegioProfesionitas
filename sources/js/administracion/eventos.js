@@ -14,9 +14,9 @@ $(document).ready(function($) {
 
 function finiciar_scheduler(){
   var datos = [];
-  $.get(url('Administracion/get_eventos_ajax'), 'post').then(function (data) {
-    datos = JSON.parse(data);
-    eventos.forEach(function(evento, index){
+  $.get(url('Administracion/get_eventos_ajax')).then(function (data) {
+    data = JSON.parse(data);
+    data.forEach(function(evento, index){
       datos.push({
         disabled: false,
         content:evento.nombre_evento,
@@ -24,61 +24,58 @@ function finiciar_scheduler(){
         endDate: new Date(evento.fecha_hasta)
       });
     });
-  }).catch((error)=>console.log(error))
-    
-  YUI({lang: 'es-MX'}).use(
-    'aui-scheduler',
-    function(Y) {
-      var eventRecorder = new Y.SchedulerEventRecorder();
+  }).then(function(data){
+    YUI({lang: 'es-MX'}).use(
+      'aui-scheduler',
+      function(Y) {
+        var eventRecorder = new Y.SchedulerEventRecorder();
 
-      var agenda    = new Y.SchedulerAgendaView({
-            isoTime   : true,
+        var agenda    = new Y.SchedulerAgendaView({
+              isoTime   : true,
+              strings: {
+                noEvents  : 'No hay acuerdos registrados'
+              }
+            }),
+            calDia    = new Y.SchedulerDayView({
+              isoTime   : true,
+              strings   : { allDay: 'Todo el día' }
+            }),
+            calSemana = new Y.SchedulerWeekView({
+              isoTime   : true,
+              strings   : { allDay: 'Todo el día' }
+            }),
+            calMes    = new Y.SchedulerMonthView({
+              isoTime   : true,
+              strings: {
+                close   : 'Cerrar',
+                show    : 'Mostrar',
+                more    : 'más'
+              }
+            });
+
+        new Y.Scheduler(
+          {
+            boundingBox : scheduler,
+            activeView  : calMes,
+            date        : new Date(),
+            eventRecorder: eventRecorder,
+            items       : datos,
+            render      : true,
             strings: {
-              noEvents  : 'No hay acuerdos registrados'
-            }
-          }),
-          calDia    = new Y.SchedulerDayView({
-            isoTime   : true,
-            strings   : { allDay: 'Todo el día' }
-          }),
-          calSemana = new Y.SchedulerWeekView({
-            isoTime   : true,
-            strings   : { allDay: 'Todo el día' }
-          }),
-          calMes    = new Y.SchedulerMonthView({
-            isoTime   : true,
-            strings: {
-              close   : 'Cerrar',
-              show    : 'Mostrar',
-              more    : 'más'
-            }
-          });
-
-      new Y.Scheduler(
-        {
-          boundingBox : scheduler,
-          activeView  : calMes,
-          date        : new Date(),
-          eventRecorder: eventRecorder,
-          items       : datos,
-          render      : true,
-          strings: {
-            agenda  : 'Agenda',
-            day     : 'Día',
-            month   : 'Mes',
-            today   : 'HOY',
-            week    : 'Semana',
-            year    : 'Año'
-          },
-          views         : [ agenda, calMes, calSemana, calDia ]
-        }
-      );
-
-
-      futil_back_to_top();
-    }
-  );
-
+              agenda  : 'Agenda',
+              day     : 'Día',
+              month   : 'Mes',
+              today   : 'HOY',
+              week    : 'Semana',
+              year    : 'Año'
+            },
+            views         : [ agenda, calMes, calSemana, calDia ]
+          }
+        );
+        futil_back_to_top();
+      }
+    );
+  }).catch((error)=>console.log(error));
 }
 
 function fn_agregar_evento(e) {
@@ -132,16 +129,14 @@ function fn_guardar_evento(){
     futil_alerta('','', "#evento-errores");
     var respuesta = futil_json_query(
       'Administracion/guardar_evento',
-      {
-        evento  :  datos_evento
-      });
+      datos_evento
+    );
     
     if (respuesta.exito) {
-      fn_agregar_evento();
+      futil_modal();
       futil_toast('Registro de evento exitoso');
     }else{
-      fn_agregar_evento();
-      futil_toast(respuesta.mensaje, '', 'danger');
+      futil_toast(respuesta.error, '', 'danger');
     }
   }else{
     futil_toast("Por favor valide los campos requeridos", '', "danger");

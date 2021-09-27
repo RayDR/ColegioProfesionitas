@@ -140,7 +140,7 @@ function futil_close_toast(){ $(this).hide(100); }
 |   Requiere un contenido para motrarse
 |   Parametro html = true para insertar código HTML
  */
-function futil_modal(titulo, contenido = "", botones = "", anchura = "lg", html = true){
+function futil_modal(titulo='', contenido = "", botones = "", anchura = "lg", html = true){
   let modal   = $("#modal");
 
   if( modal.is(':visible') ){

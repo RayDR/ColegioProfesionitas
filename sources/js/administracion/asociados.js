@@ -55,6 +55,8 @@ function fn_iniciar_dt() {
         ],
         drawCallback: function (settings) {
             $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+
+            $('tr td').click(fn_mostrar_asociado);
         },
         language: {
             url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
@@ -89,4 +91,8 @@ function fn_agregar_asociado(e){
     }).always(function(){
         loader(false);
     });
+}
+
+function fn_mostrar_asociado(){
+    var data = $('#dtAsociados').DataTable().row($(this).closest('tr')).data();
 }
