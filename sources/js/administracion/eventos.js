@@ -5,24 +5,26 @@ var datos_evento  = {};
 $(document)
   .off('click','.scheduler-event-content')
   .on('click','.scheduler-event-content', function(event) {});
+$(document).on('click', '#enviar-evento', fn_guardar_evento);
 
 $(document).ready(function($) {
   finiciar_scheduler();
   $('#evento-crear').click(fn_agregar_evento);
 });
 
-$(document).on('click', '#enviar-evento', fn_guardar_evento);
-
 function finiciar_scheduler(){
   var datos = [];
-  eventos.forEach( function(evento, index) {
-    datos.push({
-      disabled  : false,
-      content: evento.evento,
-      startDate: new Date(evento.fecha_inicio),
-      endDate: new Date(evento.fecha_fin)
+  $.get(url('Administracion/get_eventos_ajax'), 'post').then(function (data) {
+    datos = JSON.parse(data);
+    eventos.forEach(function(evento, index){
+      datos.push({
+        disabled: false,
+        content:evento.nombre_evento,
+        startDate: new Date(evento.fecha_desde),
+        endDate: new Date(evento.fecha_hasta)
+      });
     });
-  });
+  }).catch((error)=>console.log(error))
     
   YUI({lang: 'es-MX'}).use(
     'aui-scheduler',
@@ -79,7 +81,7 @@ function finiciar_scheduler(){
 
 }
 
-function fn_agregar_evento() {
+function fn_agregar_evento(e) {
   loader();
   $.get(url('Administracion/modal_evento')).then(function(data){
     return JSON.parse(data);
@@ -96,73 +98,53 @@ function fn_agregar_evento() {
   })
 }
 
-// function validaConclusion() {
-//   let date = $('#fecha_inicio').val();
-//   let fechaOut = $(this).val();
-//   if (fechaOut < date) {
-//     futil_alerta('Fecha de conclusion no puede ser anterior a la fecha de inicio');
-//   }
-// }
+function fn_guardar_evento(){
+  var error_event = '';
 
+  datos_evento_aux  = $('#modal-form-evento').serializeArray();
+  datos_evento      = (datos_evento_aux) ? datos_evento_aux : datos_evento;
 
-function fn_guardar_evento(){    
-    var error_event = '';
-    datos_evento_aux  = $('#modal-form-evento').serializeArray();
-    datos_evento      = (datos_evento_aux) ? datos_evento_aux : datos_evento;
-    datos_evento.forEach(function (dato, indice) {
-      nombre = $(`#modal-form-evento #${dato.name}`).data('nombre') ? 
-      $(`#modal-form-evento #${dato.name}`).data('nombre') : 
-      dato.name;
+  datos_evento.forEach(function (dato, indice) {
+    nombre_evento = $(`#modal-form-evento #${dato.name}`).data('nombre_evento') ? 
+    $(`#modal-form-evento #${dato.name}`).data('nombre_evento') : 
+    dato.name;
 
-      if (dato.value == '' && $(`#modal-form-evento #${dato.name}`).prop('required')) {
-        if(dato.name != "cuenta"){
-          error_event += `El campo <b><a href="#modal-form-evento #${dato.name}"">${nombre}</a></b> es requerido.<br>`;       
-          futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
-        }else
-					futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
-      }else if(dato.name == "fecha_inicio" ){
-        if (dato.value == '') {
-          error_event += `El campo <b><a href="#modal-form-evento #${dato.name}"">${nombre}</a></b> es requerido.<br>`;       
-          futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
-        }else
-					futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
-      }else if(dato.name == "fecha_termino"){
-        if (dato.value == '') {
-          error_event += `El campo <b><a href="#modal-form-evento #${dato.name}"">${nombre}</a></b> es requerido.<br>`;       
-          futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
-        }else{
-          let date = $('#fecha_inicio').val();
-          let fechaOut = $('#fecha_termino').val();
-          if (fechaOut < date ) {
-            error_event += `El campo <b><a href="#modal-form-evento #${dato.name}"">${nombre}</a></b> no puede ser anterior a la fecha inicio. <br>`;
-            futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
-          }else{
-            futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
-          }  
-					futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
-        }
-      }
-    });
-
-    if (!error_event) {
-      futil_alerta('','', "#evento-errores");
-      var respuesta = futil_json_query(
-        'Administracion/guardar_evento',
-        {
-          evento  :  datos_evento
-        });
+    if (dato.value == '' && $(`#modal-form-evento #${dato.name}`).prop('required')) {
       
-      if (respuesta.exito) {
-        futil_toast('Registro de evento exitoso');
-
-        setTimeout(function () {
-          window.location.replace(url('Administracion'));
-        }, 500);
+      if(dato.name != "nombre_evento"){
+        error_event += `El campo <b><a href="#${dato.name}"></a></b> es requerido. <br>`;
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
+      }else if(dato.name != "fecha_inicio"){
+        error_event += `El campo <b><a href="#${dato.name}"></a></b> debe ser especificado. <br>`; 
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
+      }else if(dato.name != "fecha_termino"){
+        error_event += `El campo <b><a href="#${dato.name}"></a></b> debe ser especificado <br>`;
       }else{
-        futil_toast(respuesta.mensaje, '', 'danger');
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
       }
+      
     }else{
-      futil_toast("Por favor valide los campos requeridos", '', "danger");
-      futil_alerta(error_event, 'danger', "#evento-errores");
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
     }
+  });
+
+  if (!error_event) {
+    futil_alerta('','', "#evento-errores");
+    var respuesta = futil_json_query(
+      'Administracion/guardar_evento',
+      {
+        evento  :  datos_evento
+      });
+    
+    if (respuesta.exito) {
+      fn_agregar_evento();
+      futil_toast('Registro de evento exitoso');
+    }else{
+      fn_agregar_evento();
+      futil_toast(respuesta.mensaje, '', 'danger');
+    }
+  }else{
+    futil_toast("Por favor valide los campos requeridos", '', "danger");
+    futil_alerta(errores, 'danger', "#evento-errores");
   }
+}

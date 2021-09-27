@@ -214,8 +214,8 @@ class Administracion extends CI_Controller {
             'usuario'               =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
             'niveles'               =>  $this->model_catalogos->get_niveles(),
             'instituciones'         =>  $this->model_catalogos->get_instituciones(),
-            'estatus_asociados'     =>  $this->model_catalogos->get_estatus_asocioados(),
-            'asociados_list'        =>  $this->model_catalogos->get_asociados(),
+            // 'estatus_asociados'     =>  $this->model_catalogos->get_estatus_asocioados(),
+            // 'asociados_list'        =>  $this->model_catalogos->get_asociados(),
             'datos'                 =>  $datos
         );
 
@@ -271,18 +271,22 @@ class Administracion extends CI_Controller {
         $evento =   $this->input->post('evento');
 
         if ($evento) {
-            $json['modelo']=$this->model_evento->registrar_evento($colegio_id, $evento, $usuario);
+            $respuesta = $this->model_evento->registrar_evento($colegio_id, $evento, $usuario);
+            $json['exito']=$respuesta['exito'];
+            if(! $json['exito'])
+                $json['mensaje']=$respuesta['error'];
         }else{
             $json['exito'] = FALSE;
             $json['mensaje'] = 'No se encontraron datos';
             $json['datos']=$evento;
         }
-
         return print(json_encode($json));
-
     }
     
-   
+    public function get_eventos_ajax(){
+        $json=$this->model_evento->get_eventos_colegio();
+        return print_r(json_encode($json));
+    }
 /*
 
 |--------------------------------------------------------------------------
@@ -358,7 +362,7 @@ class Administracion extends CI_Controller {
         $data = array(
             'view'          =>  'administracion/menu/eventos',
             'titulo_pagina' => 'Eventos',
-            'eventos'       =>  array()
+            'eventos'       =>  $this->model_evento->get_eventos_colegio()
         );
         return $this->load->view( $data["view"], $data, TRUE );
     }
