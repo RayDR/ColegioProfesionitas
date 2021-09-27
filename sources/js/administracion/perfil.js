@@ -46,7 +46,7 @@ function fn_registrar_asociado(e) {
         if ( respuesta ){
             if ( respuesta.exito ){
                 futil_toast('Asociado registrado', '', "success");
-                futil_muestra_vista();
+                fn_agregar_asociado();
             } else 
                 futil_toast(respuesta.mensaje, '', "danger");
         }
