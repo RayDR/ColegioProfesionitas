@@ -261,7 +261,10 @@ class Administracion extends CI_Controller {
         $evento =   $this->input->post('evento');
 
         if ($evento) {
-            $json['modelo']=$this->model_evento->registrar_evento($colegio_id, $evento, $usuario);
+            $respuesta = $this->model_evento->registrar_evento($colegio_id, $evento, $usuario);
+            $json['exito']=$respuesta['exito'];
+            if(! $json['exito'])
+                $json['mensaje']=$respuesta['error'];
         }else{
             $json['exito'] = FALSE;
             $json['mensaje'] = 'No se encontraron datos';

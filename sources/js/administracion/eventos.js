@@ -5,11 +5,11 @@ var datos_evento  = {};
 $(document)
   .off('click','.scheduler-event-content')
   .on('click','.scheduler-event-content', function(event) {});
+$(document).on('click', '#enviar-evento', fn_guardar_evento);
 
 $(document).ready(function($) {
   finiciar_scheduler();
   $('#evento-crear').click(fn_agregar_evento);
-  $('#enviar-evento').click(fn_guardar_evento);
 });
 
 function finiciar_scheduler(){
@@ -102,7 +102,7 @@ function fn_guardar_evento(){
   var error_event = '';
 
   datos_evento_aux  = $('#modal-form-evento').serializeArray();
-  datos_evento      = (datos_evento_aux) ? datos_asociacion_aux : datos_evento;
+  datos_evento      = (datos_evento_aux) ? datos_evento_aux : datos_evento;
 
   datos_evento.forEach(function (dato, indice) {
     nombre_evento = $(`#modal-form-evento #${dato.name}`).data('nombre_evento') ? 
@@ -128,7 +128,7 @@ function fn_guardar_evento(){
     }
   });
 
-  if (!errores) {
+  if (!error_event) {
     futil_alerta('','', "#evento-errores");
     var respuesta = futil_json_query(
       'Administracion/guardar_evento',
@@ -137,12 +137,10 @@ function fn_guardar_evento(){
       });
     
     if (respuesta.exito) {
+      fn_agregar_evento();
       futil_toast('Registro de evento exitoso');
-
-      setTimeout(function () {
-        window.location.replace(url('Administracion'));
-      }, 500);
     }else{
+      fn_agregar_evento();
       futil_toast(respuesta.mensaje, '', 'danger');
     }
   }else{
