@@ -288,7 +288,7 @@ class Administracion extends CI_Controller {
                     $respuesta = $this->model_evento->registrar_evento($dbUsuario->colegio_id, $evento, $usuario_id);
                     $json['exito']=$respuesta['exito'];
                     if(! $json['exito'])
-                        $json['mensaje']=$respuesta['error'];
+                        $json['error']=$respuesta['error'];
                 }else{
                     $json['exito'] = FALSE;
                     $json['mensaje'] = 'No se encontraron datos';
@@ -298,6 +298,62 @@ class Administracion extends CI_Controller {
                 $json = array('exito' => FALSE, 'error' => 'No se pudo obtener el folio del Colegio.');
         } else {
             $json = array('exito' => FALSE, 'error' => 'No se pudo obtener los datos del asociado.');
+        }
+        return print(json_encode($json));
+    }
+
+    public function editar_evento(){
+        $json = array('exito'=>FALSE);
+        // ID
+        $usuario_id = $this->session->userdata('uid');
+        $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario_id]);
+
+        if ($dbUsuario) {
+            $colegio_id= (isset($dbUsuario->colegio_id)) ? $dbUsuario->colegio_id : $this->input->post('colegio_id');
+            if ($colegio_id) {
+                $evento = $this->input->post();
+                if ($evento) {
+                    $respuesta=$this->model_evento->actualizar_evento($dbUsuario->colegio_id, $evento, $usuario_id);
+                    $json['exito']=$respuesta['exito'];
+                    if (!$json['exito']) {
+                        $json['mensaje']=$respuesta['error'];
+                    }
+                }else{
+                    $json['exito']=FALSE;
+                    $json['mensaje']='No se encontro datos';
+                    $json['datos']=$evento;
+                }
+            }else{
+                $json = array('exito'=>FALSE, 'error'=>'No se encontro folio del colegio');
+            }
+        }else{
+            $json = array('exito'=>FALSE, 'error'=>'No se pudo obtener datos del asociado');
+        }
+        return print(json_encode($json));
+    }
+
+    public function eliminar_evento(){
+        $json= array('exito'=>FALSE);
+        // ID
+        $usuario_id = $this->session->userdata('uid');
+        $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id'=>$usuario_id]);
+
+        if($dbUsuario){
+            $evento = $this->input->post();
+            print_r($evento);
+            if ($evento) {
+                $respuesta = $this->model_evento->elimina_evento($evento, $usuario_id);
+                $json['exito']=$respuesta['exito'];
+                if (!$json['exito']) {
+                    $json['mensaje']=$respuesta['error'];
+                }
+            }else{
+                $json['exito']=FALSE;
+                    $json['mensaje']='No se encontro datos';
+                    $json['datos']=$evento;
+            }
+        }else{
+            $json = array('exito'=>FALSE, 'error'=>'No se pudo obtener datos del asociado');
         }
         return print(json_encode($json));
     }
