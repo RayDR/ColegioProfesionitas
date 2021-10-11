@@ -340,7 +340,6 @@ class Administracion extends CI_Controller {
 
         if($dbUsuario){
             $evento = $this->input->post();
-            print_r($evento);
             if ($evento) {
                 $respuesta = $this->model_evento->elimina_evento($evento, $usuario_id);
                 $json['exito']=$respuesta['exito'];
@@ -366,7 +365,6 @@ class Administracion extends CI_Controller {
         return print_r(json_encode($json));
     }
 /*
-
 |--------------------------------------------------------------------------
 | VISTAS PROTEGIDAS
 |--------------------------------------------------------------------------
