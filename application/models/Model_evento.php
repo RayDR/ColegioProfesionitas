@@ -22,7 +22,7 @@ class Model_evento extends CI_Model{
             $this->db->where('nombre_evento', $evento["nombre_evento"]);
             $this->db->where('fecha_desde', $evento['fecha_inicio']);
             $this->db->where('fecha_hasta', $evento['fecha_termino']);
-
+            $this->db->where('colegio_id', $evento['colegio_id']);
             $dbEvento = $this->db->get('eventos');
 
             if ($dbEvento->num_rows() > 0)

@@ -216,17 +216,15 @@ class Administracion extends CI_Controller {
     public function modal_colegio() 
     {
         $json   =   array('exito' => TRUE);
-
         $datos=$this->input->post();
         $usuario = $this->session->userdata('uid');
-
         $data = array(
             'carreras'              =>  $this->model_catalogos->get_carreras(),
             'usuario'               =>  $this->model_sistema->get_usuario(['usuario_id' => $usuario]),
             'niveles'               =>  $this->model_catalogos->get_niveles(),
             'instituciones'         =>  $this->model_catalogos->get_instituciones(),
-            // 'estatus_asociados'     =>  $this->model_catalogos->get_estatus_asocioados(),
-            // 'asociados_list'        =>  $this->model_catalogos->get_asociados(),
+            'estatus_asociados'     =>  $this->model_catalogos->get_estatus_asocioados(),
+            'asociados_list'        =>  $this->model_catalogos->get_asociados(['nombre_colegio' => $datos['nombre_colegio']]),
             'datos'                 =>  $datos
         );
 

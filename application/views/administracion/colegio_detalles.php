@@ -1,13 +1,13 @@
 <nav>
     <ul class="nav nav-tabs" id="nav-tab" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+            <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="home" aria-selected="true">Datos Principales</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link " id="nav-contacto-tab" data-toggle="tab" href="#nav-contacto" role="tab" aria-controls="contacto" aria-selected="false">Contacto</a>
+            <a class="nav-link " id="nav-contacto-tab" data-toggle="tab" href="#nav-contacto" role="tab" aria-controls="contacto" aria-selected="false">Datos de Contacto</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link " id="nav-asociado-tab" data-toggle="tab" href="#nav-asociado" role="tab" aria-controls="asociado" aria-selected="false">Asociados</a>
+            <a class="nav-link " id="nav-asociado-tab" data-toggle="tab" href="#nav-asociado" role="tab" aria-controls="asociado" aria-selected="false">Lista de Asociados</a>
         </li>
     </ul>
 </nav>
@@ -125,11 +125,50 @@
     </div>
     <div class="tab-pane fade" id="nav-asociado" role="tabpanel" aria-labelledby="nav-asociado-tab">
         
+        <div class="form-row px-4 py-2">
+            <legend class="col-12">Integrantes</legend>   
+            <div class="table-responsive mx-auto">
+                <?php if ( $asociados_list ): ?>
+                    <table id="t_asociados" class="table table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>Nombres</th>
+                                <th>Primero Apellido</th>
+                                <th>Segundo Apellido</th>
+                                <th>CURP</th>
+                                <th>Fecha SERCP</th>
+                                <th>Nivel educativo</th>
+                                <th>Institución</th>
+                                <th>Carrera</th>
+                                <th>Número de cédula</th>
+                                <th>Telefono</th>
+                                <th>Correo electrónico</th>
+                                <th>Horas de servicio social</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($asociados_list as $key => $asociado) : ?>
+                                <tr>
+                                    <td><?= $asociado->nombres ?></td>
+                                    <td><?= $asociado->primer_apellido ?></td>
+                                    <td><?= $asociado->segundo_apellido ?></td>
+                                    <td><?= $asociado->curp ?></td>
+                                    <td><?= $asociado->fecha_sercp ?></td>
+                                    <td><?= $asociado->nivel_educativo ?></td>
+                                    <td><?= $asociado->institucion ?></td>
+                                    <td><?= $asociado->carrera ?></td>
+                                    <td><?= $asociado->numero_cedula ?></td>
+                                    <td><?= $asociado->telefono ?></td>
+                                    <td><?= $asociado->email ?></td>
+                                    <td><?= $asociado->horas_servicio_social ?></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
-</div>
-
-
-
 </div>
 
 <script type="text/javascript" src="<?= base_url("sources/js/administracion/perfil.js") ?>"></script>
