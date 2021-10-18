@@ -8,6 +8,8 @@ $(document)
 
 $(document).ready(fn_iniciar_sistema);
 
+
+
 function fn_iniciar_sistema(){
     loader(false);
     $('[data-toggle="popover"]').popover({ container: 'body' });
@@ -119,6 +121,8 @@ function fn_iniciar_sistema(){
     });
 
     $('.ver-colegio').click(flanding_VerColegio);
+    
+
 }
 
 function fn_municipio_colonias(){

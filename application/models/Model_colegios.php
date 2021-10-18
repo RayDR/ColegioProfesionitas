@@ -5,6 +5,11 @@ class Model_colegios extends CI_Model {
 
 // --- GETTERS --------------------------------------- 
 
+    public function get_colegio($colegio_id){
+        $this->db->where('colegio_id', $colegio_id);
+        $colegio = $this->db->get('usuarios')->row('colegio_id');
+    }
+
     public function get_colegio_id_galeria( $colegio_id ){
         $this->db->where( 'colegio_id', $colegio_id );
 
@@ -156,6 +161,8 @@ class Model_colegios extends CI_Model {
 
     public function registrar_asociado($asociado){
         $_asociado=[];
+        
+        $id_usuario=$this->session->userdata('uid');
 
         try { 
             foreach ($asociado as $name => $value) {
@@ -173,8 +180,11 @@ class Model_colegios extends CI_Model {
                         $this->db->where('curp', $_asociado["curp"]);
                 }
                 $this->db->where('numero_cedula', $_asociado["numero_cedula"]);
+                $asociados = $this->db->get('asociados');
+                if ($asociados->num_rows() > 0)
+                throw new Exception('Ya existe un asociado con el mismo numero de cedula');
             }
-            $asociados = $this->db->get('asociados');
+           
             $datos_db = array(
                 'colegio_id'                =>  $_asociado['colegio_id'],
                 'nombres'                   =>  $_asociado['nombre'],
@@ -190,6 +200,7 @@ class Model_colegios extends CI_Model {
                 'email'                     =>  isset($_asociado['email'])? $_asociado['email']: NULL,
                 'horas_servicio_social'     =>  isset($_asociado['horas_servicio_social'])? $_asociado['horas_servicio_social']: NULL,
                 'estatus_asociado'          =>  3,
+                'usuario_id'            =>  $id_usuario
             );
             
             if ( $asociados->num_rows() > 0 ){

@@ -1,9 +1,14 @@
 var datos;
 $(document).ready(function () {
     $("#registrar-asociado").click(fn_registrar_asociado);
+    $(".mayusculas").blur(mayusculas);
     $("#curp").blur(fn_validar_curp);
     $("#email").blur(fn_validar_email);
 });
+
+function mayusculas(e) {
+    this.value = this.value.toUpperCase();
+}
 
 function fn_validar_curp(e) {
     let curp = $(this).val();
@@ -28,6 +33,7 @@ function fn_registrar_asociado(e) {
         errores   = '';
     datos = ( !datos_aux )? datos : datos_aux;
     campos_obligatorios = [
+        { 'input': 'Colegio', 'id': 'colegio_id' },
         { 'input': 'Nombre(s)', 'id': 'nombre' },
         { 'input': 'Primer apellido', 'id': 'primer_apellido' },
         { 'input': 'Número de Cédula', 'id': 'numero_cedula' }
@@ -45,12 +51,13 @@ function fn_registrar_asociado(e) {
         if ( respuesta ){
             if ( respuesta.exito ){
                 futil_toast('Asociado registrado', '', "success");
-                futil_muestra_vista();
+                futil_modal();
             } else 
-                futil_toast(respuesta.mensaje, '', "danger");
+                futil_toast(respuesta.error, '', "danger");
         }
     } else {
         futil_toast("Por favor, valide los campos requeridos.", '', "danger");
         futil_alerta(errores, 'danger', "#errores-form");
     }
 }
+
