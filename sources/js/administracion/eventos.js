@@ -149,6 +149,7 @@ function fn_guardar_evento(){
   let error_event = '';
 
   datos_evento_aux  = $('#modal-form-evento').serializeArray();
+  console.log(datos_evento_aux);
   datos_evento      = (datos_evento_aux) ? datos_evento_aux : datos_evento;
 
   datos_evento.forEach(function (dato, indice) {
@@ -185,6 +186,10 @@ function fn_guardar_evento(){
     if (respuesta.exito) {
       futil_modal();
       futil_toast('Registro de evento exitoso');
+      //actualizo tabla
+      $.fn.dataTable.isDataTable('#tb_eventos');
+      dt.ajax.reload(null, false);
+      // actualizo scheduler
     }else{
       futil_toast(respuesta.error, '', 'danger');
     }
@@ -262,6 +267,10 @@ function fn_actualizar_evento(){
     if (respuesta.exito) {
       futil_modal();
       futil_toast('Actualización de evento exitoso');
+      $.fn.dataTable.isDataTable('#tb_eventos');
+      dt.ajax.reload(null, false);
+      futil_toast('Tabla actualizada');
+      
     }else{
       futil_toast(respuesta.error, '', 'danger');
     }
@@ -281,6 +290,9 @@ function fn_eliminar_evento(){
   if (respuesta.exito) {
     futil_modal();
     futil_toast('Evento eliminado');
+    $.fn.dataTable.isDataTable('#tb_eventos');
+      dt.ajax.reload(null, false);
+      futil_toast('Tabla actualizada');
   }else{
     futil_toast(respuesta.error, '', 'danger');
   }
