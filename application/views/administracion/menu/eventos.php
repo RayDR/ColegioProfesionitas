@@ -20,7 +20,7 @@
           <button id="evento-crear" class="btn btn-secondary boton-rojo" >
               <span class="fas fa-plus"></span><span class="d-none d-md-inline">&nbsp;Nuevo Evento</span>
           </button>
-          <button id="evento-buscar" class="btn btn-dark" type="button" disabled>
+          <button id="evento-buscar" class="btn btn-dark d-none" type="button" disabled>
               <span class="fas fa-search"></span><span class="d-none d-md-inline">&nbsp;Buscar Evento</span>
           </button>
       </div>

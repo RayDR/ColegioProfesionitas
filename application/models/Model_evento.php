@@ -7,10 +7,8 @@ class Model_evento extends CI_Model{
 
         if ( !is_null($colegio_id) )
             $this->db->where('colegio_id', $colegio_id);
-        
-            $this->db->select('evento_id, nombre_evento, fecha_desde, fecha_hasta');
             $this->db->where('status', 1);
-            $eventos = $this->db->get('eventos');
+            $eventos = $this->db->get('vw_eventos');
         return $eventos->result();
     }
 
@@ -23,7 +21,7 @@ class Model_evento extends CI_Model{
         $this->db->where('status', 1);
         $this->db->where('fecha_desde <=', $fecha_actual);
         $this->db->where('fecha_hasta >=', $fecha_actual);
-        $eventos = $this->db->get('eventos');
+        $eventos = $this->db->get('vw_eventos');
         return $eventos->result();
     }
 
@@ -35,7 +33,7 @@ class Model_evento extends CI_Model{
         $this->db->select('evento_id, nombre_evento, fecha_desde, fecha_hasta');
         $this->db->where('status', 1);
         $this->db->where('fecha_hasta <=', $fecha_actual);
-        $eventos = $this->db->get('eventos');
+        $eventos = $this->db->get('vw_eventos');
         return $eventos->result();
     }
 
@@ -48,7 +46,7 @@ class Model_evento extends CI_Model{
         $this->db->where('status', 1);
         $this->db->where('fecha_desde >=', $fecha_actual);
         $this->db->where('fecha_hasta >=', $fecha_actual);
-        $eventos = $this->db->get('eventos');
+        $eventos = $this->db->get('vw_eventos');
         return $eventos->result();
     }
 
