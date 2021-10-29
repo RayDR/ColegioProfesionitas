@@ -16,14 +16,16 @@
 </div>
 <div class="container">
    <div class="pb-4">
+      <?php if($this->session->userdata('tuser') == 1 ): ?>
       <div class="btn-group" role="group" aria-label="Botones de Acción">
           <button id="evento-crear" class="btn btn-secondary boton-rojo" >
               <span class="fas fa-plus"></span><span class="d-none d-md-inline">&nbsp;Nuevo Evento</span>
           </button>
-          <button id="evento-buscar" class="btn btn-dark d-none" type="button" disabled>
+          <button id="evento-buscar" class="btn btn-dark" type="button" disabled>
               <span class="fas fa-search"></span><span class="d-none d-md-inline">&nbsp;Buscar Evento</span>
           </button>
       </div>
+      <?php endif ?>
    </div>
    <div class="row my-3 mx-1">
       <div class="shadow bg-white rounded col-12">

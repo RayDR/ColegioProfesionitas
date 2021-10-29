@@ -268,7 +268,7 @@ class Administracion extends CI_Controller {
         $data = array(
             'colegios' => $this->model_catalogos->get_colegioss()
         );
-        $json['html'] = $this->load->view( 'modales/modal_evento', $data, TRUE);
+        $json['html'] = $this->load->view( 'administracion/modales/modal_evento', $data, TRUE);
         return print(json_encode($json));
     }
 
