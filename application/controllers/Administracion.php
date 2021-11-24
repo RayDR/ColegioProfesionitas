@@ -283,7 +283,7 @@ class Administracion extends CI_Controller {
             if ( $colegio_id ){
                 $evento =   $this->input->post();
                 if ($evento) {
-                    $respuesta = $this->model_evento->registrar_evento($dbUsuario->colegio_id, $evento, $usuario_id);
+                    $respuesta = $this->model_evento->registrar_evento($colegio_id, $evento, $usuario_id);
                     $json['exito']=$respuesta['exito'];
                     if(! $json['exito'])
                         $json['error']=$respuesta['error'];
@@ -359,9 +359,64 @@ class Administracion extends CI_Controller {
         $usuario_id = $this->session->userdata('uid');
         $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario_id]);
 
-        $json=$this->model_evento->get_eventos_colegio($dbUsuario->colegio_id);
+        $json       = $this->model_evento->get_eventos_colegio($dbUsuario->colegio_id);
         return print_r(json_encode($json));
     }
+
+    // Para asignar horas de servicio
+    //mostrar modal
+    public function modal_servicio(){   
+        $usuario    = $this->session->userdata('uid');
+        $db_usuario = $this->model_sistema->get_usuario(['usuario_id' => $usuario]);
+        $colegio_id = (isset($dbUsuario->colegio_id)) ? $dbUsuario->colegio_id : false;    
+        $json       = array('exito' => TRUE); 
+        $datos      = $this->input->post();
+        $data       = array(
+            'eventos'    =>$this->model_evento->get_eventos_colegio($colegio_id),
+            'datos'      =>$datos
+        );  
+        $json['html'] = $this->load->view( 'administracion/modales/modal_servicio', $data, TRUE);
+        return print(json_encode($json));
+    }
+
+    public function guardar_asociado_evento(){
+        $json   =   array('exito' => FALSE);
+        #id_sesion
+        $usuario_id = $this->session->userdata('uid');
+        $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario_id]);
+
+        if ($dbUsuario) {
+            $colegio_id = (isset($dbUsuario->colegio_id)) ? $dbUsuario->colegio_id : $this->input->post('colegio_id');
+            if ($colegio_id) {
+                $eventoAsoc = $this->input->post();
+                if($eventoAsoc){
+                    $evento_id = '';
+                    $evento_id = $eventoAsoc['evento_id'];
+                    $asociados = [];
+                    foreach ($eventoAsoc as $key => $asociado) {
+                        if ($key == 'asociados') {
+                            array_push($asociados, $asociado);
+                        }                       
+                    }
+                    // print_r($asociados[0]);
+                    $respuesta = $this->model_evento->guardar_asociado_evento($evento_id, $colegio_id, $asociados[0], $usuario_id);
+                     $json['exito']=$respuesta['exito'];
+                    if(! $json['exito'])
+                        $json['error']=$respuesta['error'];
+                }else{
+                    $json['exito']  = FALSE;
+                    $json['mensaje']= 'No se encontro datos que guardar';
+                    $json['datos']  = $evento;
+                }
+            }else{
+                $json = array('exito'=>FALSE, 'error' => 'No se obtuvo datos del colegio');
+            }
+        }else{
+            $json = array('exito'=>FALSE, 'error' => 'No se pudo obtener datos del asociado');
+        }
+        return print(json_encode($json));
+    }
+    
 /*
 |--------------------------------------------------------------------------
 | VISTAS PROTEGIDAS

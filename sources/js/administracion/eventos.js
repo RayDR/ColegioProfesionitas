@@ -1,33 +1,43 @@
 var scheduler = '#eventos';
 var datos_evento  = {};
 var dt;
-
+// Mostrar modal evento
 $(document)
   .off('click','#evento-crear, .scheduler-view-table-colgrid')
   .on('click','#evento-crear, .scheduler-view-table-colgrid', fn_agregar_evento);
 // Clases de los componentes del calendario.
 // .scheduler-event-content, .scheduler-event-title, .scheduler-event, .scheduler-view-table-colgrid, 
 // .scheduler-event-content, .scheduler-event-title, .scheduler-event, .scheduler-view-table-colgrid, 
+// Guardar evento
 $(document)
   .off('click', '#enviar-evento')
   .on('click', '#enviar-evento', fn_guardar_evento);
-
+// mostrar modal actualizar-eliminar evento
 $(document)
   .off('click', '.show-evento')
   .on('click', '.show-evento', fn_administrar_evento);
-
+// actualizar evento
 $(document)
   .off('click', '#editar-evento')
   .on('click', '#editar-evento', fn_actualizar_evento);
-
+// eliminar evento
 $(document)
   .off('click', '#eliminar-evento')
   .on('click', '#eliminar-evento', fn_eliminar_evento);
-
+// mostrar modal agregar asociado a evento
+$(document)
+    .off('click', '.inserta-asociado')
+    .on('click', '.inserta-asociado' , fn_agregar_asociado);
+//guardar asociados asignados a evento
+$(document)
+    .off('click', '#enviar-asociado')
+    .on('click', '#enviar-asociado', fn_asigna_asociado); 
+// carga datatable y calendario
 $(document).ready(function($) {
   finiciar_scheduler();
   fn_eventos_dt();
 });
+
 
 function fn_eventos_dt(){
   dt= $("#tb_eventos").DataTable({
@@ -46,16 +56,18 @@ function fn_eventos_dt(){
     },
     columns:[
       {data: 'nombre_evento'},
+      {data: 'nombre_colegio'},
       {data: 'fecha_desde'},
       {data: 'fecha_hasta'},
       {data: null,render:function (data) {
-        return `<button type="button" class="btn btn-secondary boton-rojo show-evento" data-toggle="tooltip" data-title="Administrar evento"><i class="fa fa-pencil-square-o"></i></button>`;
+        return `<button class="btn btn-secondary dropdown-toggle"  type="button" id="dropdownMenu" data-toggle="dropdown" arias-haspopup="true" aria-expanded="false"></button> <div class="dropdown-menu" aria-labelledby="dropdown-menu"> <a class="dropdown-item"> <button type="button" class="btn btn-secondary boton-rojo show-evento" data-toggle="tooltip" data-title="Administrar evento"><i class="fa fa-pencil-square-o"></i></button> <button type="button" class="btn btn-secondary boton-rojo inserta-asociado" data-toggle="tooltip" data-title="Añadir asociados"><i class="fa fa-users"></i></button> </a></div> `;
+        // return `<button type="button" class="btn btn-secondary boton-rojo show-evento" data-toggle="tooltip" data-title="Administrar evento"><i class="fa fa-pencil-square-o"></i></button>`;
       }}
     ],
     drawCallback: function (settings) {
         $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
     },
-    language:{
+    language:{ 
       url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
     }
   });
@@ -195,7 +207,7 @@ function fn_guardar_evento(){
     }
   }else{
     futil_toast("Por favor valide los campos requeridos", '', "danger");
-    futil_alerta(errores, 'danger', "#evento-errores");
+    futil_alerta(error_event, 'danger', "#evento-errores");
   }
 }
 
@@ -296,4 +308,78 @@ function fn_eliminar_evento(){
   }else{
     futil_toast(respuesta.error, '', 'danger');
   }
+}
+
+// js para asignar horas de servicio
+function fn_agregar_asociado(params){
+
+  let datos = dt.row($(this).closest('tr')).data();
+  console.log(datos);
+
+  futil_modal(
+        datos.nombre_evento,
+        futil_muestra_vista(
+            "Administracion/modal_servicio",
+            datos
+        ),
+        '',
+        ''
+    );
+  
+}
+
+function fn_select_asoc(){
+
+  select = $('#list-asoc').select2({
+    minimumResultsForSearch: 20,
+    placeholder: 'Selecciona asociado',
+    ajax:{
+      url: 'Administracion/get_datatable_asociados',
+      dataType: 'json',
+      delay: 200,
+      data: function (params){
+        return {
+          q: params. term,
+          page: params.page
+        };
+      },
+      
+      processResults: function (data) {
+      var listAsoc = [];
+      data.forEach(function (element, index){
+        listAsoc.push({id: element.asociado_id, text: `${element.nombres} ${element.primer_apellido} ${element.segundo_apellido}`});
+      });
+      // Transforms the top-level key of the response object from 'items' to 'results'
+      return{
+          results: listAsoc
+        };
+      }
+    }
+
+  });
+}
+
+function fn_asigna_asociado(){
+  datos_asociados = $('#modal-form-servicio').serializeArray();
+  datos_asociados['asociados'] = $('#list-asoc').val();
+  loader();
+  setTimeout(function() {
+    $.post(url('Administracion/guardar_asociado_evento'), datos_asociados)
+      .then(function(data){ 
+        return JSON.parse(data);
+      })
+      .then(function(data){
+        if ( data.exito ){
+          futil_toast('Exito');
+        } else {
+          futil_toast((data.error)? data.error: 'El servidor no ha respondido correctamente.','','danger');
+        }
+      })
+      .catch(function(error){
+        futil_toast('Ha ocurrido un error al realizar esta operacion.<br>' + error.message, '', 'danger');
+      })
+      .always(function(){
+        loader(false);
+      })
+    }, 100);
 }

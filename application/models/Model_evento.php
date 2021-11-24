@@ -45,10 +45,11 @@ class Model_evento extends CI_Model{
         $this->db->select('evento_id, nombre_evento, fecha_desde, fecha_hasta');
         $this->db->where('status', 1);
         $this->db->where('fecha_desde >=', $fecha_actual);
-        $this->db->where('fecha_hasta >=', $fecha_actual);
         $eventos = $this->db->get('vw_eventos');
         return $eventos->result();
     }
+
+    
 
     // ==> SETTERS <==
     public function registrar_evento($colegio_id, $evento, $usuario){
@@ -130,4 +131,27 @@ class Model_evento extends CI_Model{
         }
         return $resultado;
     }
+
+    public function guardar_asociado_evento($evento_id, $colegio_id, $asociados, $usuario_id){
+        $resultado = array('exito' => TRUE);
+        // print_r($asociados);
+        try{
+            $this->db->trans_begin();
+            foreach ($asociados as $key => $value) {
+                $datos=array(
+                'id_evento'        => $evento_id,
+                'id_asociado'      => $value,
+                'usuario_registro' => $usuario_id
+                );
+                $this->db->insert('servicio_asociados', $datos);
+            }
+                                
+            $this->db->trans_commit();
+        }catch(Exception $e){
+            $this->db->trans_rollback();
+            $resultado['exito'] = FALSE;
+            $resultado['error'] = $e->getMessage();
+        }
+        return $resultado;
+    }  
 }
