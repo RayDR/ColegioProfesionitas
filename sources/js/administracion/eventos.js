@@ -1,5 +1,5 @@
 var scheduler = '#eventos';
-var datos_evento  = {};
+var datos_evento  = {}, asociados_asignados = [];
 var dt;
 // Mostrar modal evento
 $(document)
@@ -61,7 +61,6 @@ function fn_eventos_dt(){
       {data: 'fecha_hasta'},
       {data: null,render:function (data) {
         return `<button class="btn btn-secondary dropdown-toggle"  type="button" id="dropdownMenu" data-toggle="dropdown" arias-haspopup="true" aria-expanded="false"></button> <div class="dropdown-menu" aria-labelledby="dropdown-menu"> <a class="dropdown-item"> <button type="button" class="btn btn-secondary boton-rojo show-evento" data-toggle="tooltip" data-title="Administrar evento"><i class="fa fa-pencil-square-o"></i></button> <button type="button" class="btn btn-secondary boton-rojo inserta-asociado" data-toggle="tooltip" data-title="Añadir asociados"><i class="fa fa-users"></i></button> </a></div> `;
-        // return `<button type="button" class="btn btn-secondary boton-rojo show-evento" data-toggle="tooltip" data-title="Administrar evento"><i class="fa fa-pencil-square-o"></i></button>`;
       }}
     ],
     drawCallback: function (settings) {
@@ -170,19 +169,17 @@ function fn_guardar_evento(){
     dato.name;
 
     if (dato.value == '' && $(`#modal-form-evento #${dato.name}`).prop('required')) {
-      
       if(dato.name != "nombre_evento"){
-        error_event += `El campo <b><a href="#${dato.name}"></a></b> es requerido. <br>`;
+        error_event += `El campo <b><a href="#">${dato.name}</a></b> es requerido. <br>`;
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
       }else if(dato.name != "fecha_inicio"){
-        error_event += `El campo <b><a href="#${dato.name}"></a></b> debe ser especificado. <br>`; 
+        error_event += `El campo <b><a href="#">${dato.name}</a></b> debe ser especificado. <br>`; 
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
       }else if(dato.name != "fecha_termino"){
-        error_event += `El campo <b><a href="#${dato.name}"></a></b> debe ser especificado <br>`;
+        error_event += `El campo <b><a href="#">${dato.name}</a></b> debe ser especificado <br>`;
       }else{
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
-      }
-      
+      }  
     }else{
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
     }
@@ -241,48 +238,40 @@ function fn_administrar_evento(params){
 
 function fn_actualizar_evento(){
   let error_event = '';
-
   datos_evento_aux  = $('#modal-form-evento').serializeArray();
   datos_evento      = (datos_evento_aux) ? datos_evento_aux : datos_evento;
-
   datos_evento.forEach(function (dato, indice) {
     nombre_evento = $(`#modal-form-evento #${dato.name}`).data('nombre_evento') ? 
     $(`#modal-form-evento #${dato.name}`).data('nombre_evento') : 
     dato.name;
-
     if (dato.value == '' && $(`#modal-form-evento #${dato.name}`).prop('required')) {
-      
       if(dato.name != "nombre_evento"){
-        error_event += `El campo <b><a href="#${dato.name}"></a></b> es requerido. <br>`;
+        error_event += `El campo <b><a href="#">${dato.name}</a></b> es requerido. <br>`;
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
       }else if(dato.name != "fecha_inicio"){
-        error_event += `El campo <b><a href="#${dato.name}"></a></b> debe ser especificado. <br>`; 
+        error_event += `El campo <b><a href="#">${dato.name}</a></b> debe ser especificado. <br>`; 
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
       }else if(dato.name != "fecha_termino"){
-        error_event += `El campo <b><a href="#${dato.name}"></a></b> debe ser especificado <br>`;
+        error_event += `El campo <b><a href="#">${dato.name}</a></b> debe ser especificado <br>`;
       }else{
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
       }
-      
     }else{
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
     }
   });
-
   if (!error_event) {
     futil_alerta('','', "#evento-errores");
     var respuesta = futil_json_query(
       'Administracion/editar_evento',
       datos_evento
     );
-    
     if (respuesta.exito) {
       futil_modal();
       futil_toast('Actualización de evento exitoso');
       $.fn.dataTable.isDataTable('#tb_eventos');
       dt.ajax.reload(null, false);
       futil_toast('Tabla actualizada');
-      
     }else{
       futil_toast(respuesta.error, '', 'danger');
     }
@@ -310,12 +299,9 @@ function fn_eliminar_evento(){
   }
 }
 
-// js para asignar horas de servicio
+// js para mostrar modal asociados_eventos
 function fn_agregar_asociado(params){
-
   let datos = dt.row($(this).closest('tr')).data();
-  console.log(datos);
-
   futil_modal(
         datos.nombre_evento,
         futil_muestra_vista(
@@ -324,30 +310,36 @@ function fn_agregar_asociado(params){
         ),
         '',
         ''
-    );
-  
-}
+    );  
+  }
 
-function fn_select_asoc(){
+
+function fn_select_asoc(){   
 
   select = $('#list-asoc').select2({
-    minimumResultsForSearch: 20,
+    language: "es",
+    // minimumResultsForSearch: 20,
     placeholder: 'Selecciona asociado',
     ajax:{
-      url: 'Administracion/get_datatable_asociados',
+      url: 'Administracion/get_asociados_eventos',
       dataType: 'json',
+      type: 'post',
       delay: 200,
       data: function (params){
         return {
-          q: params. term,
-          page: params.page
+          q: params.term,
+          colegio_id: $('#colegio_id').val(),
+          evento_id: $('#evento_id').val()
         };
-      },
-      
+      },      
       processResults: function (data) {
       var listAsoc = [];
       data.forEach(function (element, index){
-        listAsoc.push({id: element.asociado_id, text: `${element.nombres} ${element.primer_apellido} ${element.segundo_apellido}`});
+        let asoc_data = {id: element.asociado_id, text: `${element.nombres} ${element.primer_apellido} ${element.segundo_apellido}`};
+        if(element.asignado)
+          asociados_asignados.push(asoc_data);
+
+        listAsoc.push(asoc_data);
       });
       // Transforms the top-level key of the response object from 'items' to 'results'
       return{
@@ -357,29 +349,108 @@ function fn_select_asoc(){
     }
 
   });
+  $.when(select).then(function(){
+    listAsign = [];
+    asociados_asignados.forEach(function (element, index){
+      let asign_data = {id: element.asociado_id, text:`${element.nombres} ${element.primer_apellido} ${element.segundo_apellido}`};
+      listAsign.push(asign_data);
+      console.log(listAsign);
+    });
+    select.trigger({
+        type: 'select2:select',
+        params: listAsign,
+    });
+  });
 }
 
 function fn_asigna_asociado(){
-  datos_asociados = $('#modal-form-servicio').serializeArray();
-  datos_asociados['asociados'] = $('#list-asoc').val();
-  loader();
-  setTimeout(function() {
-    $.post(url('Administracion/guardar_asociado_evento'), datos_asociados)
-      .then(function(data){ 
-        return JSON.parse(data);
-      })
-      .then(function(data){
-        if ( data.exito ){
-          futil_toast('Exito');
-        } else {
-          futil_toast((data.error)? data.error: 'El servidor no ha respondido correctamente.','','danger');
+  let error_event = '';
+  datos_asociados_aux = $('#modal-form-servicio').serializeArray();
+  // datos_asociados_aux.push({name: 'asociados', value: $('#list-asoc').val()});
+  // datos_asociados_aux['asociados'] = $('#list-asoc').val();
+
+  datos_asociados = (datos_asociados_aux) ? datos_asociados_aux : datos_asociados;
+
+
+  datos_asociados.forEach(function(dato, indice){
+    // Validar campos vacios
+    if (dato.value == '' && $(`#modal-form-servicio #${dato.name}`).prop('required')) {
+      if (dato.name != 'horas_evento') {
+        error_event += `El campo <b><a href="#">${dato.name}</a></b> es requerido. <br>`;
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
+      }else if(dato.name != 'horas_servicio'){
+        error_event += `El campo <b><a href="#">${dato.name}</a></b> es requerido. <br>`;
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
+      }else{
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
+      }
+    }else if(dato.name == 'asociados'){
+      if(dato.value == 0){
+        error_event += `El campo <b><a href="#">${dato.name}</a></b> es requerido. <br>`;
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
+      }else{
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);        
+      }     
+    }else{
+      // valido horas
+      if(dato.name == 'horas_evento'){
+        if(dato.value > $(`#modal-form-servicio #horas`).val()){
+          error_event += `El campo <b><a href="#">${dato.name}</a></b> no puede ser mayor a la duración calculada por el sistema.<br>`;
+          futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
+        }else{
+          futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
         }
-      })
-      .catch(function(error){
-        futil_toast('Ha ocurrido un error al realizar esta operacion.<br>' + error.message, '', 'danger');
-      })
-      .always(function(){
-        loader(false);
-      })
-    }, 100);
+      }else if(dato.name == 'horas_servicio'){
+        if(dato.value > $(`#modal-form-servicio #horas_evento`).val()){
+          error_event += `El campo <b><a href="#">${dato.name}</a></b> no puede ser mayor a la duración declarada en horas habilitadas.<br>`;
+          futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
+        }else{
+          futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
+        }
+      }
+    }
+    // else{
+    //   futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
+    // }
+  });
+
+  console.log(datos_asociados);
+  if(!error_event){
+    futil_alerta('','','#servicio-errores');
+    var respuesta = futil_json_query(
+      'Administracion/guardar_asociado_evento',
+      datos_asociados_aux
+      );
+    if(respuesta.exito){
+      futil_modal();
+      futil_toast('Registro de asociado exitoso');
+    }else{
+      futil_toast(respuesta.error, '', 'danger');
+    }
+  }else{
+    futil_toast("Por favor valide los campos requeridos", '', "danger");
+    futil_alerta(error_event, 'danger', "#servicio-errores");
+  }  
+  // console.log(datos_asociados);
+  // loader();
+  // setTimeout(function() {
+  //   $.post(url('Administracion/guardar_asociado_evento'), datos_asociados)
+  //     .then(function(data){ 
+  //       return JSON.parse(data);
+  //     })
+  //     .then(function(data){
+  //       if ( data.exito ){
+  //         futil_toast('Exito');
+  //       } else {
+  //         futil_toast((data.error)? data.error: 'El servidor no ha respondido correctamente.','','danger');
+  //       }
+  //     })
+  //     .catch(function(error){
+  //       futil_toast('Ha ocurrido un error al realizar esta operacion.<br>' + error.message, '', 'danger');
+  //     })
+  //     .always(function(){
+  //       loader(false);
+  //     })
+  //   }, 100);
+
 }

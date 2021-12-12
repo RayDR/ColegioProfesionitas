@@ -36,6 +36,7 @@
                <thead>
                   <tr>
                      <th>Nombre del evento</th>
+                     <th>Colegio anfitrión</th>
                      <th>Fecha inicio</th>
                      <th>Fecha final</th>
                      <th>Acciones</th>

@@ -49,6 +49,13 @@ class Model_evento extends CI_Model{
         return $eventos->result();
     }
 
+    public function get_asociados_eventos($evento_id){
+        $this->db->where('id_evento', $evento_id);
+        $query = $this->db->get('servicio_asociados');
+
+        return $query->result();
+    }
+
     
 
     // ==> SETTERS <==
@@ -132,17 +139,18 @@ class Model_evento extends CI_Model{
         return $resultado;
     }
 
-    public function guardar_asociado_evento($evento_id, $colegio_id, $asociados, $usuario_id){
+    public function guardar_asociado_evento($evento_id, $hora_disponible, $hora_asignada, $asociados, $usuario_id){
         $resultado = array('exito' => TRUE);
-        // print_r($asociados);
         try{
             $this->db->trans_begin();
             foreach ($asociados as $key => $value) {
                 $datos=array(
-                'id_evento'        => $evento_id,
-                'id_asociado'      => $value,
-                'usuario_registro' => $usuario_id
-                );
+                            'id_evento'        => $evento_id,
+                            'id_asociado'      => $value,
+                            'usuario_registro' => $usuario_id,
+                            'horas_disponibles'=> $hora_disponible,
+                            'horas_asignadas'  => $hora_asignada
+                            );
                 $this->db->insert('servicio_asociados', $datos);
             }
                                 
