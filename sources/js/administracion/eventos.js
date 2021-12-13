@@ -354,7 +354,6 @@ function fn_select_asoc(){
     asociados_asignados.forEach(function (element, index){
       let asign_data = {id: element.asociado_id, text:`${element.nombres} ${element.primer_apellido} ${element.segundo_apellido}`};
       listAsign.push(asign_data);
-      console.log(listAsign);
     });
     select.trigger({
         type: 'select2:select',
@@ -375,46 +374,34 @@ function fn_asigna_asociado(){
   datos_asociados.forEach(function(dato, indice){
     // Validar campos vacios
     if (dato.value == '' && $(`#modal-form-servicio #${dato.name}`).prop('required')) {
-      if (dato.name != 'horas_evento') {
+      if($('#modal-form-servicio #horas_servicio').val() == ''){
         error_event += `El campo <b><a href="#">${dato.name}</a></b> es requerido. <br>`;
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
-      }else if(dato.name != 'horas_servicio'){
-        error_event += `El campo <b><a href="#">${dato.name}</a></b> es requerido. <br>`;
-        futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
+      }else {
+        futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
+      } 
+
+      if($('#modal-form-servicio #list-asoc').val() == 0){
+        error_event += `El campo <b><a href="#">asociados</a></b> es requerido. <br>`;
+        futil_validacion_input($(`#modal-form-evento #list-asoc`), false);
       }else{
         futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
       }
-    }else if(dato.name == 'asociados'){
-      if(dato.value == 0){
-        error_event += `El campo <b><a href="#">${dato.name}</a></b> es requerido. <br>`;
-        futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
-      }else{
-        futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);        
-      }     
+    
     }else{
       // valido horas
-      if(dato.name == 'horas_evento'){
+      if(dato.name == 'horas_servicio'){
         if(dato.value > $(`#modal-form-servicio #horas`).val()){
           error_event += `El campo <b><a href="#">${dato.name}</a></b> no puede ser mayor a la duración calculada por el sistema.<br>`;
           futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
         }else{
           futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
         }
-      }else if(dato.name == 'horas_servicio'){
-        if(dato.value > $(`#modal-form-servicio #horas_evento`).val()){
-          error_event += `El campo <b><a href="#">${dato.name}</a></b> no puede ser mayor a la duración declarada en horas habilitadas.<br>`;
-          futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
-        }else{
-          futil_validacion_input($(`#modal-form-evento #${dato.name}`), false);
-        }
       }
     }
-    // else{
-    //   futil_validacion_input($(`#modal-form-evento #${dato.name}`), true);
-    // }
   });
 
-  console.log(datos_asociados);
+  console.log(datos_asociados_aux);
   if(!error_event){
     futil_alerta('','','#servicio-errores');
     var respuesta = futil_json_query(

@@ -401,10 +401,9 @@ class Administracion extends CI_Controller {
                     $hora_asignada      =   '';
                     $asociados          =   [];
                     $evento_id          =   $eventoAsoc['evento_id'];
-                    $hora_disponible    =   $eventoAsoc['horas_evento'];
                     $hora_asignada      =   $eventoAsoc['horas_servicio'];
                     $asociados = $eventoAsoc['asociados'];
-                    $respuesta = $this->model_evento->guardar_asociado_evento($evento_id, $hora_disponible, $hora_asignada, $asociados, $usuario_id);
+                    $respuesta = $this->model_evento->guardar_asociado_evento($evento_id, $hora_asignada, $asociados, $usuario_id);
                      $json['exito']=$respuesta['exito'];
                     if(! $json['exito'])
                         $json['error']=$respuesta['error'];
