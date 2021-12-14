@@ -57,7 +57,7 @@ function fn_iniciar_dt() {
             { data: 'fecha' },
             { data: 'periodo_mesa_directiva' },
             {data: null,render:function (data) {
-                return `<button type="button" class="btn btn-secondary boton-rojo ver-detalle" data-toggle="tooltip" data-title="Ver detalle"><i class="fas fa-search"></i></button>`;
+                return `<button class="btn btn-secondary dropdown-toggle"  type="button" id="dropdownMenu" data-toggle="dropdown" arias-haspopup="true" aria-expanded="false"></button> <div class="dropdown-menu" aria-labelledby="dropdown-menu"> <a class="dropdown-item"> <button type="button" class="btn btn-secondary btn-sm mr-1 boton-rojo ver-detalle" data-toggle="tooltip" data-title="Ver detalle"><i class="fas fa-search"></i></button> <button type="button" class="btn btn-secondary btn-sm mr-1 boton-rojo " data-toggle="tooltip" data-title="Ocultar colegio"><i class="fas fa-eye-slash"></i></button> <button type="button" class="btn btn-secondary btn-sm boton-rojo " data-toggle="tooltip" data-title="Eliminar colegio"><i class="fas fa-trash"></i></button> </a></div> `;
             }}
             
         ],
@@ -69,7 +69,7 @@ function fn_iniciar_dt() {
         }
     });
 }
-
+// mostrar modal
 function fn_ver_detalle(params) {
     var datos = dt.row($(this).closest('tr')).data();
     futil_modal(

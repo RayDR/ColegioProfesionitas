@@ -3,7 +3,6 @@
 <link type="text/css" href="<?= base_url('vendor/alloyui_3.0.1/build/aui-css/css/allouyiu-iso.css') ?>" rel="stylesheet">
 <!-- Global CSS -->
 <link href="<?= base_url('sources/css/global.css') ?>" rel="stylesheet" />
-
 <script type="text/javascript" charset="utf-8">
    var eventos = <?= json_encode($eventos, JSON_HEX_TAG); ?>;
 </script>
@@ -24,6 +23,25 @@
           <button id="evento-buscar" class="btn btn-dark" type="button" disabled>
               <span class="fas fa-search"></span><span class="d-none d-md-inline">&nbsp;Buscar Evento</span>
           </button>
+      </div>
+   </div>
+   <div class="row my-3 mx-1">
+      <div class="shadow bg-white rounded col-12">
+         <h4 class="col-12 mt-4">Eventos agendados</h4>
+         <!-- <hr> -->
+         <div class="col-12 table-responsive-sm mt-4 mt-md-0 p-5" >
+            <table id="tb_eventos" name="dt_eventos" class="table table-hover text-center w-100">
+               <thead>
+                  <tr>
+                     <th>Nombre del evento</th>
+                     <th>Colegio anfitrión</th>
+                     <th>Fecha inicio</th>
+                     <th>Fecha final</th>
+                     <th>Acciones</th>
+                  </tr>
+               </thead>
+            </table>
+         </div>
       </div>
    </div>
    <div id="wrapper" class="bg-white">

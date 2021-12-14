@@ -5,7 +5,7 @@ $active_group = 'produccion';
 $query_builder = TRUE;
 
 $hostname = '10.57.18.80';
-$password = 'SuperDab2020#';
+$password = 'SuperDba2020#';
 
 $db['catalogos']   = array(
    'dsn'      => '',
@@ -34,7 +34,7 @@ $db['produccion'] = array(
    'hostname' => $hostname,
    'username' => 'root',
    'password' => $password,
-   'database' => 'colegios',
+   'database' => 'colegios_profesionistas',
    'dbdriver' => 'mysqli',
    'dbprefix' => '',
    'pconnect' => FALSE,

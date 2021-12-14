@@ -11,6 +11,7 @@ class Inicio extends CI_Controller {
       $this->load->model('model_catalogos');
       $this->load->model('model_colegios');
       $this->load->model('model_sistema');
+      $this->load->model('model_evento');
    }
 
 /*
@@ -49,6 +50,9 @@ class Inicio extends CI_Controller {
       $data=array(
          'titulo'    => $datosColegio->nombre_colegio . ' | ' . SISTEMA,
          'asociados' => $this->model_colegios->get_colegio_asociados($colegio_id),
+         'eventos'   => $this->model_evento->get_eventos_activos($colegio_id),
+         'expirados' => $this->model_evento->get_eventos_pasados($colegio_id), /* se refiere a eventos pasados la fecha */
+         'futuros'   => $this->model_evento->get_eventos_futuros($colegio_id), /* se refiere a eventos futuros */
          'redes'     => $this->model_colegios->get_colegio_redes($colegio_id),
          'colegio'   => $datosColegio,
          'template'  => $this->template,

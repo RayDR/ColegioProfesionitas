@@ -33,8 +33,7 @@
                 Asociados
               </button>
             </h2>
-          </div>
-
+          </div>          
           <div id="tcAsociados" class="collapse" aria-labelledby="hAsociados" data-parent="#asociados">
             <div class="card-body">
               <div class="table-responsive">
@@ -58,9 +57,104 @@
                 </table>
               </div>
             </div>
-          </div>
-        </div>        
+          </div>  
+        </div>
       </div>
+
+        <div class='accordion' id='eventos'>
+          <div class="card">
+              <div class="card-header fondo-dorado-o" id="hEventos">
+                <h2 class="mb-0">
+                  <button class="btn btn-block btn-link text-left text-white" type="button" data-toggle="collapse" data-target="#tcEventos" aria-expanded="true" aria-controls="tcEventos">
+                    Eventos
+                  </button>
+                </h2>
+              </div>          
+              <div id="tcEventos" class="collapse" aria-labelledby="hEventos" data-parent="#eventos">
+                <div class="card-body">
+                  <!--Navs-->
+                  <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <a class="nav-link active" id="nav-activos-tab" data-toggle="tab" href="#nav-activos" role="tab" aria-controls="nav-activos" aria-selected="true">Eventos hoy</a>
+                      <a class="nav-link" id="nav-futuros-tab" data-toggle="tab" href="#nav-futuros" role="tab" aria-controls="nav-futuros" aria-selected="false">Eventos próximos</a>
+                      <a class="nav-link" id="nav-pasados-tab" data-toggle="tab" href="#nav-pasados" role="tab" aria-controls="nav-pasados" aria-selected="false">Eventos expirados</a>
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-activos" role="tabpanel" aria-labelledby="nav-activos-tab">
+                      <!-- eventos activos -->
+                        <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>Nombre Evento</th>
+                              <th>Fecha inicio</th>
+                              <th>Fecha conclusión</th>
+                          </thead>
+                          <tbody>
+                          <?php foreach ($eventos as $key => $evento): ?>
+                            <tr>
+                              <td><?= $evento->nombre_evento ?> </td>
+                              <td><?= $evento->fecha_desde ?></td>
+                              <td><?= $evento->fecha_hasta ?></td>
+                            </tr>
+                          <?php endforeach ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-futuros" role="tabpanel" aria-labelledby="nav-futuros-tab">
+                      <!-- eventos futuros -->
+                            <div class="table-responsive">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>Nombre Evento</th>
+                                    <th>Fecha inicio</th>
+                                    <th>Fecha conclusión</th>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($futuros as $key => $futuro): ?>
+                                  <tr>
+                                    <td><?= $futuro->nombre_evento ?> </td>
+                                    <td><?= $futuro->fecha_desde ?></td>
+                                    <td><?= $futuro->fecha_hasta ?></td>
+                                  </tr>
+                                <?php endforeach ?>
+                                </tbody>
+                              </table>
+                            </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-pasados" role="tabpanel" aria-labelledby="nav-pasados-tab">
+                    <!-- eventos pasados -->
+                            <div class="table-responsive">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>Nombre Evento</th>
+                                    <th>Fecha inicio</th>
+                                    <th>Fecha conclusión</th>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($expirados as $key => $expirado): ?>
+                                  <tr>
+                                    <td><?= $expirado->nombre_evento ?> </td>
+                                    <td><?= $expirado->fecha_desde ?></td>
+                                    <td><?= $expirado->fecha_hasta ?></td>
+                                  </tr>
+                                <?php endforeach ?>
+                                </tbody>
+                              </table>
+                            </div>
+                    </div>
+                  </div>
+                  <!-- fin navs -->
+                </div>
+              </div>  
+            </div>
+        </div>
+
     </div>
   </div>
 </fieldset>

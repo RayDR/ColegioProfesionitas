@@ -103,6 +103,7 @@ switch ($inconoNav) {
 						<th>Fecha de constitución</th>
 						<th>Fecha de periodo mesa directiva</th>
 						<th>Acciones</th>
+						<!-- <th>Administrar</th> -->
 					</tr>
 				</thead>
 			</table>
