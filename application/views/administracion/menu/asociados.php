@@ -7,7 +7,7 @@
 	</nav>
 </div>
 <div class="container">
-	<?php if(false): ?> 
+	<?php if($this->session->userdata('tuser') == 1 ): ?>
 	<div class="pb-4">
 		<div class="btn-group" role="group" aria-label="Botones de Acción">
 		    <button id="asociado-agregar" class="btn btn-secondary boton-rojo">
