@@ -14,6 +14,8 @@
                 <?php endforeach; ?>
             </select>
         </div>
+        <?php else:?>
+            <input type="hidden" id="colegio_id" name="colegio_id" value="<?= $this->session->userdata('colegio_id') ?>">
         <?php endif ?>
         <div class="form-group col-12">
             <label for="evento">Nombre del evento</label>
