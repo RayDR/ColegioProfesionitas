@@ -282,8 +282,12 @@ class Administracion extends CI_Controller {
             $colegio_id = (isset($dbUsuario->colegio_id))? $dbUsuario->colegio_id : $this->input->post('colegio_id');
             if ( $colegio_id ){
                 $evento =   $this->input->post();
+                
                 if ($evento) {
-                    $respuesta = $this->model_evento->registrar_evento($colegio_id, $evento, $usuario_id);
+                    $fechaIn    = new DateTime($evento['fecha_inicio']);
+                    $fechaOut   = new DateTime($evento['fecha_termino']); 
+                    $diff       = $fechaIn->diff($fechaOut)->format("%h");
+                    $respuesta = $this->model_evento->registrar_evento($colegio_id, $evento, $diff, $usuario_id);
                     $json['exito']=$respuesta['exito'];
                     if(! $json['exito'])
                         $json['error']=$respuesta['error'];
@@ -311,7 +315,10 @@ class Administracion extends CI_Controller {
             if ($colegio_id) {
                 $evento = $this->input->post();
                 if ($evento) {
-                    $respuesta=$this->model_evento->actualizar_evento($dbUsuario->colegio_id, $evento, $usuario_id);
+                    $fechaIn    = new DateTime($evento['fecha_inicio']);
+                    $fechaOut   = new DateTime($evento['fecha_termino']); 
+                    $diff       = $fechaIn->diff($fechaOut)->format("%h");
+                    $respuesta=$this->model_evento->actualizar_evento($colegio_id, $evento, $diff, $usuario_id);
                     $json['exito']=$respuesta['exito'];
                     if (!$json['exito']) {
                         $json['mensaje']=$respuesta['error'];
@@ -397,13 +404,14 @@ class Administracion extends CI_Controller {
                 $eventoAsoc = $this->input->post();
                 if($eventoAsoc){
                     $evento_id          =   '';
-                    $hora_disponible    =   '';
+                    $horas              =   '';
                     $hora_asignada      =   '';
                     $asociados          =   [];
                     $evento_id          =   $eventoAsoc['evento_id'];
+                    $horas              =   $eventoAsoc['horas'];
                     $hora_asignada      =   $eventoAsoc['horas_servicio'];
                     $asociados = $eventoAsoc['asociados'];
-                    $respuesta = $this->model_evento->guardar_asociado_evento($evento_id, $hora_asignada, $asociados, $usuario_id);
+                    $respuesta = $this->model_evento->guardar_asociado_evento($evento_id, $horas, $hora_asignada, $asociados, $usuario_id);
                      $json['exito']=$respuesta['exito'];
                     if(! $json['exito'])
                         $json['error']=$respuesta['error'];
