@@ -160,14 +160,16 @@ class Model_colegios extends CI_Model {
     }
 
     public function registrar_asociado($asociado){
+        $resultado  = [ 'exito' => TRUE ]; 
         $_asociado=[];
+        
+        $id_usuario=$this->session->userdata('uid');
 
         try { 
             foreach ($asociado as $name => $value) {
                 $_asociado[$value['name']]=$value['value'];
             }
-            
-            $resultado  = [ 'exito' => TRUE ];  
+             
             $resultado['asociado'] = $_asociado;
             $this->db->trans_begin();
             if ( isset( $_asociado["asociado_id"] ) )
@@ -178,13 +180,17 @@ class Model_colegios extends CI_Model {
                         $this->db->where('curp', $_asociado["curp"]);
                 }
                 $this->db->where('numero_cedula', $_asociado["numero_cedula"]);
+                $asociados = $this->db->get('asociados');
+                if ($asociados->num_rows() > 0)
+                throw new Exception('Ya existe un asociado con el mismo numero de cedula');
             }
-            $asociados = $this->db->get('asociados');
+           
             $datos_db = array(
                 'colegio_id'                =>  $_asociado['colegio_id'],
                 'nombres'                   =>  $_asociado['nombre'],
                 'primer_apellido'           =>  $_asociado['primer_apellido'],
                 'segundo_apellido'          =>  $_asociado['segundo_apellido'],
+                'numero_asociado'           =>  isset($_asociado['numero_asociado'])? $_asociado['numero_asociado']: NULL,
                 'curp'                      =>  isset($_asociado['curp'])? $_asociado['curp']: NULL,
                 'fecha_sercp'               =>  isset($_asociado['fecha_sercp'])? $_asociado['fecha_sercp']: NULL,
                 'nivel_educativo_id'        =>  isset($_asociado['nivel_educativo'])? $_asociado['nivel_educativo']: NULL,
@@ -195,6 +201,7 @@ class Model_colegios extends CI_Model {
                 'email'                     =>  isset($_asociado['email'])? $_asociado['email']: NULL,
                 'horas_servicio_social'     =>  isset($_asociado['horas_servicio_social'])? $_asociado['horas_servicio_social']: NULL,
                 'estatus_asociado'          =>  3,
+                'usuario_id'                =>  $id_usuario
             );
             
             if ( $asociados->num_rows() > 0 ){
@@ -202,6 +209,84 @@ class Model_colegios extends CI_Model {
                 $this->db->update('asociados', $datos_db);
             } else 
                 $this->db->insert('asociados', $datos_db);
+            
+            $this->db->trans_commit();
+        } catch (Exception $e) {
+            $this->db->trans_rollback();
+            $resultado['exito'] = FALSE;
+            $resultado['error'] = $e->getMessage();
+        }
+       return $resultado;
+    }
+
+    public function actualizar_asociado($colegio_id, $asociado, $usuario){
+        $id_usuario=$this->session->userdata('uid');
+        
+        $resultado = array('exito' => TRUE);
+
+        try { 
+            $this->db->trans_begin();
+            
+            $this->db->where('asociado_id', $asociado['asociado_id']);
+            $this->db->where('estatus_asociado != ', 5);
+            $asociado_id = $this->db->get('asociados')->row('asociado_id');
+        
+            if ( !$asociado_id )
+                throw new Exception("El asociado solicitado no existe o ha sido eliminado.", 1);
+                
+            $datos_db = array(
+                'colegio_id'                =>  $colegio_id,
+                'nombres'                   =>  $asociado["nombre"],
+                'primer_apellido'           =>  $asociado['primer_apellido'],
+                'segundo_apellido'          =>  $asociado['segundo_apellido'],
+                'numero_asociado'           =>  (array_key_exists('numero_asociado', $asociado))? $asociado['numero_asociado'] : NULL,
+                'curp'                      =>  $asociado['curp'],
+                'fecha_sercp'               =>  $asociado['fecha_sercp'],
+                'nivel_educativo_id'        =>  $asociado['nivel_educativo'],
+                'institucion_id'            =>  $asociado['institucion'],
+                'carrera_id'                =>  $asociado['carrera'],
+                'numero_cedula'             =>  $asociado['numero_cedula'],
+                'telefono'                  =>  $asociado['telefono'],
+                'email'                     =>  $asociado['email'],
+                'estatus_asociado'          =>  3,
+                'usuario_id'                =>  $usuario
+            );
+
+            $this->db->where('asociado_id', $asociado_id);
+            $this->db->update('asociados', $datos_db);
+            
+            $this->db->trans_commit();
+        } catch (Exception $e) {
+            $this->db->trans_rollback();
+            $resultado['exito'] = FALSE;
+            $resultado['error'] = $e->getMessage();
+        }
+       return $resultado;
+    }
+    
+    public function eliminar_asociado($colegio_id, $asociado, $usuario){
+        $id_usuario=$this->session->userdata('uid');
+        
+        $resultado = array('exito' => TRUE);
+
+        try { 
+            $this->db->trans_begin();
+            
+            $this->db->where('asociado_id', $asociado['asociado_id']);
+            $this->db->where('estatus_asociado != ', 5);
+            $asociado_id = $this->db->get('asociados')->row('asociado_id');
+        
+            if ( !$asociado_id )
+                throw new Exception("El asociado solicitado no existe o ha sido eliminado.", 1);
+                
+            $datos_db = array(
+                
+                'usuario_id'                =>  $usuario,
+                'estatus_asociado'          =>  5
+            );
+            
+                $this->db->where('asociado_id', $asociado_id);
+                $this->db->update('asociados', $datos_db);
             
             $this->db->trans_commit();
         } catch (Exception $e) {

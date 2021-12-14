@@ -37,12 +37,13 @@
           <div id="tcAsociados" class="collapse" aria-labelledby="hAsociados" data-parent="#asociados">
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="dtAsociados" class="table table-hover">
                   <thead>
                     <tr>
                       <th>#</th>
                       <th>Nombre Completo</th>
                       <th>Profesión</th>
+                  </tr>
                   </thead>
                   <tbody>
                   <?php foreach ($asociados as $key => $asociado): ?>
@@ -53,7 +54,6 @@
                     </tr>
                   <?php endforeach ?>
                   </tbody>
-                  <caption>Total asociados: <?= count($asociados) ?></caption>
                 </table>
               </div>
             </div>
@@ -234,3 +234,17 @@
   }
 </style>
 <script src="<?= base_url('sources/js/landing.js') ?>?<?= date('dmYHis') ?>"></script>
+<script>
+  $(document).ready(function(){
+    
+    $("#dtAsociados").dataTable({
+      
+      language: {
+            url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
+        },
+        dom: 't<"mb-3"i>p',
+        
+
+      });
+  })
+</script>
