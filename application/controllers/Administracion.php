@@ -282,8 +282,12 @@ class Administracion extends CI_Controller {
             $colegio_id = (isset($dbUsuario->colegio_id))? $dbUsuario->colegio_id : $this->input->post('colegio_id');
             if ( $colegio_id ){
                 $evento =   $this->input->post();
+                
                 if ($evento) {
-                    $respuesta = $this->model_evento->registrar_evento($dbUsuario->colegio_id, $evento, $usuario_id);
+                    $fechaIn    = new DateTime($evento['fecha_inicio']);
+                    $fechaOut   = new DateTime($evento['fecha_termino']); 
+                    $diff       = $fechaIn->diff($fechaOut)->format("%h");
+                    $respuesta = $this->model_evento->registrar_evento($colegio_id, $evento, $diff, $usuario_id);
                     $json['exito']=$respuesta['exito'];
                     if(! $json['exito'])
                         $json['error']=$respuesta['error'];
@@ -311,7 +315,10 @@ class Administracion extends CI_Controller {
             if ($colegio_id) {
                 $evento = $this->input->post();
                 if ($evento) {
-                    $respuesta=$this->model_evento->actualizar_evento($dbUsuario->colegio_id, $evento, $usuario_id);
+                    $fechaIn    = new DateTime($evento['fecha_inicio']);
+                    $fechaOut   = new DateTime($evento['fecha_termino']); 
+                    $diff       = $fechaIn->diff($fechaOut)->format("%h");
+                    $respuesta=$this->model_evento->actualizar_evento($colegio_id, $evento, $diff, $usuario_id);
                     $json['exito']=$respuesta['exito'];
                     if (!$json['exito']) {
                         $json['mensaje']=$respuesta['error'];
@@ -359,8 +366,98 @@ class Administracion extends CI_Controller {
         $usuario_id = $this->session->userdata('uid');
         $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario_id]);
 
-        $json=$this->model_evento->get_eventos_colegio($dbUsuario->colegio_id);
+        $json       = $this->model_evento->get_eventos_colegio($dbUsuario->colegio_id);
         return print_r(json_encode($json));
+    }
+
+
+    // Para asignar horas de servicio
+    // mostrar modal
+    public function modal_servicio(){   
+        $usuario    = $this->session->userdata('uid');
+        $db_usuario = $this->model_sistema->get_usuario(['usuario_id' => $usuario]);
+        $colegio_id = (isset($dbUsuario->colegio_id)) ? $dbUsuario->colegio_id : false;    
+        $json       = array('exito' => TRUE); 
+        $datos      = $this->input->post();
+        $fechaIn    = new DateTime($datos['fecha_desde']);
+        $fechaOut   = new DateTime($datos['fecha_hasta']); 
+        $diff       = $fechaIn->diff($fechaOut)->format("%h");
+        $data       = array(
+            'eventos'    =>$this->model_evento->get_eventos_colegio($colegio_id),
+            'datos'      =>$datos,
+            'fecha'      =>$diff
+        ); 
+
+        $json['html'] = $this->load->view( 'administracion/modales/modal_servicio', $data, TRUE);
+        return print(json_encode($json));
+    }
+
+    public function guardar_asociado_evento(){
+        $json   =   array('exito' => FALSE);
+        #id_sesion
+        $usuario_id = $this->session->userdata('uid');
+        $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario_id]);
+
+        if ($dbUsuario) {
+            $colegio_id = (isset($dbUsuario->colegio_id)) ? $dbUsuario->colegio_id : $this->input->post('colegio_id');
+            if ($colegio_id) {
+                $eventoAsoc = $this->input->post();
+                if($eventoAsoc){
+                    $evento_id          =   '';
+                    $horas              =   '';
+                    $hora_asignada      =   '';
+                    $asociados          =   [];
+                    $evento_id          =   $eventoAsoc['evento_id'];
+                    $horas              =   $eventoAsoc['horas'];
+                    $hora_asignada      =   $eventoAsoc['horas_servicio'];
+                    $asociados = $eventoAsoc['asociados'];
+                    $respuesta = $this->model_evento->guardar_asociado_evento($evento_id, $horas, $hora_asignada, $asociados, $usuario_id);
+                     $json['exito']=$respuesta['exito'];
+                    if(! $json['exito'])
+                        $json['error']=$respuesta['error'];
+                    $json['exito'] = $respuesta['exito'];
+                }else{
+                    $json['exito']  = FALSE;
+                    $json['mensaje']= 'No se encontro datos que guardar';
+                    $json['datos']  = $evento;
+                }
+            }else{
+                $json = array('exito'=>FALSE, 'error' => 'No se obtuvo datos del colegio');
+            }
+        }else{
+            $json = array('exito'=>FALSE, 'error' => 'No se pudo obtener datos del asociado');
+        }
+        return print(json_encode($json));
+    }
+
+    public function get_asociados_eventos(){
+        $condicion = NULL;
+        if ( $this->input->post('colegio_id') )
+            $condicion = array('colegio_id' => $this->input->post('colegio_id') );
+        else if ( $this->session->userdata('colegio_id') )
+            $condicion = array('colegio_id' => $this->session->userdata('colegio_id') );
+        $evento_id = $this->input->post('evento_id');
+        $asociados_eventos = $this->model_evento->get_asociados_eventos($evento_id);
+
+        $asociados = $this->model_catalogos->get_asociados($condicion);
+        foreach ($asociados as $key => $asociado) {
+             $asociado->corrida = TRUE;
+             foreach ($asociados_eventos as $key => $asociado_e) {
+                if($asociado->asociado_id == $asociado_e->id_asociado){
+                    $asociado->asignado = TRUE;
+                    break;
+                }
+
+            }
+        }
+
+        return print(json_encode($asociados));
+    }    
+
+    public function get_asoc_event(){
+        $evento_id = $this->input->post('evento_id');
+        $json = $this->model_evento->get_asociados_eventos($evento_id);
+        return print(json_encode($json));
     }
 /*
 |--------------------------------------------------------------------------

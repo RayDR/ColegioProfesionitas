@@ -7,7 +7,6 @@
 	</nav>
 </div>
 <div class="container">
-	<?php if($this->session->userdata('tuser') == 1 ): ?>
 	<div class="pb-4">
 		<div class="btn-group" role="group" aria-label="Botones de Acción">
 		    <button id="asociado-agregar" class="btn btn-secondary boton-rojo">
@@ -15,7 +14,6 @@
 		    </button>
 		</div>
 	</div>
-	<?php endif ?>
 	<div class="alert alert-secondary mb-3"><b class="text-danger">*</b>&nbsp;Todo cambio al registro de asociados debe ser aprobado por la Dirección de Profesiones. Puede consultar el estatus de su solicitud en el listado debajo.</div>
 	<div class="table-responsive">
 		<table id="dtAsociados" class="table table-hover bg-light ">

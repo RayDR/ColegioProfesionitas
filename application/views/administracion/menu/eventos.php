@@ -16,7 +16,6 @@
 </div>
 <div class="container">
    <div class="pb-4">
-      <?php if($this->session->userdata('tuser') == 1 ): ?>
       <div class="btn-group" role="group" aria-label="Botones de Acción">
           <button id="evento-crear" class="btn btn-secondary boton-rojo" >
               <span class="fas fa-plus"></span><span class="d-none d-md-inline">&nbsp;Nuevo Evento</span>
@@ -25,7 +24,6 @@
               <span class="fas fa-search"></span><span class="d-none d-md-inline">&nbsp;Buscar Evento</span>
           </button>
       </div>
-      <?php endif ?>
    </div>
    <div class="row my-3 mx-1">
       <div class="shadow bg-white rounded col-12">
@@ -36,6 +34,7 @@
                <thead>
                   <tr>
                      <th>Nombre del evento</th>
+                     <th>Colegio anfitrión</th>
                      <th>Fecha inicio</th>
                      <th>Fecha final</th>
                      <th>Acciones</th>
