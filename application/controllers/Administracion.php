@@ -120,6 +120,30 @@ class Administracion extends CI_Controller {
         return print(json_encode($json));
     }
 
+    public function modal_asociado_detalles(){
+        $json = array('exito' => TRUE);
+        $datos=$this->input->post();
+
+        $usuario    = $this->session->userdata('uid');
+        $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario]);
+
+        if ( $dbUsuario->colegio_id )
+            $colegios = $this->model_catalogos->get_colegio_id($dbUsuario->colegio_id);
+        else 
+            $colegios = $this->model_catalogos->get_colegioss();
+
+        $data = array(
+            'niveles_educativos'    => $this->model_catalogos->get_niveles(),
+            'instituciones'         => $this->model_catalogos->get_instituciones(),
+            'colegios'              => $colegios,
+            'carreras'              => $this->model_catalogos->get_carreras(),
+            'datos'                 => $datos
+        );
+
+        $json['html'] = $this->load->view( 'administracion/asociado_detalles', $data, TRUE );
+        return print(json_encode($json));
+    }
+
     public function vista_form_solicitud_modal(){
         $json = array('exito' => TRUE);
         $json['html'] = $this->load->view( 'administracion/registro', null, TRUE );
@@ -152,15 +176,49 @@ class Administracion extends CI_Controller {
         $asociado=$this->input->post('asociado');
 
         if($asociado){
-            //$json['modelo']=$this->model_colegios->registrar_asociado($asociado);
-            $respuesta = $this->model_colegios->registrar_asociado($asociado);
-            $json['exito']=$respuesta['exito'];
-            if(! $json['exito'])
-                        $json['error']=$respuesta['error'];
+            $json = $this->model_colegios->registrar_asociado($asociado);
         }else {
             $json['exito']  =FALSE;
             $json['mensaje']='No se encontraron datos';
             $json['datos']  =$asociado;
+        }
+        return print(json_encode($json));
+    }
+
+    public function editar_asociado(){
+        $json       = array('exito'=>TRUE);
+        $asociado   = $this->input->post('asociado');
+        $usuario_id = $this->session->userdata('uid');
+        $colegio_id = $this->session->userdata('colegio_id');
+        if( $asociado ){
+            $asociadoDB = array();
+            foreach ($asociado as $key => $campo) {
+                $asociadoDB[$campo['name']] = $campo['value'];
+                if ( $campo['name'] == 'colegio_id' )
+                    $colegio_id = $campo['value'];
+            }
+            $json = $this->model_colegios->actualizar_asociado($colegio_id, $asociadoDB, $usuario_id);
+        }else {
+            $json['exito']  =FALSE;
+            $json['mensaje']='No se encontraron datos';
+        }
+        return print(json_encode($json));
+    }
+
+    public function eliminar_asociado(){
+        $json   =   array('exito'=>TRUE);
+        $asociado=$this->input->post('asociado');
+        $usuario_id = $this->session->userdata('uid');
+        $dbUsuario  = $this->model_sistema->get_usuario(['usuario_id' => $usuario_id]);
+        if( $asociado ){
+            $asociadoDB = array();
+            foreach ($asociado as $key => $campo) {
+                $asociadoDB[$campo['name']] = $campo['value'];   
+            }
+            $json = $this->model_colegios->eliminar_asociado($dbUsuario->colegio_id, $asociadoDB, $usuario_id);
+        }else {
+            $json['exito']  =FALSE;
+            $json['mensaje']='No se encontraron datos';
         }
         return print(json_encode($json));
     }

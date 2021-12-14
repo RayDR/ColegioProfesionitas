@@ -3,6 +3,7 @@ $(document).ready(function () {
     fn_iniciar_dt();
 
     $('#asociado-agregar').click(fn_agregar_asociado);
+    
 });
 
 function fn_iniciar_dt() {
@@ -56,7 +57,7 @@ function fn_iniciar_dt() {
         drawCallback: function (settings) {
             $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
 
-            $('tr td').click(fn_mostrar_asociado);
+            $('tr td').click(fn_ver_detalle);
         },
         language: {
             url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
@@ -69,7 +70,7 @@ function fn_ver_detalle(params) {
     futil_modal(
         datos.nombre_colegio,
         futil_muestra_vista(
-            "Administracion/modal_colegio",
+            "Administracion/modal_asociado_detalles",
             datos
         ),
         '',
@@ -93,21 +94,3 @@ function fn_agregar_asociado(e){
     });
 }
 
-function fn_mostrar_asociado(){
-    var data = dt.row($(this).closest('tr')).data();
-    console.log(data);
-    return;
-   loader();
-    $.post(url('Administracion/editar_asociado'), {}).then(function(data){
-        return JSON.parse(data);
-    }).then(function(data){
-        if( data.exito ){
-            futil_modal('Registrar ', data.html);
-        } else 
-            futil_toast( (data.error)? data.error: '', '', 'danger');
-    }).catch(function(error){
-        futil_toast(`Ha ocurrido un error<br><b>${error.message}</b>`, '', 'danger');
-    }).always(function(){
-        loader(false);
-    });
-}

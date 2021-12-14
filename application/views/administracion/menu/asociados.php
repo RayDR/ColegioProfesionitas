@@ -25,6 +25,7 @@
 				<th>Cédula</th>
 				<th>Fecha de Incorporación</th>
 				<th>Contacto</th>
+
 			</tr>
 			</thead>
 		</table>
